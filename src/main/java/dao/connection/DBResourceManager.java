@@ -12,10 +12,6 @@ import java.util.ResourceBundle;
             return instance;
         }
 
-        public String getParameter(String key){
-            return bundle.getString(key);
-        }
-
         public String getValue(String key){
             return bundle.getString(key);
         }

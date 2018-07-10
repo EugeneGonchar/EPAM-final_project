@@ -42,13 +42,11 @@ public class ConnectionPool {
     }
 
     public void initPoolData() throws ConnectionPoolException {
-        Locale.setDefault(Locale.ENGLISH);
-
+        Locale.setDefault(Locale.ROOT);
         try {
             Class.forName(driver);
             connectionQueue = new ArrayBlockingQueue<>(poolSize);
             givenAwayConnectionQueue = new ArrayBlockingQueue<>(poolSize);
-
             for(int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
@@ -62,7 +60,6 @@ public class ConnectionPool {
     }
 
     public Connection takeConnection() throws ConnectionPoolException {
-
         Connection connection = null;
 
         try {
