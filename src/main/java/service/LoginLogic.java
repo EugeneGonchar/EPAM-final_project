@@ -1,4 +1,4 @@
-package logic;
+package service;
 
 public class LoginLogic {
     private final static String ADMIN_LOGIN = "admin";

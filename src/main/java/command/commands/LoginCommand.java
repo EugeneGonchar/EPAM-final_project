@@ -1,7 +1,7 @@
 package command.commands;
 
 import command.ActionCommand;
-import logic.LoginLogic;
+import service.LoginLogic;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 
