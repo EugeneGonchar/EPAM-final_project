@@ -3,6 +3,7 @@ package command.client;
 import command.ActionCommand;
 import command.commands.LoginCommand;
 import command.commands.LogoutCommand;
+import command.commands.SignupCommand;
 
 public enum CommandEnum {
     LOGIN{
@@ -13,6 +14,11 @@ public enum CommandEnum {
     LOGOUT{
         {
             this.command = new LogoutCommand();
+        }
+    },
+    SIGNUP{
+        {
+            this.command = new SignupCommand();
         }
     };
 

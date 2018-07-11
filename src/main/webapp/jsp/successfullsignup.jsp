@@ -4,7 +4,6 @@
     <title>Welcome</title>
 </head>
 <body>
-    <a href="login.jsp">Log in</a>
-    <a href="signup.jsp">Sign up</a>
+Congratulation!
 </body>
 </html>
