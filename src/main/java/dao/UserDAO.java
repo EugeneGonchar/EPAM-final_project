@@ -3,6 +3,7 @@ package dao;
 import dao.connection.ConnectionPool;
 import dao.connection.ConnectionPoolException;
 import entity.User;
+import util.Hash;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,7 +39,11 @@ public class UserDAO {
 
             if (!resultSet.next())
                 return null;
-            if(!password.equals(resultSet.getString("password")))
+
+            String passwordHash = Hash.getCryptoSha256(password);
+            String dbPasswordHash = resultSet.getString("password");
+
+            if(!Hash.hashEquality(passwordHash, dbPasswordHash))
                 return null;
 
             user = new User();

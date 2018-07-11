@@ -4,6 +4,7 @@ import command.ActionCommand;
 import command.factory.ActionFactory;
 import resource.ConfigurationManager;
 import resource.MessageManager;
+import util.Hash;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class Controller extends HttpServlet {
         processRequest(request, response);
     }
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         String page = null;
 
         ActionFactory client = new ActionFactory();
