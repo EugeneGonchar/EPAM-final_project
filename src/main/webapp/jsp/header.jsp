@@ -7,6 +7,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
 
@@ -15,57 +18,56 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" class="header-div">
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
         <ul class="navbar-nav d-flex ml-auto col-lg-5">
-            <li class="nav-item active">
-                <a class="nav-link" href="main.jsp">Home</a>
+            <li class="menu__item_left" class="nav-item <%--active--%>">
+                <a class="nav-link" href="#">Logo</a>
             </li>
-            <li class="nav-item">
+            <li class="menu__item_left" class="nav-item <%--active--%>">
+                <a class="nav-link" href="main.jsp">
+                    <i class="fa fa-home">
+
+                    </i>
+                    Home
+                </a>
+            </li>
+            <li class="menu__item_left" class="nav-item">
                 <a class="nav-link" href="#">Rent</a>
             </li>
-            <li class="nav-item">
+            <li class="menu__item_left" class="nav-item">
                 <a class="nav-link" href="#">Cars</a>
             </li>
-            <li class="nav-item">
+            <li class="menu__item_left" class="nav-item">
                 <a class="nav-link" href="#">Help</a>
             </li>
         </ul>
 
         <ul class="navbar-nav d-flex ml-auto col-lg-3">
-            <%--добавить иконку языка сюда и другие ниже--%>
-            <li class="nav-item">
+            <li class="menu__item_right" class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa fa-language">
+                        <%--засунуть язык--%>
+                    </i>
+                    (en)
+                </a>
+            </li>
+            <li class="menu__item_right" class="nav-item">
                 <a class="nav-link" href="signup.jsp">
-                <span class="glyphicon glyphicon-user">
+                    <i class="fa fa-user-plus">
 
-                </span>
+                    </i>
                     Sign Up
                 </a>
             </li>
-            <li class="dropdown" class="nav-item">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" >
-                    <span class="glyphicon glyphicon-log-in">
+                <li class="menu__item_right" class="nav-item">
+                    <a class="nav-link" href="login.jsp">
+                        <i class="fa fa-sign-in">
 
-                    </span>
-                    Log in
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <form id="loginForm" class="form-horizontal"  method="post" accept-charset="UTF-8" action="controller">
-                        <input type="hidden" name="command" value="login"/>
-                        <h6 class="dropdown-header">Login</h6>
-                        <input class="form-control login" type="text" name="login"/>
-                        <h6 class="dropdown-header">Password</h6>
-                        <input class="form-control login" type="password" name="password"/>
-                        <br/>
-                        ${errorLoginPassMessage}
-                        ${wrongAction}
-                        ${nullPage}
-                        <br/>
-                        <input class="btn btn-primary" type="submit" name="submit" value="Submit" />
-
-                    </form>
-                </div>
-            </li>
+                        </i>
+                        Log in
+                    </a>
+                </li>
         </ul>
     </nav>
 </div>

@@ -16,9 +16,9 @@ public class LoginCommand implements ActionCommand {
     public String execute(HttpServletRequest request){
         String page = null;
         String login = request.getParameter(PARAM_NAME_LOGIN);
-        String pass = request.getParameter(PARAM_NAME_PASSWORD);
+        String password = request.getParameter(PARAM_NAME_PASSWORD);
         UserServiceImpl userServiceImpl = new UserServiceImpl();
-        if (userServiceImpl.logIn(login, pass) != null){
+        if (userServiceImpl.logIn(login, password) != null){
             request.setAttribute("user", login);
             page = ConfigurationManager.getProperty("path.page.main");
         } else{
