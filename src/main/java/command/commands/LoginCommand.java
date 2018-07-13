@@ -20,7 +20,7 @@ public class LoginCommand implements ActionCommand {
         UserServiceImpl userServiceImpl = new UserServiceImpl();
         if (userServiceImpl.logIn(login, pass) != null){
             request.setAttribute("user", login);
-            page = ConfigurationManager.getProperty("path.page.logout");
+            page = ConfigurationManager.getProperty("path.page.main");
         } else{
             request.setAttribute("errorLoginPassMessage",
                     MessageManager.getProperty("message.loginerror"));
