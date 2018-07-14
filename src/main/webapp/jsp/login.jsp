@@ -42,6 +42,7 @@
                 </div>
 
             <form id="loginForm" method="POST" action="controller">
+                <input type="hidden" name="command" value="login"/>
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -51,7 +52,6 @@
                                 </i>
                             </span>
                         </div>
-                        <input type="hidden" name="command" value="login"/>
                         <input name="login" class="form-control" placeholder="Login" type="text">
                     </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->

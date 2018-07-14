@@ -26,13 +26,13 @@
         </div>
         <div class="d-flex justify-content-lg-end col-lg-4">
             <ul class="navbar-nav d-flex justify-content-lg-start">
-                <li class="menu__item_left" class="nav-item <%--active--%>">
+                <li class="left-menu__item" class="nav-item <%--active--%>">
                     <a class="nav-link" href="#">
                         <%--<img src="../img/Travel_3.svg" width="40px" height="40px">--%>
                         <i class="fa fa-car" style="font-size:36px;"></i>
                     </a>
                 </li>
-                <li class="menu__item_left" class="nav-item <%--active--%>">
+                <li class="left-menu__item" class="nav-item <%--active--%>">
                     <a class="nav-link" href="main.jsp">
                         <i class="fa fa-home">
 
@@ -40,13 +40,13 @@
                         Home
                     </a>
                 </li>
-                <li class="menu__item_left" class="nav-item">
+                <li class="left-menu__item" class="nav-item">
                     <a class="nav-link" href="#">Rent</a>
                 </li>
-                <li class="menu__item_left" class="nav-item">
+                <li class="left-menu__item" class="nav-item">
                     <a class="nav-link" href="#">Cars</a>
                 </li>
-                <li class="menu__item_left" class="nav-item">
+                <li class="left-menu__item" class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
             </ul>
@@ -55,7 +55,7 @@
 
         <div class="d-flex justify-content-lg-end col-lg-5">
             <ul class="navbar-nav ">
-                <li  class="menu__item_right" class="nav-item">
+                <li  class="right-menu__item" class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fa fa-language">
                             <%--засунуть язык--%>
@@ -66,7 +66,7 @@
 
                 <c:choose>
                     <c:when test="${not empty user}">
-                        <li class="menu__item_right" class="nav-item">
+                        <li class="right-menu__item" class="nav-item">
                             <a class="nav-link invisible" href="signup.jsp">
                                 <i class="fa fa-user-plus">
 
@@ -102,7 +102,7 @@
 
                     </c:when>
                     <c:otherwise>
-                        <li class="menu__item_right" class="nav-item">
+                        <li class="right-menu__item" class="nav-item">
                             <a class="nav-link" href="signup.jsp">
                                 <i class="fa fa-user-plus">
 
@@ -110,7 +110,7 @@
                                 Sign Up
                             </a>
                         </li>
-                        <li class="menu__item_right" class="nav-item">
+                        <li class="right-menu__item" class="nav-item">
                             <a class="nav-link" href="login.jsp">
                                 <i class="fa fa-sign-in">
 

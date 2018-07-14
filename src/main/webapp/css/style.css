@@ -11,19 +11,23 @@ html{
     padding-top: 300px;
 }
 
+.padding-top-registraition{
+    padding-top: 200px;
+}
+
 .padding-right{
     margin-right: 400px;
 }
 
-.menu__item_left{
+.left-menu__item{
     margin-left: 50px;
     color: #ffffff;
 }
 
-.menu__item_right{
+.right-menu__item{
     margin-right: 40px;
 }
 
-.menu__item_left, .menu__item_right a{
+.left-menu__item, .right-menu__item a{
     font-size: 20px;
 }
