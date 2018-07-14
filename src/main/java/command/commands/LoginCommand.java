@@ -1,6 +1,7 @@
 package command.commands;
 
 import command.ActionCommand;
+import entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.impl.UserServiceImpl;
@@ -17,9 +18,11 @@ public class LoginCommand implements ActionCommand {
         String page = null;
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String password = request.getParameter(PARAM_NAME_PASSWORD);
+
         UserServiceImpl userServiceImpl = new UserServiceImpl();
-        if (userServiceImpl.logIn(login, password) != null){
-            request.setAttribute("user", login);
+        User user = userServiceImpl.logIn(login, password);
+        if (user != null){
+            request.getSession().setAttribute("user", user);
             page = ConfigurationManager.getProperty("path.page.main");
         } else{
             request.setAttribute("errorLoginPassMessage",

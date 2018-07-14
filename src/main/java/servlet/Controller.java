@@ -16,7 +16,7 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        processRequest(request, response);
+        processRequest(request, response);/*оставить пустым*/
     }
 
     @Override
