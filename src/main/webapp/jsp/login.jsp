@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=1200, initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
@@ -16,26 +16,22 @@
 </head>
 <body>
 
-<jsp:include page = "/jsp/header.jsp"></jsp:include>
-
 <div class="padding-top">
-    <div  class="card container col-lg-3">
+    <div class="card container col-lg-3">
         <article class="card-body">
             <h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
             <hr>
 
                 <div>
                     <c:choose>
-                        <c:when test="${empty errorLoginPassMessage && empty wrongAction && empty nullPage}">
+                        <c:when test="${empty loginError}">
                             <p>
                                 <br/>
                             </p>
                         </c:when>
                         <c:otherwise>
                         <p class="text-danger text-center">
-                            ${errorLoginPassMessage}
-                            ${wrongAction}
-                            ${nullPage}
+                            ${loginError}
                         </p>
                         </c:otherwise>
                     </c:choose>

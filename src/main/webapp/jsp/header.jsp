@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=1200, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,15 +17,10 @@
 
 </head>
 <body>
-
-<div class="container" class="header-div">
-    <nav class="navbar navbar-expand-xl bg-dark navbar-dark fixed-top">
-
-        <div class="d-flex justify-content-lg-end col-lg-1">
-
-        </div>
-        <div class="d-flex justify-content-lg-end col-lg-4">
-            <ul class="navbar-nav d-flex justify-content-lg-start">
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="d-flex ml-auto justify-content-start col-lg-4">
+            <ul class="navbar-nav">
                 <li class="left-menu__item" class="nav-item <%--active--%>">
                     <a class="nav-link" href="#">
                         <%--<img src="../img/Travel_3.svg" width="40px" height="40px">--%>
@@ -53,8 +48,8 @@
         </div>
 
 
-        <div class="d-flex justify-content-lg-end col-lg-5">
-            <ul class="navbar-nav ">
+        <div class="d-flex mr-auto justify-content-end col-lg-4">
+            <ul class="navbar-nav">
                 <li  class="right-menu__item" class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fa fa-language">
@@ -122,12 +117,9 @@
                 </c:choose>
             </ul>
         </div>
-
-        <div class="d-flex justify-content-lg-end col-lg-1">
-
-        </div>
     </nav>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

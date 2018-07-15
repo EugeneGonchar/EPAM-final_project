@@ -3,15 +3,15 @@ package command.factory;
 import command.ActionCommand;
 import command.EmptyCommand;
 import command.client.CommandEnum;
+import controller.content.SessionRequestContent;
 import resource.MessageManager;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class ActionFactory {
-    public ActionCommand defineCommand(HttpServletRequest request){
+
+    public ActionCommand defineCommand(SessionRequestContent sessionRequestContent){
         ActionCommand current = new EmptyCommand();
-        String action = request.getParameter("command");
-        
+        String action = sessionRequestContent.getRequestParameter("command");
+
         if (action == null || action.isEmpty()){
             return current;
         }
@@ -19,9 +19,11 @@ public class ActionFactory {
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
             current = currentEnum.getCurrentCommand();
         } catch (IllegalArgumentException e){
-            request.setAttribute("wrongAction", action +
+            sessionRequestContent.add2RequestAttributes("wrongAction", action +
                     MessageManager.getProperty("message.wrongaction"));
+            sessionRequestContent.insertRequestAttributes();
         }
         return current;
     }
+
 }

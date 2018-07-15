@@ -1,4 +1,4 @@
-package util;
+package dao.util;
 
 public class Hash {
 

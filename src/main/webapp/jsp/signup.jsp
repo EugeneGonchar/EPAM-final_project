@@ -5,7 +5,7 @@
 <!doctype html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=1200, initial-scale=1">
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
@@ -14,7 +14,7 @@
 
 <body>
 
-<div class="padding-top-registraition">
+<div class="padding-top-registration">
     <div  class="card container col-lg-3">
         <article class="card-body">
             <h4 class="card-title text-center mb-4 mt-1">Registration</h4>
@@ -22,16 +22,14 @@
 
             <div>
                 <c:choose>
-                    <c:when test="${empty errorLoginPassMessage && empty wrongAction && empty nullPage}">
+                    <c:when test="${empty registrationError}">
                         <p>
                             <br/>
                         </p>
                     </c:when>
                     <c:otherwise>
                         <p class="text-danger text-center">
-                                ${errorLoginPassMessage}
-                                ${wrongAction}
-                                ${nullPage}
+                                ${registrationError}
                         </p>
                     </c:otherwise>
                 </c:choose>
@@ -137,41 +135,6 @@
         </article>
     </div> <!-- card.// -->
 </div>
-
-   <%-- <form id="signUpForm" method="POST" action="controller">
-        <input type="hidden" name="command" value="signup"/>
-        Login:<br/>
-        <input type="text" name="login" value=""/><br/>
-        ${emptyField}
-        <br/>
-        ${loginExist}
-        <br/>
-        Email:<br/>
-        <input type="text" name="email" value=""><br/>
-        ${emptyField}
-        <br/>
-        Phone:<br/>
-        <input type="text" name="phone" value=""><br/>
-        ${emptyField}
-        <br/>
-        Name:<br/>
-        <input type="text" name="first_name" value=""><br/>
-        ${emptyField}
-        <br/>
-        Surname:<br/>
-        <input type="text" name="last_name" value=""><br/>
-        ${emptyField}
-        <br/>
-        Password:<br/>
-        <input type="password" name="password" value=""/>
-        ${emptyField}
-        <br/>
-        ${wrongAction}
-        <br/>
-        ${nullPage}
-        <br/>
-        <input type="submit" value="Sign up"/>
-    </form>--%>
 
 </body>
 </html>

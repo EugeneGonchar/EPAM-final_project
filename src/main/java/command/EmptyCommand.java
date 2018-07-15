@@ -1,14 +1,14 @@
 package command;
 
+import controller.content.SessionRequestContent;
 import resource.ConfigurationManager;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class EmptyCommand implements ActionCommand{
 
     @Override
-    public String execute(HttpServletRequest request){
+    public String execute(SessionRequestContent sessionRequestContent){
         String page = ConfigurationManager.getProperty("path.page.index");
         return page;
     }
+
 }

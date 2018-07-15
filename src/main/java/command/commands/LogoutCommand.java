@@ -1,18 +1,16 @@
 package command.commands;
 
 import command.ActionCommand;
+import controller.content.SessionRequestContent;
 import resource.ConfigurationManager;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class LogoutCommand implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request){
+    public String execute(SessionRequestContent sessionRequestContent){
         String page = ConfigurationManager.getProperty("path.page.index");
-        request.getSession().setAttribute("user", null);
-        //уничтожение сессии
-        /*request.getSession().invalidate();*/
+        sessionRequestContent.removeSessionAttribute("user");
         return page;
     }
+
 }

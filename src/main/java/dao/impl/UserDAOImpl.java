@@ -2,14 +2,19 @@ package dao.impl;
 
 import dao.connection.ConnectionPool;
 import dao.connection.ConnectionPoolException;
+import dao.exception.DAOException;
+import dao.exception.EmailExistException;
+import dao.exception.IncorrectLoginOrPasswordException;
+import dao.exception.LoginExistException;
+import dto.UserDTO;
 import entity.User;
-import util.Hash;
+import dao.util.Hash;
+import resource.MessageManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class UserDAOImpl {
 
@@ -17,8 +22,16 @@ public class UserDAOImpl {
 
     private final String FIND_USER_BY_LOGIN = "SELECT user_id, login, password, email, phone, first_name, last_name FROM `user` WHERE login=?";
     private final String FIND_USER_ID_BY_LOGIN = "SELECT user_id FROM `user` WHERE login=?";
+    private final String FIND_USER_ID_BY_EMAIL = "SELECT user_id FROM `user` WHERE email=?";
     private final String INSERT_USER = "INSERT INTO `user`(login, password, email, phone, first_name, last_name) VALUES (?, ?, ?, ?, ?, ?)";
 
+    private final String TABLE_USER_FIELD_ID = "user_id";
+    private final String TABLE_USER_FIELD_LOGIN = "login";
+    private final String TABLE_USER_FIELD_EMAIL = "email";
+    private final String TABLE_USER_FIELD_PHONE = "phone";
+    private final String TABLE_USER_FIELD_FIRST_NAME = "first_name";
+    private final String TABLE_USER_FIELD_LAST_NAME = "last_name";
+    private final String TABLE_USER_FIELD_PASSWORD = "password";
 
     public UserDAOImpl(){}
 
@@ -26,7 +39,7 @@ public class UserDAOImpl {
         this.connectionPool = connectionPool;
     }*/
 
-    public User checkUser(String login, String password){
+    public User checkUser(UserDTO userDTO) throws IncorrectLoginOrPasswordException{
 
         User user = null;
 
@@ -39,27 +52,27 @@ public class UserDAOImpl {
             Connection connection = connectionPool.takeConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_BY_LOGIN);
-            preparedStatement.setString(1, login);
+            preparedStatement.setString(1, userDTO.getLogin());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.next())
-                return null;
+                throw new IncorrectLoginOrPasswordException(MessageManager.getProperty("message.loginpassworderror"));
 
-            String passwordHash = Hash.getCryptoSha256(password);
-            String dbPasswordHash = resultSet.getString("password");
+            String passwordHash = Hash.getCryptoSha256(userDTO.getPassword());
+            String dbPasswordHash = resultSet.getString(TABLE_USER_FIELD_PASSWORD);
 
             if(!Hash.hashEquality(passwordHash, dbPasswordHash))
-                return null;
+                throw new IncorrectLoginOrPasswordException(MessageManager.getProperty("message.loginpassworderror"));
 
             user = new User();
-            user.setId(resultSet.getInt("user_id"));
-            user.setLogin(resultSet.getString("login"));
-            user.setPassword(resultSet.getString("password"));
-            user.setEmail(resultSet.getString("email"));
-            user.setPhone(resultSet.getString("phone"));
-            user.setFirstName(resultSet.getString("first_name"));
-            user.setLastName(resultSet.getString("last_name"));
+            user.setId(resultSet.getInt(TABLE_USER_FIELD_ID));
+            user.setLogin(resultSet.getString(TABLE_USER_FIELD_LOGIN));
+            user.setPassword(resultSet.getString(TABLE_USER_FIELD_PASSWORD));
+            user.setEmail(resultSet.getString(TABLE_USER_FIELD_EMAIL));
+            user.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
+            user.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
+            user.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));/*рефакторнуть и добавить константы*/
 
         } catch (ConnectionPoolException | SQLException e) {
             e.printStackTrace();
@@ -71,43 +84,26 @@ public class UserDAOImpl {
         return user;
     }
 
-    public void addUser(Map parameters){
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+    public boolean isUserCreated(UserDTO userDTO) throws LoginExistException, EmailExistException{
+        if(isFieldExist(userDTO.getLogin(), FIND_USER_ID_BY_LOGIN))
+            throw new LoginExistException(MessageManager.getProperty("message.loginexist"));
 
-        try {
-            connectionPool.initPoolData();
-            Connection connection = connectionPool.takeConnection();
+        if(isFieldExist(userDTO.getEmail(), FIND_USER_ID_BY_EMAIL))
+            throw new EmailExistException(MessageManager.getProperty("message.emailexist"));
 
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER);
-            preparedStatement.setString(1, (String) parameters.get("login"));
-            preparedStatement.setString(2, Hash.getCryptoSha256((String) parameters.get("password")));
-            preparedStatement.setString(3, (String) parameters.get("email"));
-            preparedStatement.setString(4, (String) parameters.get("phone"));
-            preparedStatement.setString(5, (String) parameters.get("first_name"));
-            preparedStatement.setString(6, (String) parameters.get("last_name"));
-            preparedStatement.executeUpdate();
-
-        } catch (ConnectionPoolException | SQLException e) {
-            e.printStackTrace();
-        }
+        addUser(userDTO);
+        return true;
     }
 
-    public boolean isUserCreated(Map parameters){
-        if (!isLoginExist((String) parameters.get("login"))){
-            addUser(parameters);
-            return true;
-        } else return false;
-    }
-
-    public boolean isLoginExist(String login){
+    public boolean isFieldExist(String field, String query){
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         try{
             connectionPool.initPoolData();
             Connection connection = connectionPool.takeConnection();
 
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ID_BY_LOGIN);
-            preparedStatement.setString(1, login);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, field);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()){
@@ -115,7 +111,36 @@ public class UserDAOImpl {
             }
         } catch (ConnectionPoolException | SQLException e) {
             e.printStackTrace();
-        }
+        }/*} finally {
+         *//*if (connection != null && preparedStatement != null && resultSet != null){
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            }*//**/
         return true;
     }
+
+    public void addUser(UserDTO userDTO){
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        try {
+            connectionPool.initPoolData();
+            Connection connection = connectionPool.takeConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER);
+            preparedStatement.setString(1, userDTO.getLogin());
+            preparedStatement.setString(2, Hash.getCryptoSha256(userDTO.getPassword()));
+            preparedStatement.setString(3, userDTO.getEmail());
+            preparedStatement.setString(4, userDTO.getPhone());
+            preparedStatement.setString(5, userDTO.getFirstName());
+            preparedStatement.setString(6, userDTO.getLastName());
+
+            preparedStatement.executeUpdate();
+        } catch (ConnectionPoolException | SQLException e) {
+            e.printStackTrace();
+        }/*} finally {
+         *//*if (connection != null && preparedStatement != null && resultSet != null){
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            }*//**/
+
+    }
+
 }

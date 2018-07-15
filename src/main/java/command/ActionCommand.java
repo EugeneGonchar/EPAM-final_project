@@ -1,7 +1,11 @@
 package command;
 
-import javax.servlet.http.HttpServletRequest;
+import controller.content.SessionRequestContent;
+import dao.exception.DAOException;
+import service.exception.ServiceException;
 
 public interface ActionCommand {
-    String execute(HttpServletRequest request);
+
+    String execute(SessionRequestContent sessionRequestContent);
+
 }

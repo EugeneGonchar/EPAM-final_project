@@ -1,12 +1,15 @@
 package command.commands;
 
 import command.ActionCommand;
+import controller.content.SessionRequestContent;
+import dao.exception.IncorrectLoginOrPasswordException;
+import dto.UserDTO;
 import entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
-import service.impl.UserServiceImpl;
-
-import javax.servlet.http.HttpServletRequest;
+import service.ServiceFactory;
+import service.UserService;
+import service.exception.ExistEmptyFieldException;
 
 public class LoginCommand implements ActionCommand {
 
@@ -14,30 +17,40 @@ public class LoginCommand implements ActionCommand {
     private static final String PARAM_NAME_PASSWORD = "password";
 
     @Override
-    public String execute(HttpServletRequest request){
-        String page = null;
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String password = request.getParameter(PARAM_NAME_PASSWORD);
+    public String execute(SessionRequestContent sessionRequestContent) {
 
-        UserServiceImpl userServiceImpl = new UserServiceImpl();
-        User user = userServiceImpl.logIn(login, password);
-        if (user != null){
-            request.getSession().setAttribute("user", user);
+        String page = null;
+
+        UserDTO userDTO = createUser(sessionRequestContent);
+
+        UserService userService = ServiceFactory.getInstance().getUserService();
+
+        try{
+            User user = userService.logIn(userDTO);
+
+            sessionRequestContent.add2SessionAttributes("user", user);
             page = ConfigurationManager.getProperty("path.page.main");
-        } else{
-            request.setAttribute("errorLoginPassMessage",
-                    MessageManager.getProperty("message.loginerror"));
+        } catch (ExistEmptyFieldException e){
+            sessionRequestContent.add2RequestAttributes("loginError",
+                    MessageManager.getProperty("message.emptyfield"));
+        } catch (IncorrectLoginOrPasswordException e){
+            sessionRequestContent.add2RequestAttributes("loginError",
+                    MessageManager.getProperty("message.loginpassworderror"));
+        }
+
+        if(page == null){
             page = ConfigurationManager.getProperty("path.page.login");
         }
-/*
-        if(LoginLogic.checkLogin(login, pass)){
-            request.setAttribute("user", login);
-            page = ConfigurationManager.getProperty("path.page.main");
-        } else{
-            request.setAttribute("errorLoginPassMessage",
-                    MessageManager.getProperty("message.loginerror"));
-            page = ConfigurationManager.getProperty("path.page.login");
-        }*/
+
         return page;
+    }
+
+    private UserDTO createUser(SessionRequestContent sessionRequestContent){
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setLogin(sessionRequestContent.getRequestParameter(PARAM_NAME_LOGIN));
+        userDTO.setPassword(sessionRequestContent.getRequestParameter(PARAM_NAME_PASSWORD));
+
+        return userDTO;
     }
 }
