@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <title>Login</title>
+    <title>Sign up</title>
 </head>
 
 <body>
