@@ -7,7 +7,7 @@
 
 <body>
 
-    <c:redirect url="/jsp/main.jsp"/>
+    <c:redirect url="/main"/>
 
 </body>
 

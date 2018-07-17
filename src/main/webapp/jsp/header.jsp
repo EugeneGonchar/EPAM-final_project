@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li class="nav-item px-2<%--active--%>">
-                        <a class="nav-link" href="main.jsp">
+                        <a class="nav-link" href="/main">
                             <i class="fa fa-home">
 
                             </i>
@@ -68,7 +68,7 @@
                     <c:choose>
                         <c:when test="${not empty user}">
                             <li class="nav-item px-2">
-                                <a class="nav-link invisible" href="signup.jsp">
+                                <a class="nav-link invisible" href="/signupp">
                                     <i class="fa fa-user-plus">
 
                                     </i>
@@ -90,7 +90,7 @@
                                         <c:out value="${user.lastName}"></c:out>
                                     </span>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="profile.jsp">Your profile</a>
+                                    <a class="dropdown-item" href="/profile">Your profile</a>
                                     <a class="dropdown-item" href="#">Your orders</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Help</a>
@@ -104,7 +104,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item px-2">
-                                <a class="nav-link" href="signup.jsp">
+                                <a class="nav-link" href="/signup">
                                     <i class="fa fa-user-plus">
 
                                     </i>
@@ -112,7 +112,7 @@
                                 </a>
                             </li>
                             <li class="nav-item px-2">
-                                <a class="nav-link" href="login.jsp">
+                                <a class="nav-link" href="/login">
                                     <i class="fa fa-sign-in">
 
                                     </i>

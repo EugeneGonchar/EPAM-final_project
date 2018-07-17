@@ -101,7 +101,7 @@
           <version>2.2</version>
           <configuration>
             <port>8888</port>
-            <path>/CarHire</path>
+            <path>/</path>
           </configuration>
         </plugin>
       </plugins>

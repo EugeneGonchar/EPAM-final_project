@@ -5,7 +5,7 @@
                  "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
   <display-name> ServletJsp </display-name>
-  
+
 <!--  <controller>
     <controller-name>Controller</controller-name>
     <controller-class>controller.Controller</controller-class>
@@ -15,6 +15,78 @@
     <controller-name>Controller</controller-name>
     <url-pattern>/controller</url-pattern>
   </controller-mapping>-->
+
+  <servlet>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>controller.Controller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/controller</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>MainPage</servlet-name>
+    <jsp-file>/jsp/main.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MainPage</servlet-name>
+    <url-pattern>/main</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LoginPage</servlet-name>
+    <jsp-file>/jsp/login.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginPage</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SignupPage</servlet-name>
+    <jsp-file>/jsp/signup.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignupPage</servlet-name>
+    <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AccountPage</servlet-name>
+    <jsp-file>/jsp/user/account.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccountPage</servlet-name>
+    <url-pattern>/account</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ContactsPage</servlet-name>
+    <jsp-file>/jsp/user/contacts.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ContactsPage</servlet-name>
+    <url-pattern>/contacts</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ProfilePage</servlet-name>
+    <jsp-file>/jsp/user/profile.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfilePage</servlet-name>
+    <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SuccessfullPage</servlet-name>
+    <jsp-file>/jsp/successfullsignup.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SuccessfullPage</servlet-name>
+    <url-pattern>/successsignup</url-pattern>
+  </servlet-mapping>
 
   <error-page>
     <error-code>404</error-code>

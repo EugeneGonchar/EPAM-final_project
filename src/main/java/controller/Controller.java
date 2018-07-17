@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-@WebServlet("/jsp/controller")
 public class Controller extends HttpServlet {
 
     private final static int SESSION_LIFE_TIME_IN_SEC = 300;

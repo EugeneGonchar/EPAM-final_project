@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=1200, initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="import" href="header.jsp">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="import" href="../header.jsp">
     <title>Profile</title>
 
 </head>
@@ -30,17 +30,17 @@
                         </span>
                         <span class="border-bottom active">
                             <li class="pl-3 nav-item active">
-                                <a class="nav-link text-dark" href="profile.jsp">Profile</a>
+                                <a class="nav-link text-dark" href="/profile">Profile</a>
                             </li>
                         </span>
                         <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="account.jsp">Account</a>
+                                <a class="nav-link" href="/account">Account</a>
                             </li>
                         </span>
                         <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="contacts.jsp">Email & phone</a>
+                                <a class="nav-link" href="/contacts">Email & phone</a>
                             </li>
                         </span>
                     </ul>
@@ -72,13 +72,13 @@
                         <div>
                             <p>
                                 <span class="font-weight-bold">Name: </span>
-                                <p>Ivan</p>
+                                <p><c:out value="${user.firstName}"></c:out></p>
                             </p>
                         </div>
                         <div>
                             <p>
                                 <span class="font-weight-bold">Surname: </span>
-                                <p>Ivanov</p>
+                                <p><c:out value="${user.lastName}"></c:out></p>
                             </p>
                         </div>
                     </div>
