@@ -18,7 +18,7 @@
 
 
     <div class="container my-3">
-        <div <%--style="background-color: #28a745" --%>class="col-3 float-left pr-4" role="navigation">
+        <div class="col-3 float-left pr-4" role="navigation">
 
             <div class="border rounded">
                 <nav class="menu">
@@ -53,8 +53,8 @@
                 <h3 class="text-dark">Profile</h3>
             </div>
 
-            <form action="">
-
+            <form id="changeNameOrSurnameForm" method="POST" action="controller">
+                <input type="hidden" name="command" value="change_name_surname"/>
                 <dl class="form-group edit-profile-avatar mt-3 pl-1 float-right col-4">
                     <dt><label>Profile picture</label></dt>
                     <dd class="avatar-upload-container clearfix">
@@ -85,26 +85,26 @@
 
                     <div>
                         <c:choose>
-                            <c:when test="${empty loginError}">
+                            <c:when test="${empty updateNameSurnameError}">
                                 <p>
                                     <br/>
                                 </p>
                             </c:when>
                             <c:otherwise>
                                 <p class="text-danger text-left">
-                                        ${loginError}
+                                        ${updateNameSurnameError}
                                 </p>
                             </c:otherwise>
                         </c:choose>
                     </div>
 
                     <div class="form-group mt-3">
-                        <label for="b" class="font-weight-bold">New name:</label>
-                        <input type="text" class="form-control" id="b">
+                        <label class="font-weight-bold">New name:</label>
+                        <input name="first_name" placeholder="Ivan" type="text" class="form-control">
                     </div>
                     <div class="form-group mt-3">
-                        <label for="a" class="font-weight-bold">New surname:</label>
-                        <input type="text" class="form-control" id="a">
+                        <label class="font-weight-bold">New surname:</label>
+                        <input name="last_name" placeholder="Ivanov" type="text" class="form-control">
                     </div>
                     <div>
                         <p class="text-small">

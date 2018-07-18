@@ -18,7 +18,7 @@
 
 
 <div class="container my-3">
-    <div <%--style="background-color: #28a745" --%>class="col-3 float-left pr-4" role="navigation">
+    <div class="col-3 float-left pr-4" role="navigation">
 
         <div class="border rounded">
             <nav class="menu">
@@ -50,14 +50,14 @@
 
     <div class="col-9 float-left">
 
-        <div class="card border-0 col-8">
+        <div class="card border-0 col-12">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
                 <h3 class="text-dark">Change email</h3>
             </div>
 
-            <form action="">
-
+            <form id="changeEmailForm" method="POST" action="controller" class="col-8">
+                <input type="hidden" name="command" value="change_email"/>
                 <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                     <div>
                         <p class="note">
@@ -69,14 +69,14 @@
 
                 <div>
                     <c:choose>
-                        <c:when test="${empty loginError}">
+                        <c:when test="${empty updateEmailError}">
                             <p>
                                 <br/>
                             </p>
                         </c:when>
                         <c:otherwise>
                             <p class="text-danger text-left">
-                                    ${loginError}
+                                    ${updateEmailError}
                             </p>
                         </c:otherwise>
                     </c:choose>
@@ -84,7 +84,7 @@
 
                 <div class="form-group">
                     <label for="b" class="font-weight-bold">New email:</label>
-                    <input type="text" class="form-control" id="b">
+                    <input name="email" placeholder="example@mail.com" type="text" class="form-control" id="b">
                 </div>
 
                 <div class="form-group mt-1">
@@ -94,14 +94,14 @@
             </form>
         </div>
 
-        <div class="card border-0 col-8 mt-3">
+        <div class="card border-0 col-12 mt-3">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
                 <h3 class="text-dark">Change phone</h3>
             </div>
 
-            <form action="">
-
+            <form id="changePhoneForm" method="POST" action="controller" class="col-8">
+                <input type="hidden" name="command" value="change_phone"/>
                 <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                     <div>
                         <p class="note">
@@ -113,14 +113,14 @@
 
                 <div>
                     <c:choose>
-                        <c:when test="${empty loginError}">
+                        <c:when test="${empty updatePhoneError}">
                             <p>
                                 <br/>
                             </p>
                         </c:when>
                         <c:otherwise>
                             <p class="text-danger text-left">
-                                    ${loginError}
+                                    ${updatePhoneError}
                             </p>
                         </c:otherwise>
                     </c:choose>
@@ -128,7 +128,7 @@
 
                 <div class="form-group mt-1">
                     <label class="font-weight-bold">New phone:</label>
-                    <input type="text" class="form-control">
+                    <input name="phone" placeholder="+375291000000" type="text" class="form-control">
                 </div>
 
                 <div class="form-group mt-1">

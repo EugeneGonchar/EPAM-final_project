@@ -1,4 +1,4 @@
-package command.commands;
+package command.command;
 
 import command.ActionCommand;
 import controller.content.SessionRequestContent;
@@ -8,7 +8,7 @@ public class LogoutCommand implements ActionCommand {
 
     @Override
     public String execute(SessionRequestContent sessionRequestContent){
-        String page = ConfigurationManager.getProperty("path.page.index");
+        String page = ConfigurationManager.getProperty("path.page.main");
         sessionRequestContent.removeSessionAttribute("user");
         return page;
     }

@@ -1,8 +1,8 @@
-package command.commands;
+package command.command.user;
 
 import command.ActionCommand;
 import controller.content.SessionRequestContent;
-import dao.exception.IncorrectLoginOrPasswordException;
+import dao.exception.user.LoginExistException;
 import dto.UserDTO;
 import entity.User;
 import resource.ConfigurationManager;
@@ -11,36 +11,35 @@ import service.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
-public class LoginCommand implements ActionCommand {
+public class ChangeLoginCommand implements ActionCommand {
 
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
+    private final String PARAM_NAME_LOGIN = "login";
 
     @Override
     public String execute(SessionRequestContent sessionRequestContent) {
-
         String page = null;
 
         UserDTO userDTO = createUser(sessionRequestContent);
 
+        User user = (User) sessionRequestContent.getSessionAttribute("user");
+
         UserService userService = ServiceFactory.getInstance().getUserService();
 
         try{
-            User user = userService.logIn(userDTO);
+            userService.changeLogin(userDTO);
+
+            user.setLogin(userDTO.getLogin());
 
             sessionRequestContent.add2SessionAttributes("user", user);
-            page = ConfigurationManager.getProperty("path.page.main");
-        } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2RequestAttributes("loginError",
+        } catch (ExistEmptyFieldException e) {
+            sessionRequestContent.add2RequestAttributes("updateLoginError",
                     MessageManager.getProperty("message.emptyfield"));
-        } catch (IncorrectLoginOrPasswordException e){
-            sessionRequestContent.add2RequestAttributes("loginError",
-                    MessageManager.getProperty("message.loginpassworderror"));
+        } catch (LoginExistException e){
+            sessionRequestContent.add2RequestAttributes("updateLoginError",
+                    MessageManager.getProperty("message.loginexist"));
         }
 
-        if(page == null){
-            page = ConfigurationManager.getProperty("path.page.login");
-        }
+        page = ConfigurationManager.getProperty("path.page.account");
 
         return page;
     }
@@ -48,9 +47,10 @@ public class LoginCommand implements ActionCommand {
     private UserDTO createUser(SessionRequestContent sessionRequestContent){
         UserDTO userDTO = new UserDTO();
 
+        userDTO.setEmail(((User) sessionRequestContent.getSessionAttribute("user")).getEmail());
         userDTO.setLogin(sessionRequestContent.getRequestParameter(PARAM_NAME_LOGIN));
-        userDTO.setPassword(sessionRequestContent.getRequestParameter(PARAM_NAME_PASSWORD));
 
         return userDTO;
     }
+
 }

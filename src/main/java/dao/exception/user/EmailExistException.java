@@ -1,4 +1,4 @@
-package dao.exception;
+package dao.exception.user;
 
 public class EmailExistException extends DAOException{
     public EmailExistException() {

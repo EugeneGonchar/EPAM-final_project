@@ -1,4 +1,4 @@
-package dao.connection;
+package dao.exception.connection;
 
 public class ConnectionPoolException extends Exception{
     private static final long serialVersionUID = 6069133364046899507L;

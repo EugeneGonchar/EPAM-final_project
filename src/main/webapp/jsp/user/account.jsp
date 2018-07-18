@@ -18,7 +18,7 @@
 
 
 <div class="container my-3">
-    <div <%--style="background-color: #28a745" --%>class="col-3 float-left pr-4" role="navigation">
+    <div class="col-3 float-left pr-4" role="navigation">
 
         <div class="border rounded">
             <nav class="menu">
@@ -50,14 +50,14 @@
 
     <div class="col-9 float-left">
 
-        <div class="card border-0 col-8">
+        <div class="card border-0 col-12">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
                 <h3 class="text-dark">Change login</h3>
             </div>
 
-            <form action="">
-
+            <form id="changeLoginForm" method="POST" action="controller" class="col-8">
+                <input type="hidden" name="command" value="change_login"/>
                     <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                         <div>
                             <p class="note">
@@ -69,22 +69,22 @@
 
                     <div>
                         <c:choose>
-                            <c:when test="${empty loginError}">
+                            <c:when test="${empty updateLoginError}">
                                 <p>
                                     <br/>
                                 </p>
                             </c:when>
                             <c:otherwise>
                                 <p class="text-danger text-left">
-                                        ${loginError}
+                                        ${updateLoginError}
                                 </p>
                             </c:otherwise>
                         </c:choose>
                     </div>
 
                     <div class="form-group">
-                        <label for="b" class="font-weight-bold">New name:</label>
-                        <input type="text" class="form-control" id="b">
+                        <label for="b" class="font-weight-bold">New login:</label>
+                        <input name="login" placeholder="login" type="text" class="form-control" id="b">
                     </div>
 
                     <div class="form-group mt-1">
@@ -94,42 +94,42 @@
             </form>
         </div>
 
-        <div class="card border-0 col-8 mt-3">
+        <div class="card border-0 col-12 mt-3">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
                 <h3 class="text-dark">Change password</h3>
             </div>
 
-            <form action="">
-
+            <form id="changePasswordForm" method="POST" action="controller" class="col-8">
+                <input type="hidden" name="command" value="change_password"/>
                 <div>
                     <c:choose>
-                        <c:when test="${empty loginError}">
+                        <c:when test="${empty updatePasswordError}">
                             <p>
                                 <br/>
                             </p>
                         </c:when>
                         <c:otherwise>
                             <p class="text-danger text-left">
-                                    ${loginError}
+                                    ${updatePasswordError}
                             </p>
                         </c:otherwise>
                     </c:choose>
                 </div>
 
                 <div class="form-group mt-1">
-                    <label class="font-weight-bold">Old password:</label>
-                    <input type="text" class="form-control">
+                    <label for="pass" class="font-weight-bold">Old password:</label>
+                    <input name="old_password" placeholder="******" type="password" class="form-control" id="pass">
                 </div>
 
                 <div class="form-group mt-1">
-                    <label class="font-weight-bold">New password:</label>
-                    <input type="text" class="form-control">
+                    <label for="pass1" class="font-weight-bold">New password:</label>
+                    <input name="new_password" placeholder="******" type="password" class="form-control" id="pass1">
                 </div>
 
                 <div class="form-group mt-1">
-                    <label class="font-weight-bold">Confirm new password:</label>
-                    <input type="text" class="form-control">
+                    <label for="pass2" class="font-weight-bold">Confirm new password:</label>
+                    <input name="new_password2" placeholder="******" type="password" class="form-control" id="pass2">
                 </div>
 
                 <div class="form-group mt-1">

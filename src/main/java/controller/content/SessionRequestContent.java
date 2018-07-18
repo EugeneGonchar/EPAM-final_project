@@ -1,6 +1,7 @@
 package controller.content;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +29,23 @@ public class SessionRequestContent {
         this.request = request;
     }
 
-    public void extractValues(){
+    private void extractRequestParameters(){
         requestParameters = request.getParameterMap();
+    }
+
+    private void extractSessionAttributes(){
+        Enumeration<String> keys = request.getSession().getAttributeNames();
+
+        while(keys.hasMoreElements()){
+            String key = keys.nextElement();
+            Object value = request.getSession().getAttribute(key);
+            sessionAttributes.put(key, value);
+        }
+    }
+
+    public void extractValues(){
+        extractRequestParameters();
+        extractSessionAttributes();
     }
 
     public void insertRequestAttributes(){
@@ -69,7 +85,11 @@ public class SessionRequestContent {
         for(String word : requestParameters.get(key)){
             stringBuilder.append(word);
         }
-        String string = stringBuilder.toString();
-        return string;
+
+        return stringBuilder.toString();
+    }
+
+    public Object getSessionAttribute(String key){
+        return sessionAttributes.get(key);
     }
 }

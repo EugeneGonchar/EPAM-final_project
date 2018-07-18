@@ -26,6 +26,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>IndexPage</servlet-name>
+    <jsp-file>/index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexPage</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>MainPage</servlet-name>
     <jsp-file>/jsp/main.jsp</jsp-file>
   </servlet>

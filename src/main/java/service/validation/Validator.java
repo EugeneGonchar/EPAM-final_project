@@ -6,27 +6,20 @@ public class Validator {
 
     /*добавить проверку на телефон и мэйл*/
 
-    public static boolean isExistEmptyField(UserDTO userDTO){
-        return userDTO.getLogin().isEmpty() ||
-                userDTO.getFirstName().isEmpty() ||
-                userDTO.getLastName().isEmpty() ||
-                userDTO.getEmail().isEmpty() ||
-                userDTO.getPhone().isEmpty() ||
-                userDTO.getPassword().isEmpty() ||
-                userDTO.getPassword2().isEmpty();
+    public static boolean isFieldsEmpty(String ... values){
+        boolean result = false;
+        for(String value : values){
+            result = result || value.isEmpty();
+        }
+        return result;
     }
 
-    public static boolean isLoginOrPasswordFieldsEmpty(UserDTO userDTO){
-        return userDTO.getLogin().isEmpty() ||
-                userDTO.getPassword().isEmpty();
+    public static boolean isPasswordsUnequal(String password1, String password2){
+        return !password1.equals(password2);
     }
 
-    public static boolean isPasswordsEqual(UserDTO userDTO){
-        return userDTO.getPassword().equals(userDTO.getPassword2());
-    }
-
-    public static boolean isPasswordShorter6Symbols(UserDTO userDTO){
-        return userDTO.getPassword().length() < 6;
+    public static boolean isPasswordShorter6Symbols(String password){
+        return password.length() < 6;
     }
 
 }

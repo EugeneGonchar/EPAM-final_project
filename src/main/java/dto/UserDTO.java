@@ -4,6 +4,8 @@ public class UserDTO {
     private String login;
     private String password;
     private String password2;
+    private String password3;
+
     private String email;
     private String phone;
     private String firstName;
@@ -31,6 +33,14 @@ public class UserDTO {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public String getPassword3() {
+        return password3;
+    }
+
+    public void setPassword3(String password3) {
+        this.password3 = password3;
     }
 
     public String getEmail() {

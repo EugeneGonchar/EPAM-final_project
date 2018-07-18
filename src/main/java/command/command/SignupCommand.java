@@ -1,8 +1,7 @@
-package command.commands;
+package command.command;
 
-import dao.exception.DAOException;
-import dao.exception.EmailExistException;
-import dao.exception.LoginExistException;
+import dao.exception.user.EmailExistException;
+import dao.exception.user.LoginExistException;
 import dto.UserDTO;
 import command.ActionCommand;
 import controller.content.SessionRequestContent;
@@ -13,7 +12,6 @@ import service.UserService;
 import service.exception.ExistEmptyFieldException;
 import service.exception.PasswordShorter6SymbolsException;
 import service.exception.PasswordsUnequalException;
-import service.exception.ServiceException;
 
 public class SignupCommand implements ActionCommand {
 

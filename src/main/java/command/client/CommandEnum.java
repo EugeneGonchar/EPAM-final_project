@@ -1,9 +1,10 @@
 package command.client;
 
 import command.ActionCommand;
-import command.commands.LoginCommand;
-import command.commands.LogoutCommand;
-import command.commands.SignupCommand;
+import command.command.LoginCommand;
+import command.command.LogoutCommand;
+import command.command.SignupCommand;
+import command.command.user.*;
 
 public enum CommandEnum {
     LOGIN{
@@ -19,6 +20,31 @@ public enum CommandEnum {
     SIGNUP{
         {
             this.command = new SignupCommand();
+        }
+    },
+    CHANGE_LOGIN{
+        {
+            this.command = new ChangeLoginCommand();
+        }
+    },
+    CHANGE_PASSWORD{
+        {
+            this.command = new ChangePasswordCommand();
+        }
+    },
+    CHANGE_NAME_SURNAME{
+        {
+            this.command = new ChangeNameSurnameCommand();
+        }
+    },
+    CHANGE_EMAIL{
+        {
+            this.command = new ChangeEmailCommand();
+        }
+    },
+    CHANGE_PHONE{
+        {
+            this.command = new ChangePhoneCommand();
         }
     };
 

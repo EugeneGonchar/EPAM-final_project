@@ -8,9 +8,11 @@ import resource.MessageManager;
 
 public class ActionFactory {
 
+    private final String INPUT_NAME = "command";
+
     public ActionCommand defineCommand(SessionRequestContent sessionRequestContent){
         ActionCommand current = new EmptyCommand();
-        String action = sessionRequestContent.getRequestParameter("command");
+        String action = sessionRequestContent.getRequestParameter(INPUT_NAME);
 
         if (action == null || action.isEmpty()){
             return current;
