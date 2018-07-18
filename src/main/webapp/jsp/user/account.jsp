@@ -30,17 +30,17 @@
                         </span>
                     <span class="border-bottom active">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/profile">Profile</a>
+                                <a class="nav-link" href="/user/profile">Profile</a>
                             </li>
                         </span>
                     <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link text-dark" href="/account">Account</a>
+                                <a class="nav-link text-dark" href="/user/account">Account</a>
                             </li>
                         </span>
                     <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/contacts">Email & phone</a>
+                                <a class="nav-link" href="/user/contacts">Email & phone</a>
                             </li>
                         </span>
                 </ul>
@@ -56,7 +56,7 @@
                 <h3 class="text-dark">Change login</h3>
             </div>
 
-            <form id="changeLoginForm" method="POST" action="controller" class="col-8">
+            <form id="changeLoginForm" method="POST" action="/controller" class="col-8">
                 <input type="hidden" name="command" value="change_login"/>
                     <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                         <div>
@@ -100,7 +100,7 @@
                 <h3 class="text-dark">Change password</h3>
             </div>
 
-            <form id="changePasswordForm" method="POST" action="controller" class="col-8">
+            <form id="changePasswordForm" method="POST" action="/controller" class="col-8">
                 <input type="hidden" name="command" value="change_password"/>
                 <div>
                     <c:choose>

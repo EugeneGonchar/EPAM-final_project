@@ -8,13 +8,12 @@ import resource.MessageManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
-    private final static int SESSION_LIFE_TIME_IN_SEC = 300;
+    private final static int SESSION_LIFE_TIME_IN_SEC = 10;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

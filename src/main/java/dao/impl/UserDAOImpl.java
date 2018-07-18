@@ -42,11 +42,6 @@ public class UserDAOImpl implements UserDAO {
     private final String TABLE_USER_FIELD_PASSWORD = "password";
 
     public UserDAOImpl(ConnectionPool connectionPool){
-        try {
-            connectionPool.initializeConnectionPool();
-        } catch (ConnectionPoolException e) {
-            e.printStackTrace();
-        }
         connection = connectionPool.getConnection();
     }
 
@@ -211,7 +206,7 @@ public class UserDAOImpl implements UserDAO {
 
             resultSet = preparedStatement.executeQuery();
             resultSet.next();/*чего блять????*/
-            
+
             String passwordHash = Hash.getCryptoSha256(userDTO.getPassword());
             String dbPasswordHash = resultSet.getString(TABLE_USER_FIELD_PASSWORD);
 

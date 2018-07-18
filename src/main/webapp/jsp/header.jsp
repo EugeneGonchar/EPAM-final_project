@@ -68,7 +68,7 @@
                     <c:choose>
                         <c:when test="${not empty user}">
                             <li class="nav-item px-2">
-                                <a class="nav-link invisible" href="/signupp">
+                                <a class="nav-link invisible" href="/signup">
                                     <i class="fa fa-user-plus">
 
                                     </i>
@@ -90,11 +90,11 @@
                                         <c:out value="${user.lastName}"></c:out>
                                     </span>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/profile">Your profile</a>
+                                    <a class="dropdown-item" href="/user/profile">Your profile</a>
                                     <a class="dropdown-item" href="#">Your orders</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Help</a>
-                                    <form id="logoutForm" method="POST" action="controller">
+                                    <form id="logoutForm" method="POST" action="/controller">
                                         <input type="hidden" name="command" value="logout"/>
                                         <button class="dropdown-item" type="submit">Sign out</button>
                                     </form>

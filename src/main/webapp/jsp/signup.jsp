@@ -35,7 +35,7 @@
                 </c:choose>
             </div>
 
-            <form id="signUpForm" method="POST" action="controller">
+            <form id="signUpForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="signup"/>
                 <p class="text-left">Think of your login :</p>
                 <div class="form-group">

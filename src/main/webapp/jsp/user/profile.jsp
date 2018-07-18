@@ -30,17 +30,17 @@
                         </span>
                         <span class="border-bottom active">
                             <li class="pl-3 nav-item active">
-                                <a class="nav-link text-dark" href="/profile">Profile</a>
+                                <a class="nav-link text-dark" href="/user/profile">Profile</a>
                             </li>
                         </span>
                         <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/account">Account</a>
+                                <a class="nav-link" href="/user/account">Account</a>
                             </li>
                         </span>
                         <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/contacts">Email & phone</a>
+                                <a class="nav-link" href="/user/contacts">Email & phone</a>
                             </li>
                         </span>
                     </ul>
@@ -53,7 +53,7 @@
                 <h3 class="text-dark">Profile</h3>
             </div>
 
-            <form id="changeNameOrSurnameForm" method="POST" action="controller">
+            <form id="changeNameOrSurnameForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="change_name_surname"/>
                 <dl class="form-group edit-profile-avatar mt-3 pl-1 float-right col-4">
                     <dt><label>Profile picture</label></dt>

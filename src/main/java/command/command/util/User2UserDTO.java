@@ -1,7 +1,4 @@
-package command.command.Util;
-
-import controller.content.SessionRequestContent;
-import dto.UserDTO;
+package command.command.util;
 
 public class User2UserDTO {
 

@@ -67,7 +67,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AccountPage</servlet-name>
-    <url-pattern>/account</url-pattern>
+    <url-pattern>/user/account</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -76,7 +76,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ContactsPage</servlet-name>
-    <url-pattern>/contacts</url-pattern>
+    <url-pattern>/user/contacts</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -85,7 +85,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ProfilePage</servlet-name>
-    <url-pattern>/profile</url-pattern>
+    <url-pattern>/user/profile</url-pattern>
   </servlet-mapping>
 
   <servlet>

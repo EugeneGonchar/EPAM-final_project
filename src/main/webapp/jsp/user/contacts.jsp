@@ -30,17 +30,17 @@
                         </span>
                     <span class="border-bottom active">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/profile">Profile</a>
+                                <a class="nav-link" href="/user/profile">Profile</a>
                             </li>
                         </span>
                     <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/account">Account</a>
+                                <a class="nav-link" href="/user/account">Account</a>
                             </li>
                         </span>
                     <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link text-dark" href="/contacts">Email & phone</a>
+                                <a class="nav-link text-dark" href="/user/contacts">Email & phone</a>
                             </li>
                         </span>
                 </ul>
@@ -56,7 +56,7 @@
                 <h3 class="text-dark">Change email</h3>
             </div>
 
-            <form id="changeEmailForm" method="POST" action="controller" class="col-8">
+            <form id="changeEmailForm" method="POST" action="/controller" class="col-8">
                 <input type="hidden" name="command" value="change_email"/>
                 <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                     <div>
@@ -100,7 +100,7 @@
                 <h3 class="text-dark">Change phone</h3>
             </div>
 
-            <form id="changePhoneForm" method="POST" action="controller" class="col-8">
+            <form id="changePhoneForm" method="POST" action="/controller" class="col-8">
                 <input type="hidden" name="command" value="change_phone"/>
                 <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                     <div>
