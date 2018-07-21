@@ -40,9 +40,6 @@
                         <a class="nav-link" href="/rent">Rent</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="/cars">Cars</a>
-                    </li>
-                    <li class="nav-item px-2">
                         <a class="nav-link" href="#">About</a>
                     </li>
                 </ul>

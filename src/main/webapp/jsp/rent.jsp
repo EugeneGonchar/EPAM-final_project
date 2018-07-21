@@ -16,6 +16,16 @@
 
 <body>
 
+<div class="container my-3 px-0">
+    <nav class="nav row border rounded">
+        <a class="nav-item nav-link col border-right" href="/rent">Choice of date and place</a>
+        <a class="nav-item nav-link col border-right" href="/cars">Car's search results</a>
+        <a class="nav-item nav-link col border-right" href="#">Driver</a>
+        <a class="nav-item nav-link col border-right" href="#">Payment</a>
+        <a class="nav-item nav-link col <%--disabled--%>" href="#">Confirmation</a>
+    </nav>
+</div>
+
 <div class="padding-top-registration">
     <div class="card container col-lg-4">
         <article class="card-body">
@@ -39,6 +49,7 @@
 
             <form id="signUpForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="signup"/>
+
                 <p class="text-left">Pick-up location :</p>
                 <div class="form-group">
                     <div class="input-group">
@@ -49,8 +60,13 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="login" class="form-control" placeholder="login" type="text">
-                    </div> <!-- input-group.// -->
+                        <select class="form-control" id="sel1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
                 </div> <!-- form-group// -->
 
                 <p class="text-left">Drop-off location :</p>
@@ -63,8 +79,13 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="login" class="form-control" placeholder="login" type="text">
-                    </div> <!-- input-group.// -->
+                        <select class="form-control" id="sel1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row justify-content-between">

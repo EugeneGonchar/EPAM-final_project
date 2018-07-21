@@ -40,6 +40,10 @@ body{
     font-size: 12px;
 }
 
+.car_element{
+    font-size: 14px;
+}
+
 @media screen and (max-width: 1920px) {
 
     .site{
