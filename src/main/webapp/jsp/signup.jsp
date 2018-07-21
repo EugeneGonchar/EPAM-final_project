@@ -95,7 +95,7 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="phone" class="form-control" placeholder="+375(29)111-11-11" type="phone">
+                        <input name="phone" class="form-control" placeholder="+375(29)111-11-11" type="tel">
                     </div> <!-- input-group.// -->
 
                 </div> <!-- form-group// -->

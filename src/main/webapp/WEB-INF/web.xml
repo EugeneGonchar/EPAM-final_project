@@ -115,6 +115,33 @@
     <url-pattern>/cars</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>DriverDetailsPage</servlet-name>
+    <jsp-file>/jsp/driverdetails.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DriverDetailsPage</servlet-name>
+    <url-pattern>/driverdetails</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>PaymentPage</servlet-name>
+    <jsp-file>/jsp/payment.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaymentPage</servlet-name>
+    <url-pattern>/payment</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ConfirmationPage</servlet-name>
+    <jsp-file>/jsp/confirmation.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmationPage</servlet-name>
+    <url-pattern>/confirmation</url-pattern>
+  </servlet-mapping>
+
   <error-page>
     <error-code>404</error-code>
     <location>/jsp/error.jsp</location>

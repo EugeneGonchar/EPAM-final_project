@@ -17,12 +17,12 @@
 <body>
 
 <div class="container my-3 px-0">
-    <nav class="nav row border rounded">
+    <nav class="nav row border rounded text-center">
         <a class="nav-item nav-link col border-right" href="/rent">Choice of date and place</a>
         <a class="nav-item nav-link col border-right" href="/cars">Car's search results</a>
-        <a class="nav-item nav-link col border-right" href="#">Driver</a>
-        <a class="nav-item nav-link col border-right" href="#">Payment</a>
-        <a class="nav-item nav-link col <%--disabled--%>" href="#">Confirmation</a>
+        <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
+        <a class="nav-item nav-link col border-right" href="/payment">Payment</a>
+        <a class="nav-item nav-link col <%--disabled--%>" href="/confirmation">Confirmation</a>
     </nav>
 </div>
 

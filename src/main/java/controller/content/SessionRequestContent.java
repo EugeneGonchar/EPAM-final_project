@@ -85,7 +85,7 @@ public class SessionRequestContent {
         for(String word : requestParameters.get(key)){
             stringBuilder.append(word);
         }
-
+        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 

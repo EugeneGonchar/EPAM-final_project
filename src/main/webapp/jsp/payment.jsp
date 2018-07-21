@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Cars</title>
+    <title>Payment</title>
 
 </head>
 <body>
@@ -111,120 +111,196 @@
         <div class="card col-auto my-3">
             <div class="row border-bottom">
                 <div class="col-4 align-self-center">
-                    <div class="text-center">
+                    <div>
                         <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
                     </div>
                 </div>
 
-                <div class="p-0 col-5">
+                <div class="p-0 col-8 pr-2">
                     <div class="mb-0 p-0 col">
                         <div class="my-1 border-bottom">
-                            <h4>Range Rover Sport</h4>
+                            <h4>Order details</h4>
                         </div>
-                        <div class="container mx-0">
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">5 Seats</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">4 Doors</h6>
-                                </div>
-                            </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Air conditioning</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Automatic gearbox</h6>
+                        <div class="container mx-0 my-2">
+                            <div class="py-2 border-bottom">
+                                <div class="row text-left">
+                                    <div class="col-4">
+                                        <h6 class="mb-1 font-weight-bold">Car:</h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="mb-1">Range Rover Sport</h6>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">8.1 Fuel consumption</h6>
+
+                            <div class="py-2 border-bottom">
+                                <div class="row text-left">
+                                    <div class="col-4">
+                                        <h6 class="mb-1 font-weight-bold">Pick-up:</h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="mb-1">Somewhere</h6>
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">520 Engine power</h6>
+                                <div class="row text-left">
+                                    <div class="col-4">
+                                        <h6 class="mb-1"></h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="mb-1">10:00 AM Friday 27 июля, 2018</h6>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="my-2">
-                                <h5 class="font-weight-bold">SUV</h5>
+
+                            <div class="py-2">
+                                <div class="row text-left">
+                                    <div class="col-4">
+                                        <h6 class="mb-1 font-weight-bold">Drop-off:</h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="mb-1">Somewhere</h6>
+                                    </div>
+                                </div>
+                                <div class="row text-left">
+                                    <div class="col-4">
+                                        <h6 class="mb-1"></h6>
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="mb-1">10:00 AM Friday 27 июля, 2018</h6>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-3 float-right">
-                    <div class="text-right m-2">
-                        <h6 class="car_element" class="mb-1">Price for 3 days:</h6>
-                        <h3>1002 $</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-3 m-3">
-                    <button type="button" class="btn btn-block btn-success">Book now</button>
-                </div>
             </div>
         </div>
 
-        <div class="card col-auto my-3">
-            <div class="row border-bottom">
-                <div class="col-4 align-self-center">
-                    <div class="text-center">
-                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
-                    </div>
+        <div class="card col-12 mt-3">
+
+            <div class="mt-2 mb-0 border-bottom border-muted">
+                <h4 class="text-dark">Driver details</h4>
+            </div>
+
+            <div class="row m-1 justify-content-between">
+                <div class="row m-1 align-items-end">
+                    <h6>
+                        <span class="font-weight-bold">Name:</span> Ivan Ivanov
+                    </h6>
                 </div>
 
-                <div class="p-0 col-5">
-                    <div class="mb-0 p-0 col">
-                        <div class="my-1 border-bottom">
-                            <h4>Range Rover Sport</h4>
-                        </div>
-                        <div class="container mx-0">
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">5 Seats</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">4 Doors</h6>
-                                </div>
-                            </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Air conditioning</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Automatic gearbox</h6>
-                                </div>
-                            </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">8.1 Fuel consumption</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">520 Engine power</h6>
-                                </div>
-                            </div>
-                            <div class="my-2">
-                                <h5 class="font-weight-bold">SUV</h5>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row m-1 align-items-end">
+                    <h6>
+                        <span class="font-weight-bold">Email:</span> ivan@email.com
+                    </h6>
                 </div>
 
-                <div class="col-3 float-right">
-                    <div class="text-right m-2">
-                        <h6 class="car_element" class="mb-1">Price for 3 days:</h6>
-                        <h3>1002 $</h3>
-                    </div>
+                <div class="row m-1 align-items-end">
+                    <h6>
+                        <span class="font-weight-bold">Phone:</span> +375291111111
+                    </h6>
                 </div>
             </div>
-            <div class="row justify-content-end">
-                <div class="col-3 m-3">
-                    <button type="button" class="btn btn-block btn-success">Book now</button>
-                </div>
+
+        </div>
+
+        <div class="card col-12 mt-3">
+
+            <div class="mt-2 mb-0 border-bottom border-muted">
+                <h3 class="text-dark">Payment details</h3>
+            </div>
+
+            <div class="row justify-content-center">
+                <form id="changePasswordForm" method="POST" action="/controller" class="col-8">
+                    <input type="hidden" name="command" value="change_password"/>
+                    <div>
+                        <c:choose>
+                            <c:when test="${empty updatePasswordError}">
+                                <p>
+                                    <br/>
+                                </p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="text-danger text-left">
+                                        ${updatePasswordError}
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+
+                    <p class="text-left">Please, enter name and surname written on the card :</p>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Name *
+                            </span>
+                            </div>
+                            <input name="first_name" class="form-control" placeholder="IVAN" type="text">
+                        </div> <!-- input-group.// -->
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Surname *
+                            </span>
+                            </div>
+                            <input name="last_name" class="form-control" placeholder="IVANOV" type="text">
+                        </div> <!-- input-group.// -->
+                    </div> <!-- form-group// -->
+
+                    <p class="text-left">Please, enter card number :</p>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-credit-card">
+
+                                </i>
+                            </span>
+                            </div>
+                            <input name="email" class="form-control" placeholder="**** **** **** 1111" type="password">
+                        </div> <!-- input-group.// -->
+
+                    </div> <!-- form-group// -->
+
+                    <p class="text-left">Expiry date :</p>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Date *
+                            </span>
+                            </div>
+                            <input name="email" class="form-control" placeholder="email@example.com" type="date">
+                        </div> <!-- input-group.// -->
+
+                    </div>
+
+                    <p class="text-left">Security number :</p>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                CVV *
+                            </span>
+                            </div>
+                            <input name="email" class="form-control" placeholder="email@example.com" type="email">
+                        </div> <!-- input-group.// -->
+
+                    </div>
+
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
             </div>
         </div>
+
 
 
     </div>
