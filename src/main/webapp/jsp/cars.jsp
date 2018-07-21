@@ -16,9 +16,18 @@
 </head>
 <body>
 
+<div class="container my-3 px-0">
+    <nav class="nav row border rounded">
+        <a class="nav-item nav-link col border-right" href="/rent">Choice of date and place</a>
+        <a class="nav-item nav-link col border-right" href="/cars">Car's search results</a>
+        <a class="nav-item nav-link col border-right" href="#">Driver</a>
+        <a class="nav-item nav-link col border-right" href="#">Payment</a>
+        <a class="nav-item nav-link col <%--disabled--%>" href="#">Confirmation</a>
+    </nav>
+</div>
 
 <div class="container my-3">
-    <div class="col-3 float-left pr-4" role="navigation">
+    <div class="col-3 float-left pr-3" role="navigation">
 
         <div class="border rounded mb-3">
             <nav class="menu">
@@ -75,28 +84,63 @@
         </div>
     </div>
 
-    <div style="background-color: #28a745" class="col-9 float-left">
+    <div class="col-9 float-left">
 
-        <div style="background-color: red" class="card col-auto my-3">
+        <div class="card col-auto my-3">
             <div class="row">
-                <div style="background-color: black" class="col-4 align-self-center">
+                <div class="col-4 align-self-center">
                     <div class="text-center">
-                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sunny_lrg.jpg">
+                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
                     </div>
                 </div>
 
-                <div style="background-color: #005cbf" class="col-5">
-
+                <div class="p-0 col-5">
+                    <div class="mb-0 p-0 col">
+                        <div class="mb-1 border-bottom">
+                            <h4>Range Rover Sport</h4>
+                        </div>
+                        <div class="container mx-0">
+                            <div class="row text-left">
+                                <div class="col-6">
+                                    <h6 class="car_element" class="mb-1">5 Seats</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6 class="car_element" class="mb-1">4 Doors</h6>
+                                </div>
+                            </div>
+                            <div class="row text-left">
+                                <div class="col-6">
+                                    <h6 class="car_element" class="mb-1">Air conditioning</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6 class="car_element" class="mb-1">Automatic gearbox</h6>
+                                </div>
+                            </div>
+                            <div class="row text-left">
+                                <div class="col-6">
+                                    <h6 class="car_element" class="mb-1">8.1 Fuel consumption</h6>
+                                </div>
+                                <div class="col-6">
+                                    <h6 class="car_element" class="mb-1">520 Engine power</h6>
+                                </div>
+                            </div>
+                            <div class="my-2">
+                                <h5 class="font-weight-bold">SUV</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div style="background-color: purple" class="col-3 float-right">
-                    <img width="150" height="150" class="rounded text-center mx-auto d-block" alt="" src="https://avatars0.githubusercontent.com/u/32580446?s=400&amp;v=4">
-
+                <div class="col-3 float-right">
+                    <div class="text-right m-2">
+                        <h6 class="car_element" class="mb-1">Price for 3 days:</h6>
+                        <h3>1002 $</h3>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div style="background-color: red" class="card col-auto">
+        <div class="card col-auto">
             <div class="row">
                 <div style="background-color: black" class="col-4">
                     <div>
