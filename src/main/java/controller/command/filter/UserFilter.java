@@ -1,4 +1,4 @@
-package command.filter;
+package controller.command.filter;
 
 import resource.ConfigurationManager;
 

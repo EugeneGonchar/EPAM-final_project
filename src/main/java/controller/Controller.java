@@ -1,8 +1,9 @@
 package controller;
 
-import command.ActionCommand;
-import command.factory.ActionFactory;
+import controller.command.ActionCommand;
+import controller.command.factory.ActionFactory;
 import controller.content.SessionRequestContent;
+import dao.connection.ConnectionPool;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 
@@ -14,6 +15,11 @@ import java.io.IOException;
 public class Controller extends HttpServlet {
 
     private final static int SESSION_LIFE_TIME_IN_SEC = 10;
+
+    @Override
+    public void init() throws ServletException {
+
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -53,5 +59,13 @@ public class Controller extends HttpServlet {
                     MessageManager.getProperty("message.nullpage"));
             response.sendRedirect(request.getContextPath() + page);
         }
+    }
+
+    @Override
+    public void destroy(){
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.dispose();
+        connectionPool.deregisterAllDrivers();
+        super.destroy();
     }
 }

@@ -1,6 +1,6 @@
-package command.command.user;
+package controller.command.command.user;
 
-import command.ActionCommand;
+import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import dto.UserDTO;
 import entity.User;

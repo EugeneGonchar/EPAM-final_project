@@ -1,4 +1,4 @@
-package command;
+package controller.command;
 
 import controller.content.SessionRequestContent;
 import resource.ConfigurationManager;

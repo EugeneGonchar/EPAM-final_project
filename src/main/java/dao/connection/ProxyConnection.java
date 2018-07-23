@@ -6,12 +6,12 @@ import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
-public class PooledConnection implements Connection{
+public class ProxyConnection implements Connection{
     private Connection connection;
 
-    public PooledConnection(Connection c) throws SQLException {
-        connection = c;
-        this.connection.setAutoCommit(true); //?
+    public ProxyConnection(Connection connection) throws SQLException {
+        this.connection = connection;
+        this.connection.setAutoCommit(true);
     }
 
     public void reallyClose() throws SQLException {

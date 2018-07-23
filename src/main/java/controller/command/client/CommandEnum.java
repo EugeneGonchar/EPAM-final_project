@@ -1,10 +1,10 @@
-package command.client;
+package controller.command.client;
 
-import command.ActionCommand;
-import command.command.LoginCommand;
-import command.command.LogoutCommand;
-import command.command.SignupCommand;
-import command.command.user.*;
+import controller.command.ActionCommand;
+import controller.command.command.LoginCommand;
+import controller.command.command.LogoutCommand;
+import controller.command.command.SignupCommand;
+import controller.command.command.user.*;
 
 public enum CommandEnum {
     LOGIN{

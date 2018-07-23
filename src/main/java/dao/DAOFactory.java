@@ -12,15 +12,15 @@ public class DAOFactory {
     private UserDAO userDAO;
 
     private DAOFactory(){
-        if (connectionPool == null){
-            connectionPool = ConnectionPool.getInstance();
-            try {
-                connectionPool.initializeConnectionPool();
-            } catch (ConnectionPoolException e1) {
-                e1.printStackTrace();
-            }
-        }
-        userDAO = new UserDAOImpl(connectionPool);
+//        if (connectionPool == null){
+//            connectionPool = ConnectionPool.getInstance();
+//            try {
+//                connectionPool.initializeConnectionPool();
+//            } catch (ConnectionPoolException e1) {
+//                e1.printStackTrace();
+//            }
+//        }
+//        userDAO = new UserDAOImpl(connectionPool);
     }
 
     public UserDAO getUserDAO() {

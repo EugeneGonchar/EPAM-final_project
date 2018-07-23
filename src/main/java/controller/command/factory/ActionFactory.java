@@ -1,14 +1,14 @@
-package command.factory;
+package controller.command.factory;
 
-import command.ActionCommand;
-import command.EmptyCommand;
-import command.client.CommandEnum;
+import controller.command.ActionCommand;
+import controller.command.EmptyCommand;
+import controller.command.client.CommandEnum;
 import controller.content.SessionRequestContent;
 import resource.MessageManager;
 
 public class ActionFactory {
 
-    private final String INPUT_NAME = "command";
+    private final String INPUT_NAME = "controller/command";
 
     public ActionCommand defineCommand(SessionRequestContent sessionRequestContent){
         ActionCommand current = new EmptyCommand();

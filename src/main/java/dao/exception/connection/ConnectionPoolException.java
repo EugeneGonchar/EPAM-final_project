@@ -1,9 +1,8 @@
 package dao.exception.connection;
 
 public class ConnectionPoolException extends Exception{
-    private static final long serialVersionUID = 6069133364046899507L;
-
     public ConnectionPoolException() {
+        super();
     }
 
     public ConnectionPoolException(String message) {
@@ -16,5 +15,9 @@ public class ConnectionPoolException extends Exception{
 
     public ConnectionPoolException(Throwable cause) {
         super(cause);
+    }
+
+    protected ConnectionPoolException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

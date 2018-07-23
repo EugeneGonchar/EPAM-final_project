@@ -1,6 +1,6 @@
-package command.command;
+package controller.command.command;
 
-import command.ActionCommand;
+import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import dao.exception.user.IncorrectLoginOrPasswordException;
 import dto.UserDTO;

@@ -1,7 +1,8 @@
-package command.command.user;
+package controller.command.command.user;
 
-import command.ActionCommand;
+import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
+import dao.exception.user.EmailExistException;
 import dto.UserDTO;
 import entity.User;
 import resource.ConfigurationManager;
@@ -10,9 +11,9 @@ import service.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
-public class ChangePhoneCommand implements ActionCommand {
+public class ChangeEmailCommand implements ActionCommand {
 
-    private static final String PARAM_NAME_PHONE = "phone";
+    private final String PARAM_NAME_EMAIL = "email";
 
     @Override
     public String execute(SessionRequestContent sessionRequestContent) {
@@ -25,14 +26,17 @@ public class ChangePhoneCommand implements ActionCommand {
         UserService userService = ServiceFactory.getInstance().getUserService();
 
         try{
-            userService.changePhone(userDTO);
+            userService.changeEmail(userDTO);
 
-            user.setPhone(userDTO.getPhone());
+            user.setEmail(userDTO.getEmail());
 
             sessionRequestContent.add2SessionAttributes("user", user);
         } catch (ExistEmptyFieldException e) {
-            sessionRequestContent.add2RequestAttributes("updatePhoneError",
+            sessionRequestContent.add2RequestAttributes("updateEmailError",
                     MessageManager.getProperty("message.emptyfield"));
+        } catch (EmailExistException e){
+            sessionRequestContent.add2RequestAttributes("updateEmailError",
+                    MessageManager.getProperty("message.emailexist"));
         }
 
         page = ConfigurationManager.getProperty("path.page.contacts");
@@ -44,7 +48,9 @@ public class ChangePhoneCommand implements ActionCommand {
         UserDTO userDTO = new UserDTO();
 
         userDTO.setLogin(((User) sessionRequestContent.getSessionAttribute("user")).getLogin());
-        userDTO.setPhone(sessionRequestContent.getRequestParameter(PARAM_NAME_PHONE));
+        userDTO.setEmail(sessionRequestContent.getRequestParameter(PARAM_NAME_EMAIL));
+
         return userDTO;
     }
+
 }

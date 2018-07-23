@@ -3,67 +3,171 @@ package dao.connection;
 import dao.exception.connection.ConnectionPoolException;
 
 import java.sql.*;
+import java.util.Enumeration;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
+    private DBResourceManager dbResourceManager = DBResourceManager.getInstance();
 
-    private static final ConnectionPool INSTANCE = new ConnectionPool();
-    DBResourceManager dbResourceManager = DBResourceManager.getInstance();
+    private static ConnectionPool instance;
+    private static ReentrantLock lock = new ReentrantLock();
+    private static AtomicBoolean instanceCreated = new AtomicBoolean(false);
 
-    private BlockingQueue<Connection> connectionQueue;
-
-    private String driver = dbResourceManager.getValue(DBParameter.DB_DRIVER);
-    private String url = dbResourceManager.getValue(DBParameter.DB_URL);
-    private String user = dbResourceManager.getValue(DBParameter.DB_USER);
-    private String password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
     private int poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOL_SIZE));
 
-    public static ConnectionPool getInstance() {
-        return INSTANCE;
+    private BlockingQueue<Connection> connectionQueue;
+    private BlockingQueue<Connection> givenAwayConQueue;
+
+    private ConnectionPool(){
+        initConnectionPool();
+    }
+
+    public static ConnectionPool getInstance(){
+        if (!instanceCreated.get()){
+            lock.lock();
+            try{
+                if(!instanceCreated.get()){
+                   instance = new ConnectionPool();
+                   instanceCreated.set(true);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+        return instance;
+    }
+
+    private void initConnectionPool(){
+        try{
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            connectionQueue = new ArrayBlockingQueue<>(poolSize);
+            givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
+            buildingBlockingQueue(connectionQueue);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void buildingBlockingQueue(BlockingQueue<Connection> connectionQueue){
+        for(int i = 0; i < poolSize; i++){
+            try{
+                Connection connection = ConnectionSetter.setConnection();
+                connectionQueue.add(connection);
+            } catch (ConnectionPoolException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public BlockingQueue<Connection> getConnectionQueue() {
         return connectionQueue;
     }
 
-    public void initializeConnectionPool() throws ConnectionPoolException {
+    public void dispose(){
+        clearConnectionQueue();
+    }
 
-        try {
-            Class.forName(driver);
-            connectionQueue = new ArrayBlockingQueue<>(poolSize);
-            for (int i = 0; i < poolSize; i++) {
-                Connection connection = DriverManager.getConnection(url, user, password);
-                connectionQueue.add(new PooledConnection(connection));
-            }
-        } catch (SQLException e) {
-            throw new ConnectionPoolException("Error during instantiation of the connection pool", e);
-        } catch (ClassNotFoundException e) {
+    private void clearConnectionQueue(){
+        try{
+            closeConnectionsQueue(givenAwayConQueue);
+            closeConnectionsQueue(connectionQueue);
+        } catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    public Connection getConnection() {
+    public Connection takeConnection(){
         Connection connection = null;
-        try {
+        try{
             connection = connectionQueue.take();
+            givenAwayConQueue.add(connection);
         } catch (InterruptedException e) {
-
+            e.printStackTrace();
         }
         return connection;
     }
 
-    public void closeConnectionQueue() throws ConnectionPoolException {
+    public void closeConnection(ResultSet resultSet, Statement statement, Connection connection){
+        try {
+            if(resultSet != null){
+                resultSet.close();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try {
+            if(statement != null){
+                statement.close();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try {
+            if(connection != null){
+                connection.close();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void closeConnection(Statement statement, Connection connection){
+        try {
+            if(statement != null){
+                statement.close();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try {
+            if(connection != null){
+                connection.close();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public Connection getConnection(){
+        Connection connection = null;
+        try {
+            connection = connectionQueue.take();
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+    private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
         for (int i = 0; i < poolSize; i++) {
             try {
                 Connection connection = connectionQueue.take();
                 if (!connection.getAutoCommit()) {
                     connection.commit();
                 }
-                ((PooledConnection) connection).reallyClose();
+                ((ProxyConnection) connection).reallyClose();
             } catch (SQLException | InterruptedException e) {
-                throw new ConnectionPoolException("Exception occurs during the closing of the connection pool.", e);
+                e.printStackTrace();
             }
         }
     }
+
+    public void deregisterAllDrivers() {
+        try {
+            Enumeration<Driver> drivers = DriverManager.getDrivers();
+            while (drivers.hasMoreElements()) {
+                Driver driver = drivers.nextElement();
+                DriverManager.deregisterDriver(driver);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

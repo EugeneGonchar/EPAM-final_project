@@ -1,9 +1,9 @@
-package command.command;
+package controller.command.command;
 
 import dao.exception.user.EmailExistException;
 import dao.exception.user.LoginExistException;
 import dto.UserDTO;
-import command.ActionCommand;
+import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import resource.ConfigurationManager;
 import resource.MessageManager;
