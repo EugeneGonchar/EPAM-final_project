@@ -4,7 +4,7 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dao.exception.user.EmailExistException;
+import service.exception.EmailExistException;
 import dto.UserDTO;
 import entity.User;
 import resource.ConfigurationManager;
@@ -43,7 +43,7 @@ public class ChangeEmailCommand implements ActionCommand {
         }
 
         page = ConfigurationManager.getProperty("path.page.contacts");
-        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;
     }

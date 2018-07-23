@@ -41,7 +41,7 @@ public class ChangeNameSurnameCommand implements ActionCommand {
         }
 
         page = ConfigurationManager.getProperty("path.page.profile");
-        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;
     }

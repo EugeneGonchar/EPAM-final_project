@@ -1,14 +1,8 @@
 package dao.impl;
 
 import dao.AbstractDAO;
-import dao.exception.user.EmailExistException;
-import dao.exception.user.IncorrectLoginOrPasswordException;
-import dao.exception.user.LoginExistException;
-import dao.exception.user.WrongPasswordException;
 import dto.UserDTO;
 import entity.User;
-import service.util.Hash;
-import resource.MessageManager;
 
 import java.sql.*;
 import java.util.List;
@@ -16,14 +10,8 @@ import java.util.List;
 public class UserDAOImpl extends AbstractDAO{
 
     private static final String FIND_USER_BY_LOGIN = "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id` FROM `user` WHERE `login`=?";
-    private static final String FIND_PASSWORD_BY_LOGIN = "SELECT `password` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_LOGIN = "SELECT `user_id` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_EMAIL = "SELECT `user_id` FROM `user` WHERE `email`=?";
-    /*private static final String SELECT_USERS_JOIN_ROLES =
-            "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id`" +
-            "FROM `user` \n" +
-            "JOIN `role`\n" +
-            "ON `user`.`role_id` = `role`.`role_id`";*/
 
     private static final String INSERT_USER = "INSERT INTO `user`(`login`, `password`, `email`, `phone`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -76,171 +64,98 @@ public class UserDAOImpl extends AbstractDAO{
         return user;
     }
 
-    public void isUserCreated(UserDTO userDTO) throws LoginExistException, EmailExistException{
-        if(isValueExist(userDTO.getLogin(), FIND_USER_ID_BY_LOGIN)){
-            throw new LoginExistException(MessageManager.getProperty("message.loginexist"));
-        }
-
-        if(isValueExist(userDTO.getEmail(), FIND_USER_ID_BY_EMAIL)){
-            throw new EmailExistException(MessageManager.getProperty("message.emailexist"));
-        }
-
-        addUser(userDTO);
+    public int getUserIdByLogin(String login){
+        return getUserIdByValue(login, FIND_USER_ID_BY_LOGIN);
     }
 
-    private boolean isValueExist(String field, String query){
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+    public int getUserIdByEmail(String email){
+        return getUserIdByValue(email, FIND_USER_ID_BY_EMAIL);
+    }
 
-        try{
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, field);
+    private int getUserIdByValue(String value, String query){
+        int id = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, value);
 
-            resultSet = preparedStatement.executeQuery();
-            if (!resultSet.next()){
-                return false;
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                id = resultSet.getInt(TABLE_USER_FIELD_ID);
             }
-        } catch (/*ConnectionPoolException | */SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-//            connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
-        return true;
+        return id;
     }
 
-    public void changeNameSurname(UserDTO userDTO){
-        PreparedStatement preparedStatement = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(UPDATE_USER_FIRST_NAME_LAST_NAME_BY_LOGIN);
-
-            preparedStatement.setString(1, userDTO.getFirstName());
-            preparedStatement.setString(2, userDTO.getLastName());
-            preparedStatement.setString(3, userDTO.getLogin());
-
-            preparedStatement.executeUpdate();
-        } catch (/*ConnectionPoolException | */SQLException e) {
-            e.printStackTrace();
-        } finally {
-//            connectionPool.closeConnection(connection, preparedStatement);
-        }
-    }
-
-    public void changeLogin(UserDTO userDTO) throws LoginExistException{
-        PreparedStatement preparedStatement = null;
-
-        try {
-            if(isValueExist(userDTO.getLogin(), FIND_USER_ID_BY_LOGIN)){
-                throw new LoginExistException(MessageManager.getProperty("message.loginexist"));
-            }
-
-            preparedStatement = connection.prepareStatement(UPDATE_USER_LOGIN_BY_EMAIL);
-
+    public void insertUser(UserDTO userDTO){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)){
             preparedStatement.setString(1, userDTO.getLogin());
-            preparedStatement.setString(2, userDTO.getEmail());
-
-            preparedStatement.executeUpdate();
-        } catch (/*ConnectionPoolException | */SQLException e) {
-            e.printStackTrace();
-        } finally {
-//            connectionPool.closeConnection(connection, preparedStatement);
-        }
-    }
-
-    public void changePhone(UserDTO userDTO){
-        PreparedStatement preparedStatement = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(UPDATE_USER_PHONE_BY_LOGIN);
-
-            preparedStatement.setString(1, userDTO.getPhone());
-            preparedStatement.setString(2, userDTO.getLogin());
-
-            preparedStatement.executeUpdate();
-        } catch (/*ConnectionPoolException | */SQLException e) {
-            e.printStackTrace();
-        } finally {
-//            connectionPool.closeConnection(connection, preparedStatement);
-        }
-    }
-
-    public void changeEmail(UserDTO userDTO) throws EmailExistException{
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            if(isValueExist(userDTO.getEmail(), FIND_USER_ID_BY_EMAIL)){
-                throw new EmailExistException(MessageManager.getProperty("message.emailexist"));
-            }
-
-            preparedStatement = connection.prepareStatement(UPDATE_USER_EMAIL_BY_LOGIN);
-
-            preparedStatement.setString(1, userDTO.getEmail());
-            preparedStatement.setString(2, userDTO.getLogin());
-
-            preparedStatement.executeUpdate();
-        } catch (/*ConnectionPoolException | */SQLException e) {
-            e.printStackTrace();
-        } finally {
-//            connectionPool.closeConnection(connection, preparedStatement, resultSet);
-        }
-    }
-
-
-    public void changePassword(UserDTO userDTO) throws WrongPasswordException {
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(FIND_PASSWORD_BY_LOGIN);
-            preparedStatement.setString(1, userDTO.getLogin());
-
-            resultSet = preparedStatement.executeQuery();
-            resultSet.next();/*чего блять????*/
-
-            String passwordHash = Hash.getCryptoSha256(userDTO.getPassword());
-            String dbPasswordHash = resultSet.getString(TABLE_USER_FIELD_PASSWORD);
-
-            /*if(!Hash.hashEquality(passwordHash, dbPasswordHash)){
-                throw new WrongPasswordException(MessageManager.getProperty("message.passworderror"));
-            }*/
-
-            String newPasswordHash = Hash.getCryptoSha256(userDTO.getPassword2());
-
-            userDTO.setPassword(newPasswordHash);
-
-            preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD_BY_LOGIN);
-
-            preparedStatement.setString(1, newPasswordHash);
-            preparedStatement.setString(2, userDTO.getLogin());
-
-            preparedStatement.executeUpdate();
-        } catch (/*ConnectionPoolException | */SQLException e) {
-            e.printStackTrace();
-        } finally {
-//            connectionPool.closeConnection(connection, preparedStatement, resultSet);
-        }
-    }
-
-
-    public void addUser(UserDTO userDTO){
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(INSERT_USER);
-            preparedStatement.setString(1, userDTO.getLogin());
-            preparedStatement.setString(2, Hash.getCryptoSha256(userDTO.getPassword()));
+            preparedStatement.setString(2, userDTO.getPassword());
             preparedStatement.setString(3, userDTO.getEmail());
             preparedStatement.setString(4, userDTO.getPhone());
             preparedStatement.setString(5, userDTO.getFirstName());
             preparedStatement.setString(6, userDTO.getLastName());
 
             preparedStatement.executeUpdate();
-        } catch (/*ConnectionPoolException | */SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-//            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
+
+    public void updateNameSurname(UserDTO userDTO){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_FIRST_NAME_LAST_NAME_BY_LOGIN)){
+            preparedStatement.setString(1, userDTO.getFirstName());
+            preparedStatement.setString(2, userDTO.getLastName());
+            preparedStatement.setString(3, userDTO.getLogin());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateLogin(UserDTO userDTO){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_LOGIN_BY_EMAIL)){
+            preparedStatement.setString(1, userDTO.getLogin());
+            preparedStatement.setString(2, userDTO.getEmail());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePhone(UserDTO userDTO){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PHONE_BY_LOGIN)){
+            preparedStatement.setString(1, userDTO.getPhone());
+            preparedStatement.setString(2, userDTO.getLogin());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateEmail(UserDTO userDTO){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_EMAIL_BY_LOGIN)){
+            preparedStatement.setString(1, userDTO.getEmail());
+            preparedStatement.setString(2, userDTO.getLogin());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePassword(UserDTO userDTO) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD_BY_LOGIN)) {
+            preparedStatement.setString(1, userDTO.getPassword());
+            preparedStatement.setString(2, userDTO.getLogin());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

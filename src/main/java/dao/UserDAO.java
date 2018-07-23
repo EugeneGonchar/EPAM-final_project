@@ -1,9 +1,9 @@
 package dao;
 
-import dao.exception.user.EmailExistException;
-import dao.exception.user.IncorrectLoginOrPasswordException;
-import dao.exception.user.LoginExistException;
-import dao.exception.user.WrongPasswordException;
+import service.exception.EmailExistException;
+import service.exception.IncorrectLoginOrPasswordException;
+import service.exception.LoginExistException;
+import service.exception.WrongPasswordException;
 import dto.UserDTO;
 import entity.User;
 

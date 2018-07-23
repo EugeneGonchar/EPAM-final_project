@@ -39,7 +39,7 @@ public class ChangePhoneCommand implements ActionCommand {
         }
 
         page = ConfigurationManager.getProperty("path.page.contacts");
-        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;
     }

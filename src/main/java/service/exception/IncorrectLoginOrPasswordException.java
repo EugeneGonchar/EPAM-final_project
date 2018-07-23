@@ -1,6 +1,8 @@
-package dao.exception.user;
+package service.exception;
 
-public class IncorrectLoginOrPasswordException extends DAOException{
+import dao.exception.user.DAOException;
+
+public class IncorrectLoginOrPasswordException extends DAOException {
     public IncorrectLoginOrPasswordException() {
     }
 

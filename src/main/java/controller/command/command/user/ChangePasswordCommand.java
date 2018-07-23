@@ -4,7 +4,7 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dao.exception.user.WrongPasswordException;
+import service.exception.WrongPasswordException;
 import dto.UserDTO;
 import entity.User;
 import resource.ConfigurationManager;
@@ -56,7 +56,7 @@ public class ChangePasswordCommand implements ActionCommand {
         }
 
         page = ConfigurationManager.getProperty("path.page.account");
-        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;
     }

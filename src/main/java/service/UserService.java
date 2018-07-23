@@ -1,9 +1,8 @@
 package service;
 
-import dao.exception.user.EmailExistException;
-import dao.exception.user.IncorrectLoginOrPasswordException;
-import dao.exception.user.LoginExistException;
-import dao.exception.user.WrongPasswordException;
+import service.exception.EmailExistException;
+import service.exception.LoginExistException;
+import service.exception.WrongPasswordException;
 import dto.UserDTO;
 import entity.User;
 import service.exception.ExistEmptyFieldException;
@@ -12,8 +11,7 @@ import service.exception.PasswordsUnequalException;
 
 public interface UserService {
 
-    public User logIn(UserDTO userDTO) throws ExistEmptyFieldException,
-            IncorrectLoginOrPasswordException;
+    public User logIn(UserDTO userDTO) throws ExistEmptyFieldException;
 
     public void signUp(UserDTO userDTO) throws ExistEmptyFieldException,
             PasswordShorter6SymbolsException,

@@ -4,7 +4,6 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dao.exception.user.IncorrectLoginOrPasswordException;
 import dto.UserDTO;
 import entity.User;
 import resource.ConfigurationManager;
@@ -31,15 +30,17 @@ public class LoginCommand implements ActionCommand {
         try{
             User user = userService.logIn(userDTO);
             /*сделать проверку на юзера*/
-            sessionRequestContent.add2SessionAttributes("user", user);
-            page = ConfigurationManager.getProperty("path.page.main");
-            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+            if(user != null){
+                sessionRequestContent.add2SessionAttributes("user", user);
+                page = ConfigurationManager.getProperty("path.page.main");
+                actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+            } else{
+                sessionRequestContent.add2RequestAttributes("loginError",
+                        MessageManager.getProperty("message.loginpassworderror"));
+            }
         } catch (ExistEmptyFieldException e){
             sessionRequestContent.add2RequestAttributes("loginError",
                     MessageManager.getProperty("message.emptyfield"));
-        } catch (IncorrectLoginOrPasswordException e){
-            sessionRequestContent.add2RequestAttributes("loginError",
-                    MessageManager.getProperty("message.loginpassworderror"));
         }
 
         if(page == null){

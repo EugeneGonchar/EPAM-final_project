@@ -2,8 +2,8 @@ package controller.command.command;
 
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dao.exception.user.EmailExistException;
-import dao.exception.user.LoginExistException;
+import service.exception.EmailExistException;
+import service.exception.LoginExistException;
 import dto.UserDTO;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
