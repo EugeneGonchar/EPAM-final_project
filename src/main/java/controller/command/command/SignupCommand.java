@@ -1,5 +1,7 @@
 package controller.command.command;
 
+import controller.util.ActionPageContainer;
+import controller.util.URLAction;
 import dao.exception.user.EmailExistException;
 import dao.exception.user.LoginExistException;
 import dto.UserDTO;
@@ -24,7 +26,8 @@ public class SignupCommand implements ActionCommand {
     private static final String PARAM_NAME_PASSWORD2 = "password2";
 
     @Override
-    public String execute(SessionRequestContent sessionRequestContent) {
+    public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
+        ActionPageContainer actionPageContainer = null;
         String page = null;
 
         UserDTO userDTO = createUser(sessionRequestContent);
@@ -34,7 +37,7 @@ public class SignupCommand implements ActionCommand {
         try{
             userService.signUp(userDTO);
             page = ConfigurationManager.getProperty("path.page.successfullsignup");
-
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e){
             sessionRequestContent.add2RequestAttributes("registrationError",
                     MessageManager.getProperty("message.emptyfield"));
@@ -54,9 +57,10 @@ public class SignupCommand implements ActionCommand {
 
         if(page == null){
             page = ConfigurationManager.getProperty("path.page.signup");
+            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         }
 
-        return page;
+        return actionPageContainer;
     }
 
 

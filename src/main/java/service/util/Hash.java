@@ -1,4 +1,4 @@
-package dao.util;
+package service.util;
 
 public class Hash {
 
@@ -10,7 +10,7 @@ public class Hash {
         return getSha256(getSha256(message)+"salt");
     }
 
-    public static boolean hashEquality(String hash1, String hash2){
+    public static boolean isHashesEqual(String hash1, String hash2){
         return hash1.equals(hash2);
     }
 

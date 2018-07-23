@@ -1,14 +1,16 @@
 package controller.command;
 
 import controller.content.SessionRequestContent;
+import controller.util.ActionPageContainer;
+import controller.util.URLAction;
 import resource.ConfigurationManager;
 
 public class EmptyCommand implements ActionCommand{
 
     @Override
-    public String execute(SessionRequestContent sessionRequestContent){
+    public ActionPageContainer execute(SessionRequestContent sessionRequestContent){
         String page = ConfigurationManager.getProperty("path.page.index");
-        return page;
+        return new ActionPageContainer(page, URLAction.REDIRECT);
     }
 
 }

@@ -8,7 +8,7 @@ import resource.MessageManager;
 
 public class ActionFactory {
 
-    private final String INPUT_NAME = "controller/command";
+    private static final String INPUT_NAME = "command";
 
     public ActionCommand defineCommand(SessionRequestContent sessionRequestContent){
         ActionCommand current = new EmptyCommand();

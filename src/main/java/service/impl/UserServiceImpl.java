@@ -1,11 +1,13 @@
 package service.impl;
 
 import dao.DAOFactory;
+import dao.Transaction;
 import dao.UserDAO;
 import dao.exception.user.EmailExistException;
 import dao.exception.user.IncorrectLoginOrPasswordException;
 import dao.exception.user.LoginExistException;
 import dao.exception.user.WrongPasswordException;
+import dao.impl.UserDAOImpl;
 import dto.UserDTO;
 import entity.User;
 import resource.MessageManager;
@@ -13,7 +15,10 @@ import service.UserService;
 import service.exception.ExistEmptyFieldException;
 import service.exception.PasswordShorter6SymbolsException;
 import service.exception.PasswordsUnequalException;
+import service.util.Hash;
 import service.validation.Validator;
+
+import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
 
@@ -21,13 +26,40 @@ public class UserServiceImpl implements UserService {
     private static final UserDAO userDAO = daoFactory.getUserDAO();
 
     @Override
+    public User logIn(UserDTO userDTO){
+        User user = null;
+
+        UserDAOImpl userDAO = new UserDAOImpl();
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(userDAO);
+
+        user = userDAO.getUserByLogin(userDTO.getLogin());
+
+        transaction.commit();
+        transaction.endTransaction();
+
+        if(user != null){
+            String passwordHash = Hash.getCryptoSha256(userDTO.getPassword());
+            String dbPasswordHash = user.getPassword();
+            if(!Hash.isHashesEqual(passwordHash, dbPasswordHash)){
+                user = null;
+            }
+        }
+
+        return user;
+    }
+
+
+
+/*    @Override
     public User logIn(UserDTO userDTO) throws ExistEmptyFieldException,
             IncorrectLoginOrPasswordException {
         if(Validator.isFieldsEmpty(userDTO.getLogin(), userDTO.getPassword())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
         return userDAO.checkUser(userDTO);
-    }
+    }*/
 
     @Override
     public void signUp(UserDTO userDTO) throws ExistEmptyFieldException,

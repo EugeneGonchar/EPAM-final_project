@@ -69,7 +69,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): dao.util.js
+   * Bootstrap (v4.1.1): service.util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */

@@ -2,6 +2,8 @@ package controller.command.command.user;
 
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
+import controller.util.ActionPageContainer;
+import controller.util.URLAction;
 import dto.UserDTO;
 import entity.User;
 import resource.ConfigurationManager;
@@ -16,7 +18,8 @@ public class ChangeNameSurnameCommand implements ActionCommand {
     private static final String PARAM_NAME_LAST_NAME = "last_name";
 
     @Override
-    public String execute(SessionRequestContent sessionRequestContent) {
+    public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
+        ActionPageContainer actionPageContainer = null;
         String page = null;
 
         UserDTO userDTO = createUser(sessionRequestContent);
@@ -38,8 +41,9 @@ public class ChangeNameSurnameCommand implements ActionCommand {
         }
 
         page = ConfigurationManager.getProperty("path.page.profile");
+        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
 
-        return page;
+        return actionPageContainer;
     }
 
     private UserDTO createUser(SessionRequestContent sessionRequestContent){

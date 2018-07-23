@@ -3,6 +3,8 @@ package controller;
 import controller.command.ActionCommand;
 import controller.command.factory.ActionFactory;
 import controller.content.SessionRequestContent;
+import controller.util.ActionPageContainer;
+import controller.util.URLAction;
 import dao.connection.ConnectionPool;
 import resource.ConfigurationManager;
 import resource.MessageManager;
@@ -17,11 +19,6 @@ public class Controller extends HttpServlet {
     private final static int SESSION_LIFE_TIME_IN_SEC = 10;
 
     @Override
-    public void init() throws ServletException {
-
-    }
-
-    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         processRequest(request, response);/*оставить пустым*/
     }
@@ -33,7 +30,6 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         String page = null;
-
         request.getSession().setMaxInactiveInterval(SESSION_LIFE_TIME_IN_SEC);
 
         ActionFactory client = new ActionFactory();
@@ -43,17 +39,20 @@ public class Controller extends HttpServlet {
 
         ActionCommand command = client.defineCommand(sessionRequestContent);
 
-        page = command.execute(sessionRequestContent);
+        ActionPageContainer actionPageContainer = null;
+        actionPageContainer = command.execute(sessionRequestContent);
+        page = actionPageContainer.getPage();
 
         sessionRequestContent.insertReqSesAttributes();
 
         request = sessionRequestContent.getRequest();
 
-        if(page != null){
+        if(actionPageContainer.getUrlAction() == URLAction.REDIRECT && page != null){
+            response.sendRedirect(page);
+        } else if(actionPageContainer.getUrlAction() == URLAction.FORWARD && page != null){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
-        }
-        else{
+        } else{
             page = ConfigurationManager.getProperty("path.page.index");
             request.getSession().setAttribute("nullPage",
                     MessageManager.getProperty("message.nullpage"));

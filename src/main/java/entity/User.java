@@ -8,6 +8,7 @@ public class User implements Entity{
     private String phone;
     private String firstName;
     private String lastName;
+    private int roleId;
 
     public int getId() {
         return id;
@@ -63,5 +64,13 @@ public class User implements Entity{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 }

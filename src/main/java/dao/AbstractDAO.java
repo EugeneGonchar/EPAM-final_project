@@ -1,10 +1,15 @@
 package dao;
 
+import entity.Entity;
+
 import java.sql.Connection;
+import java.util.List;
 
-public abstract class AbstractDAO {
+public abstract class AbstractDAO <T extends Entity> {
 
-    Connection connection;
+    protected Connection connection;
+
+    public abstract List<T> findAll();
 
     void setConnection(Connection connection){
         this.connection = connection;

@@ -16,15 +16,16 @@ public class ConnectionSetter {
     private static final String CHARACTER_ENCODING = "characterEncoding";
     private static final String USE_UNICODE = "useUnicode";
 
-    static ProxyConnection setConnection() throws ConnectionPoolException {
+    static Connection setConnection() throws ConnectionPoolException {
         String url = dbResourceManager.getValue(DBParameter.DB_URL);
         Properties properties = setProperties(new Properties());
+        Connection connection = null;
         try{
-            Connection connection = DriverManager.getConnection(url, properties);
+            connection = DriverManager.getConnection(url, properties);
         } catch (SQLException e){
             throw new ConnectionPoolException("dasf");
         }
-        return null;
+        return connection;
     }
 
     private static Properties setProperties(Properties properties){

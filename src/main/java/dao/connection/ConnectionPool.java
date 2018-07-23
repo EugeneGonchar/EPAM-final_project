@@ -29,7 +29,7 @@ public class ConnectionPool {
         if (!instanceCreated.get()){
             lock.lock();
             try{
-                if(!instanceCreated.get()){
+                if(instance == null){
                    instance = new ConnectionPool();
                    instanceCreated.set(true);
                 }

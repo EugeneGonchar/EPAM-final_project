@@ -2,6 +2,8 @@ package controller.command.command.user;
 
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
+import controller.util.ActionPageContainer;
+import controller.util.URLAction;
 import dao.exception.user.EmailExistException;
 import dto.UserDTO;
 import entity.User;
@@ -16,7 +18,8 @@ public class ChangeEmailCommand implements ActionCommand {
     private final String PARAM_NAME_EMAIL = "email";
 
     @Override
-    public String execute(SessionRequestContent sessionRequestContent) {
+    public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
+        ActionPageContainer actionPageContainer = null;
         String page = null;
 
         UserDTO userDTO = createUser(sessionRequestContent);
@@ -40,8 +43,9 @@ public class ChangeEmailCommand implements ActionCommand {
         }
 
         page = ConfigurationManager.getProperty("path.page.contacts");
+        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
 
-        return page;
+        return actionPageContainer;
     }
 
     private UserDTO createUser(SessionRequestContent sessionRequestContent){

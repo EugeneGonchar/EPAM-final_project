@@ -23,14 +23,20 @@ public class Transaction {
     }
 
     public void endTransaction(){
-        try {
+        try{
             connection.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null){
+                if (connection == null){
                     connection.close();
+                } else{
+                    try{
+                        connection.close();
+                    } catch (Throwable e){
+                        e.printStackTrace();
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -42,6 +48,7 @@ public class Transaction {
         try{
             connection.commit();
         } catch (SQLException e) {
+            rollback();
             e.printStackTrace();
         }
     }
