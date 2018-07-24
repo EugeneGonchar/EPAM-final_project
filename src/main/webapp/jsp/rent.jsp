@@ -34,21 +34,21 @@
 
             <div>
                 <c:choose>
-                    <c:when test="${empty registrationError}">
+                    <c:when test="${empty datelocError}">
                         <p>
                             <br/>
                         </p>
                     </c:when>
                     <c:otherwise>
                         <p class="text-danger text-center">
-                                ${registrationError}
+                                ${datelocError}
                         </p>
                     </c:otherwise>
                 </c:choose>
             </div>
 
             <form id="signUpForm" method="POST" action="/controller">
-                <input type="hidden" name="command" value="signup"/>
+                <input type="hidden" name="command" value="choose_date_loc_of_order"/>
 
                 <p class="text-left">Pick-up location :</p>
                 <div class="form-group">
@@ -60,7 +60,7 @@
                                 </i>
                             </span>
                         </div>
-                        <select class="form-control">
+                        <select class="form-control" name="pickUpLocation">
                             <c:forEach var="address" items="${addressList}" varStatus="status">
                                 <option><c:out value="${address.street} ${address.building}"></c:out></option>
                             </c:forEach>
@@ -78,7 +78,7 @@
                                 </i>
                             </span>
                         </div>
-                        <select class="form-control" id="sel1">
+                        <select class="form-control" name="dropOffLocation">
                             <c:forEach var="address" items="${addressList}" varStatus="status">
                                 <option><c:out value="${address.street} ${address.building}"></c:out></option>
                             </c:forEach>
@@ -98,7 +98,7 @@
                                         </i>
                                     </span>
                                 </div>
-                                <input type='text' id='datetimepicker1' class="form-control" />
+                                <input type='text' id='datetimepicker1' class="form-control" name="pickupDate"/>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                                         </i>
                                     </span>
                                 </div>
-                                <input type='text' id='datetimepicker2' class="form-control" />
+                                <input type='text' id='datetimepicker2' class="form-control" name="dropoffDate"/>
                             </div>
                         </div>
                     </div>
@@ -127,13 +127,6 @@
             </form>
         </article>
     </div> <!-- card.// -->
-</div>
-
-<div class="container">
-    <div class="row">
-
-
-    </div>
 </div>
 
 <script src="../plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>

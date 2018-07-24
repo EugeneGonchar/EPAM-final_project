@@ -27,18 +27,12 @@ public class Transaction {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (connection == null){
+            if (connection != null) {
+                try {
                     connection.close();
-                } else{
-                    try{
-                        connection.close();
-                    } catch (Throwable e){
-                        e.printStackTrace();
-                    }
+                } catch (Throwable e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
     }

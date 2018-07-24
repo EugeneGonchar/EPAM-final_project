@@ -62,9 +62,6 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy(){
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        connectionPool.dispose();
-        connectionPool.deregisterAllDrivers();
-        super.destroy();
+
     }
 }
