@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="/rent">Rent</a>
+                        <a class="nav-link" href="/controller?command=get_locations">Rent</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" href="#">About</a>

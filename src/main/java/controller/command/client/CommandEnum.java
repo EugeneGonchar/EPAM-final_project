@@ -1,9 +1,7 @@
 package controller.command.client;
 
 import controller.command.ActionCommand;
-import controller.command.command.LoginCommand;
-import controller.command.command.LogoutCommand;
-import controller.command.command.SignupCommand;
+import controller.command.command.*;
 import controller.command.command.user.*;
 
 public enum CommandEnum {
@@ -45,6 +43,16 @@ public enum CommandEnum {
     CHANGE_PHONE{
         {
             this.command = new ChangePhoneCommand();
+        }
+    },
+    GET_LOCATIONS{
+        {
+            this.command = new GetLocationsCommand();
+        }
+    },
+    GET_CARS{
+        {
+            this.command = new GetCarsCommand();
         }
     };
 

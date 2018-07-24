@@ -1,14 +1,12 @@
-var today = new Date();
-
 $(function () {
     $('#datetimepicker1').datetimepicker({
-        minDate: today,
-        defaultDate: today,
+        minDate: new Date(),
+        defaultDate: new Date(),
         stepping: 30
     });
     $('#datetimepicker2').datetimepicker({
         stepping: 30,
-        defaultDate: today.setDate(today.getDate() + 3),
+        defaultDate: new Date().getDate() + 3,
         useCurrent: false //Important! See issue #1075
     });
     $("#datetimepicker1").on("dp.change", function (e) {

@@ -4,7 +4,7 @@ import dao.Transaction;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
 import service.exception.WrongPasswordException;
-import dao.impl.UserDAOImpl;
+import dao.impl.UserDAO;
 import dto.UserDTO;
 import entity.User;
 import resource.MessageManager;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
         User user = null;
 
-        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsUnequalException(MessageManager.getProperty("message.unequalpasswords"));
         }
 
-        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsUnequalException(MessageManager.getProperty("message.unequalpasswords"));
         }
 
-        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDAO userDAO = new UserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);

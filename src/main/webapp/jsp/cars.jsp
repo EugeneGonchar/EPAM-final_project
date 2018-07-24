@@ -108,124 +108,66 @@
 
     <div class="col-9 float-left">
 
-        <div class="card col-auto my-3">
-            <div class="row border-bottom">
-                <div class="col-4 align-self-center">
-                    <div class="text-center">
-                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
-                    </div>
-                </div>
-
-                <div class="p-0 col-5">
-                    <div class="mb-0 p-0 col">
-                        <div class="my-1 border-bottom">
-                            <h4>Range Rover Sport</h4>
-                        </div>
-                        <div class="container mx-0">
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">5 Seats</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">4 Doors</h6>
-                                </div>
-                            </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Air conditioning</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Automatic gearbox</h6>
-                                </div>
-                            </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">8.1 Fuel consumption</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">520 Engine power</h6>
-                                </div>
-                            </div>
-                            <div class="my-2">
-                                <h5 class="font-weight-bold">SUV</h5>
-                            </div>
+        <c:forEach var="car" items="${carList}" varStatus="status">
+            <div class="card col-auto my-3">
+                <div class="row border-bottom">
+                    <div class="col-4 align-self-center">
+                        <div class="text-center">
+                            <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
                         </div>
                     </div>
-                </div>
 
-                <div class="col-3 float-right">
-                    <div class="text-right m-2">
-                        <h6 class="car_element" class="mb-1">Price for 3 days:</h6>
-                        <h3>1002 $</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-3 m-3">
-                    <button type="button" class="btn btn-block btn-success">Book now</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card col-auto my-3">
-            <div class="row border-bottom">
-                <div class="col-4 align-self-center">
-                    <div class="text-center">
-                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
-                    </div>
-                </div>
-
-                <div class="p-0 col-5">
-                    <div class="mb-0 p-0 col">
-                        <div class="my-1 border-bottom">
-                            <h4>Range Rover Sport</h4>
-                        </div>
-                        <div class="container mx-0">
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">5 Seats</h6>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">4 Doors</h6>
-                                </div>
+                    <div class="p-0 col-5">
+                        <div class="mb-0 p-0 col">
+                            <div class="my-1 border-bottom">
+                                <h4><c:out value="${car.brand} ${car.model}"></c:out></h4>
                             </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Air conditioning</h6>
+                            <div class="container mx-0">
+                                <div class="row text-left">
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1"><c:out value="${car.seats}"></c:out> Seats</h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1"><c:out value="${car.doors}"></c:out> Doors</h6>
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">Automatic gearbox</h6>
+                                <div class="row text-left">
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1"><c:out value="${car.airConditioning}"></c:out> Air conditioning</h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1"><c:out value="${car.automaticGearbox}"></c:out> Automatic gearbox</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row text-left">
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">8.1 Fuel consumption</h6>
+                                <div class="row text-left">
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1"><c:out value="${car.fuelConsumption}"></c:out> Fuel consumption</h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1"><c:out value="${car.enginePower}"></c:out> Engine power</h6>
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <h6 class="car_element" class="mb-1">520 Engine power</h6>
+                                <div class="my-2">
+                                    <h5 class="font-weight-bold"><c:out value="${car.carClass}"></c:out></h5>
                                 </div>
-                            </div>
-                            <div class="my-2">
-                                <h5 class="font-weight-bold">SUV</h5>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-3 float-right">
-                    <div class="text-right m-2">
-                        <h6 class="car_element" class="mb-1">Price for 3 days:</h6>
-                        <h3>1002 $</h3>
+                    <div class="col-3 float-right">
+                        <div class="text-right m-2">
+                            <h6 class="car_element" class="mb-1">Price for 3 days:</h6>
+                            <h3><c:out value="${car.rental4Day}"></c:out> $</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-3 m-3">
+                        <button type="button" class="btn btn-block btn-success">Book now</button>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-end">
-                <div class="col-3 m-3">
-                    <button type="button" class="btn btn-block btn-success">Book now</button>
-                </div>
-            </div>
-        </div>
-
+        </c:forEach>
 
     </div>
 </div>

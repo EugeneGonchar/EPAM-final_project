@@ -35,13 +35,17 @@ public class ChangeNameSurnameCommand implements ActionCommand {
             user.setLastName(userDTO.getLastName());
 
             sessionRequestContent.add2SessionAttributes("user", user);
+            page = ConfigurationManager.getProperty("path.page.profile");
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes("updateNameSurnameError",
                     MessageManager.getProperty("message.emptyfield"));
         }
 
-        page = ConfigurationManager.getProperty("path.page.profile");
-        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        if(page == null){
+            page = ConfigurationManager.getProperty("path.page.profile");
+            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        }
 
         return actionPageContainer;
     }

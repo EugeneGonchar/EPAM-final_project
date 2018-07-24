@@ -19,7 +19,7 @@
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
         <a class="nav-item nav-link col border-right" href="/rent">Choice of date and place</a>
-        <a class="nav-item nav-link col border-right" href="/cars">Car's search results</a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results</a>
         <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
         <a class="nav-item nav-link col border-right" href="/payment">Payment</a>
         <a class="nav-item nav-link col <%--disabled--%>" href="/confirmation">Confirmation</a>
@@ -60,11 +60,10 @@
                                 </i>
                             </span>
                         </div>
-                        <select class="form-control" id="sel1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
+                        <select class="form-control">
+                            <c:forEach var="address" items="${addressList}" varStatus="status">
+                                <option><c:out value="${address.street} ${address.building}"></c:out></option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div> <!-- form-group// -->
@@ -80,10 +79,9 @@
                             </span>
                         </div>
                         <select class="form-control" id="sel1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
+                            <c:forEach var="address" items="${addressList}" varStatus="status">
+                                <option><c:out value="${address.street} ${address.building}"></c:out></option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

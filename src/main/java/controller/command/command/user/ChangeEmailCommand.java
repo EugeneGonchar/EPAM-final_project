@@ -34,6 +34,8 @@ public class ChangeEmailCommand implements ActionCommand {
             user.setEmail(userDTO.getEmail());
 
             sessionRequestContent.add2SessionAttributes("user", user);
+            page = ConfigurationManager.getProperty("path.page.contacts");
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes("updateEmailError",
                     MessageManager.getProperty("message.emptyfield"));
@@ -42,8 +44,10 @@ public class ChangeEmailCommand implements ActionCommand {
                     MessageManager.getProperty("message.emailexist"));
         }
 
-        page = ConfigurationManager.getProperty("path.page.contacts");
-        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        if(page == null){
+            page = ConfigurationManager.getProperty("path.page.contacts");
+            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        }
 
         return actionPageContainer;
     }

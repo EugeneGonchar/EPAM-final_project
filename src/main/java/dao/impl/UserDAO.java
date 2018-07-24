@@ -7,7 +7,7 @@ import entity.User;
 import java.sql.*;
 import java.util.List;
 
-public class UserDAOImpl extends AbstractDAO{
+public class UserDAO extends AbstractDAO{
 
     private static final String FIND_USER_BY_LOGIN = "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_LOGIN = "SELECT `user_id` FROM `user` WHERE `login`=?";

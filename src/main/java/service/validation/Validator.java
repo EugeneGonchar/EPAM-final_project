@@ -1,7 +1,5 @@
 package service.validation;
 
-import dto.UserDTO;
-
 public class Validator {
 
     /*добавить проверку на телефон и мэйл*/

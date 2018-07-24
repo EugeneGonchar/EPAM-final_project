@@ -1,7 +1,6 @@
 package dao;
 
 import dao.connection.ConnectionPool;
-import dao.connection.ProxyConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;

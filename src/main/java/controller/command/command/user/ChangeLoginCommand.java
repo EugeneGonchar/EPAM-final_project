@@ -34,6 +34,8 @@ public class ChangeLoginCommand implements ActionCommand {
             user.setLogin(userDTO.getLogin());
 
             sessionRequestContent.add2SessionAttributes("user", user);
+            page = ConfigurationManager.getProperty("path.page.account");
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes("updateLoginError",
                     MessageManager.getProperty("message.emptyfield"));
@@ -42,8 +44,10 @@ public class ChangeLoginCommand implements ActionCommand {
                     MessageManager.getProperty("message.loginexist"));
         }
 
-        page = ConfigurationManager.getProperty("path.page.account");
-        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        if(page == null){
+            page = ConfigurationManager.getProperty("path.page.account");
+            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        }
 
         return actionPageContainer;
     }
