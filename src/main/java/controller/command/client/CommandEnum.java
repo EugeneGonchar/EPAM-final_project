@@ -55,9 +55,9 @@ public enum CommandEnum {
             this.command = new GetCarsCommand();
         }
     },
-    CHOOSE_DATE_LOC_OF_ORDER{
+    CHOOSE_DATE_ADDRESS_OF_ORDER{
         {
-            this.command = new ChooseDateAndLocation();
+            this.command = new ChooseDateAndAddress();
         }
     };
 

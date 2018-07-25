@@ -3,6 +3,7 @@ package controller.command.command.user;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
+import controller.util.ConfigPage;
 import controller.util.URLAction;
 import dto.UserDTO;
 import entity.User;
@@ -35,7 +36,7 @@ public class ChangeNameSurnameCommand implements ActionCommand {
             user.setLastName(userDTO.getLastName());
 
             sessionRequestContent.add2SessionAttributes("user", user);
-            page = ConfigurationManager.getProperty("path.page.profile");
+            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_PROFILE);
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes("updateNameSurnameError",
@@ -43,7 +44,7 @@ public class ChangeNameSurnameCommand implements ActionCommand {
         }
 
         if(page == null){
-            page = ConfigurationManager.getProperty("path.page.profile");
+            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_PROFILE);
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         }
 

@@ -1,5 +1,6 @@
 package controller.command.filter;
 
+import controller.util.ConfigPage;
 import resource.ConfigurationManager;
 
 import javax.servlet.*;
@@ -25,7 +26,7 @@ public class UserFilter implements Filter {
         if (request.getSession().getAttribute("user") != null) {
             filterChain.doFilter(request, response);
         } else{
-            response.sendRedirect(ConfigurationManager.getProperty("path.page.main"));
+            response.sendRedirect(ConfigurationManager.getProperty(ConfigPage.CONFIG_MAIN));
         }
     }
 

@@ -48,7 +48,7 @@
             </div>
 
             <form id="signUpForm" method="POST" action="/controller">
-                <input type="hidden" name="command" value="choose_date_loc_of_order"/>
+                <input type="hidden" name="command" value="choose_date_address_of_order"/>
 
                 <p class="text-left">Pick-up location :</p>
                 <div class="form-group">
@@ -60,7 +60,7 @@
                                 </i>
                             </span>
                         </div>
-                        <select class="form-control" name="pickUpLocation">
+                        <select class="form-control" name="pickupAddress">
                             <c:forEach var="address" items="${addressList}" varStatus="status">
                                 <option><c:out value="${address.street} ${address.building}"></c:out></option>
                             </c:forEach>
@@ -78,7 +78,7 @@
                                 </i>
                             </span>
                         </div>
-                        <select class="form-control" name="dropOffLocation">
+                        <select class="form-control" name="dropoffAddress">
                             <c:forEach var="address" items="${addressList}" varStatus="status">
                                 <option><c:out value="${address.street} ${address.building}"></c:out></option>
                             </c:forEach>

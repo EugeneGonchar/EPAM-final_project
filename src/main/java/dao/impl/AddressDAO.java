@@ -12,6 +12,7 @@ import java.util.List;
 public class AddressDAO extends AbstractDAO {
 
     private static final String FIND_ALL_ADDRESSES = "SELECT `street`, `building` FROM `address`";
+    private static final String FIND_ADDRESS_BY_STREET_BUILDING = "SELECT `address_id`, `street`, `building` FROM `address` WHERE street=? AND `building`=?";
 
     private static final String TABLE_ADDRESS_FIELD_ID = "address_id";
     private static final String TABLE_ADDRESS_FIELD_STREET = "street";
@@ -35,5 +36,22 @@ public class AddressDAO extends AbstractDAO {
         }
 
         return addressList;
+    }
+
+    public int getAddressIdByStreetBuilding(String street, String building){
+        int addressId = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ADDRESS_BY_STREET_BUILDING)){
+            preparedStatement.setString(1, street);
+            preparedStatement.setString(2, building);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                addressId = resultSet.getInt(TABLE_ADDRESS_FIELD_ID);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return addressId;
     }
 }

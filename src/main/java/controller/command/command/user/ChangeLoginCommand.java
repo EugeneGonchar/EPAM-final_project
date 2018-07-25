@@ -3,6 +3,7 @@ package controller.command.command.user;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
+import controller.util.ConfigPage;
 import controller.util.URLAction;
 import service.exception.LoginExistException;
 import dto.UserDTO;
@@ -34,7 +35,7 @@ public class ChangeLoginCommand implements ActionCommand {
             user.setLogin(userDTO.getLogin());
 
             sessionRequestContent.add2SessionAttributes("user", user);
-            page = ConfigurationManager.getProperty("path.page.account");
+            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_ACCOUNT);
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes("updateLoginError",
@@ -45,7 +46,7 @@ public class ChangeLoginCommand implements ActionCommand {
         }
 
         if(page == null){
-            page = ConfigurationManager.getProperty("path.page.account");
+            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_ACCOUNT);
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         }
 

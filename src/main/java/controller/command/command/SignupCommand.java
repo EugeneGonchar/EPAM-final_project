@@ -1,6 +1,7 @@
 package controller.command.command;
 
 import controller.util.ActionPageContainer;
+import controller.util.ConfigPage;
 import controller.util.URLAction;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
@@ -36,7 +37,7 @@ public class SignupCommand implements ActionCommand {
 
         try{
             userService.signUp(userDTO);
-            page = ConfigurationManager.getProperty("path.page.successfullsignup");
+            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_SUCCESFULL_SIGNUP);
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e){
             sessionRequestContent.add2RequestAttributes("registrationError",
@@ -56,7 +57,7 @@ public class SignupCommand implements ActionCommand {
         }
 
         if(page == null){
-            page = ConfigurationManager.getProperty("path.page.signup");
+            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_SIGNUP);
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         }
 

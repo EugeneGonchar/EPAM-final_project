@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class OrderDTO {
+    private static final String SECONDS = ":00";
+
     private int id;
     private int userId;
     private int carId;
@@ -46,7 +48,7 @@ public class OrderDTO {
     }
 
     public void setDateReceived(String dateReceived) {
-        this.dateReceived = Timestamp.valueOf(dateReceived);
+        this.dateReceived = Timestamp.valueOf(dateReceived+SECONDS);
     }
 
     public Timestamp getReturnDate() {
@@ -58,7 +60,7 @@ public class OrderDTO {
     }
 
     public void setReturnDate(String returnDate) {
-        this.dateReceived = Timestamp.valueOf(returnDate);
+        this.dateReceived = Timestamp.valueOf(returnDate+SECONDS);
     }
 
     public String getPickupAddress() {

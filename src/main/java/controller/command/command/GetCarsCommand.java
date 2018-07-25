@@ -3,6 +3,7 @@ package controller.command.command;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
+import controller.util.ConfigPage;
 import controller.util.URLAction;
 import entity.Car;
 import resource.ConfigurationManager;
@@ -24,7 +25,7 @@ public class GetCarsCommand implements ActionCommand {
         carList = carService.getCarList();
 
         sessionRequestContent.add2RequestAttributes("carList", carList);
-        page = ConfigurationManager.getProperty("path.page.cars");
+        page = ConfigurationManager.getProperty(ConfigPage.CONFIG_CARS);
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;

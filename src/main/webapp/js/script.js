@@ -11,13 +11,13 @@ $(function () {
     $('#datetimepicker1').datetimepicker({
         minDate: date1,
         defaultDate: date1,
-        format: 'YYYY-MM-DD HH:MM',
+        format: 'YYYY-MM-DD hh:mm',
         stepping: 30
     });
     $('#datetimepicker2').datetimepicker({
         minDate: date1,
         defaultDate: date2,
-        format: 'YYYY-MM-DD HH:MM',
+        format: 'YYYY-MM-DD hh:mm',
         stepping: 30,
         useCurrent: false //Important! See issue #1075
     });
