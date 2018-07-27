@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.Transaction;
 import dao.impl.CarDAO;
+import dto.CarDTO;
 import dto.OrderDTO;
 import entity.Car;
 import service.CarService;
@@ -49,5 +50,25 @@ public class CarServiceImpl implements CarService {
         transaction.endTransaction();
 
         return carList;
+    }
+
+    @Override
+    public Car getCar(CarDTO carDTO){
+        CarDAO carDAO = new CarDAO();
+        Car car = null;
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(carDAO);
+
+        car = carDAO.getCarById(carDTO);
+
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+
+        return car;
     }
 }

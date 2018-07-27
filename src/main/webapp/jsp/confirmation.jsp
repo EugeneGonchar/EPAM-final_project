@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
@@ -118,16 +119,8 @@
 
                 <div class="p-0 col-8 pr-2">
                     <div class="mb-0 p-0 col">
-                        <div class="my-1 border-bottom row col-12 justify-content-between">
-                            <div>
-                                <h4>Order details</h4>
-                            </div>
-                            <div>
-                                <a href="#">
-                                    <i class="material-icons text-small">edit</i>
-                                    edit
-                                </a>
-                            </div>
+                        <div class="my-1 border-bottom">
+                            <h4>Order details</h4>
                         </div>
                         <div class="container mx-0 my-2">
                             <div class="py-2 border-bottom">
@@ -136,7 +129,7 @@
                                         <h6 class="mb-1 font-weight-bold">Car:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1">Range Rover Sport</h6>
+                                        <h6 class="mb-1"><c:out value="${car.brand} ${car.model}"></c:out></h6>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +140,7 @@
                                         <h6 class="mb-1 font-weight-bold">Pick-up:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1">Somewhere</h6>
+                                        <h6 class="mb-1"><c:out value="${pickupAddressOfOrder.street} ${pickupAddressOfOrder.building}"></c:out></h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
@@ -155,7 +148,7 @@
                                         <h6 class="mb-1"></h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1">10:00 AM Friday 27 июля, 2018</h6>
+                                        <h6 class="mb-1"><fmt:formatDate value="${order.dateReceived}" pattern="yyyy-MM-dd HH:mm" /></h6>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +159,7 @@
                                         <h6 class="mb-1 font-weight-bold">Drop-off:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1">Somewhere</h6>
+                                        <h6 class="mb-1"><c:out value="${dropoffAddressOfOrder.street} ${dropoffAddressOfOrder.building}"></c:out></h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
@@ -174,7 +167,7 @@
                                         <h6 class="mb-1"></h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1">10:00 AM Friday 27 июля, 2018</h6>
+                                        <h6 class="mb-1"><fmt:formatDate value="${order.returnDate}" pattern="yyyy-MM-dd HH:mm" /></h6>
                                     </div>
                                 </div>
                             </div>

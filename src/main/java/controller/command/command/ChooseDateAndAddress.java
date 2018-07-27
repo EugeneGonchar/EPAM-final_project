@@ -36,11 +36,13 @@ public class ChooseDateAndAddress implements ActionCommand {
         pickupAddress = addressService.formingAddressFromString(stringPickupAddress);
         dropoffAddress = addressService.formingAddressFromString(stringDropoffAddress);
         order = createOrder(sessionRequestContent);
+        System.out.println(pickupAddress.getId());
+        System.out.println(dropoffAddress.getId());
         order.setPickupAddressId(pickupAddress.getId());
         order.setDropoffAddressId(dropoffAddress.getId());
 
-        sessionRequestContent.add2SessionAttributes("pickupAddress", pickupAddress);
-        sessionRequestContent.add2SessionAttributes("dropoffAddress", dropoffAddress);
+        sessionRequestContent.add2SessionAttributes("pickupAddressOfOrder", pickupAddress);
+        sessionRequestContent.add2SessionAttributes("dropoffAddressOfOrder", dropoffAddress);
         sessionRequestContent.add2SessionAttributes("order", order);
         page = ConfigurationManager.getProperty("path.page.preparedcars");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
