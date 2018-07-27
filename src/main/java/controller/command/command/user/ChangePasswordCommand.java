@@ -3,7 +3,6 @@ package controller.command.command.user;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
-import controller.util.ConfigPage;
 import controller.util.URLAction;
 import service.exception.WrongPasswordException;
 import dto.UserDTO;
@@ -42,7 +41,7 @@ public class ChangePasswordCommand implements ActionCommand {
             user.setPassword(userDTO.getPassword());
 
             sessionRequestContent.add2SessionAttributes("user", user);
-            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_ACCOUNT);
+            page = ConfigurationManager.getProperty("path.page.account");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes("updatePasswordError",
@@ -59,7 +58,7 @@ public class ChangePasswordCommand implements ActionCommand {
         }
 
         if(page == null){
-            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_ACCOUNT);
+            page = ConfigurationManager.getProperty("path.page.account");
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         }
 

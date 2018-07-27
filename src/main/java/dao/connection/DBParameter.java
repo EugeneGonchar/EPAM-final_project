@@ -12,5 +12,4 @@ public class DBParameter {
     public static final String DB_ENCODING = "db.encoding";
     public static final String DB_AUTO_RECONNECT = "db.autoreconnect";
 
-
 }

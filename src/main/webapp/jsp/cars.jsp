@@ -33,22 +33,22 @@
                 <ul class="navbar-nav">
                         <span class="border-bottom bg-light">
                             <li class="pl-3 nav-item text-dark">
-                                <a class="nav-link disabled text-secondary" href="#">Personal settings</a>
+                                <a class="nav-link disabled text-secondary" href="#">Header</a>
                             </li>
                         </span>
                     <span class="border-bottom active">
                             <li class="pl-3 nav-item active">
-                                <a class="nav-link text-dark" href="/user/profile">Profile</a>
+                                <a class="nav-link text-dark" href="#">Text</a>
                             </li>
                         </span>
                     <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/account">Account</a>
+                                <a class="nav-link" href="#">Text</a>
                             </li>
                         </span>
                     <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/contacts">Email & phone</a>
+                                <a class="nav-link" href="#">Text</a>
                             </li>
                         </span>
                 </ul>
@@ -156,14 +156,16 @@
 
                     <div class="col-3 float-right">
                         <div class="text-right m-2">
-                            <h6 class="car_element" class="mb-1">Price for 3 days:</h6>
-                            <h3><c:out value="${car.rental4Day}"></c:out> $</h3>
+                            <h6 class="car_element" class="mb-1">Price for <c:out value="${rentDays}"></c:out> days:</h6>
+                            <h3><c:out value="${car.rental4Day * rentDays}"></c:out> $</h3>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-3 m-3">
-                        <button type="button" class="btn btn-block btn-success">Book now</button>
+                        <a href="/controller?command=driver_details&id=${car.id}" type="button" class="btn btn-block btn-success">
+                            Book now
+                        </a>
                     </div>
                 </div>
             </div>

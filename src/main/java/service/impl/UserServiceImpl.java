@@ -15,6 +15,8 @@ import service.exception.PasswordsUnequalException;
 import service.util.Hash;
 import service.validation.Validator;
 
+import java.sql.SQLException;
+
 public class UserServiceImpl implements UserService {
 
     private final static int INVALID_ID = 0;
@@ -34,7 +36,11 @@ public class UserServiceImpl implements UserService {
 
         user = userDAO.getUserByLogin(userDTO.getLogin());
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
 
         if(user != null){
@@ -85,7 +91,11 @@ public class UserServiceImpl implements UserService {
         userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword()));
         userDAO.insertUser(userDTO);
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
     }
 
@@ -102,7 +112,11 @@ public class UserServiceImpl implements UserService {
 
         userDAO.updateNameSurname(userDTO);
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
     }
 
@@ -122,7 +136,11 @@ public class UserServiceImpl implements UserService {
         }
         userDAO.updateLogin(userDTO);
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
     }
 
@@ -139,7 +157,11 @@ public class UserServiceImpl implements UserService {
 
         userDAO.updatePhone(userDTO);
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
     }
 
@@ -159,7 +181,11 @@ public class UserServiceImpl implements UserService {
         }
         userDAO.updateEmail(userDTO);
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
     }
 
@@ -182,15 +208,19 @@ public class UserServiceImpl implements UserService {
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
-        String dbPassword = userDAO.getUserByLogin(userDTO.getLogin()).getPassword();
-        String password = userDTO.getPassword();
-        if(dbPassword != password){
+        String dbHashedPassword = userDAO.getUserByLogin(userDTO.getLogin()).getPassword();
+        String hashedPassword = Hash.getCryptoSha256(userDTO.getPassword());
+        if(Hash.isHashesEqual(dbHashedPassword, hashedPassword)){
             throw new WrongPasswordException();
         }
-        userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword()));
+        userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword2()));
         userDAO.updatePassword(userDTO);
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
 
     }

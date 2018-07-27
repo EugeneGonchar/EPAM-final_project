@@ -4,7 +4,6 @@ import controller.command.ActionCommand;
 import controller.command.factory.ActionFactory;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
-import controller.util.ConfigPage;
 import controller.util.URLAction;
 import dao.connection.ConnectionPool;
 import resource.ConfigurationManager;
@@ -54,7 +53,7 @@ public class Controller extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
         } else{
-            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_INDEX);
+            page = ConfigurationManager.getProperty("path.page.index");
             response.sendRedirect(request.getContextPath() + page);
         }
     }

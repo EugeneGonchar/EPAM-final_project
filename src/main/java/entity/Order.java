@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Order implements Entity {
+    private static final String SECONDS = ":00";
+
     private int id;
     private int userId;
     private int carId;
@@ -45,12 +47,20 @@ public class Order implements Entity {
         this.dateReceived = dateReceived;
     }
 
+    public void setDateReceived(String dateReceived) {
+        this.dateReceived = Timestamp.valueOf(dateReceived+SECONDS);
+    }
+
     public Timestamp getReturnDate() {
         return returnDate;
     }
 
     public void setReturnDate(Timestamp returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = Timestamp.valueOf(returnDate+SECONDS);
     }
 
     public int getPickupAddressId() {

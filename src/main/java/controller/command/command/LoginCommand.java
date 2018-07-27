@@ -3,7 +3,6 @@ package controller.command.command;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
-import controller.util.ConfigPage;
 import controller.util.URLAction;
 import dto.UserDTO;
 import entity.User;
@@ -33,7 +32,7 @@ public class LoginCommand implements ActionCommand {
             /*сделать проверку на юзера*/
             if(user != null){
                 sessionRequestContent.add2SessionAttributes("user", user);
-                page = ConfigurationManager.getProperty(ConfigPage.CONFIG_MAIN);
+                page = ConfigurationManager.getProperty("path.page.main");
                 actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
             } else{
                 sessionRequestContent.add2RequestAttributes("loginError",
@@ -45,7 +44,7 @@ public class LoginCommand implements ActionCommand {
         }
 
         if(page == null){
-            page = ConfigurationManager.getProperty(ConfigPage.CONFIG_LOGIN);
+            page = ConfigurationManager.getProperty("path.page.login");
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         }
 

@@ -82,9 +82,11 @@ public class SessionRequestContent {
 
     public String getRequestParameter(String key){
         StringBuilder stringBuilder = new StringBuilder();
-        for(String word : requestParameters.get(key)){
-            stringBuilder.append(word);
-        }
+        if(!requestParameters.isEmpty()){
+            for(String word : requestParameters.get(key)){
+                stringBuilder.append(word);
+            }
+        } else System.out.println("blet");
         System.out.println(stringBuilder);/*----------------------------------------------------------------------------------------------------------*/
         return stringBuilder.toString();
     }

@@ -18,7 +18,7 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/rent">Choice of date and place</a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place</a>
         <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results</a>
         <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
         <a class="nav-item nav-link col border-right" href="/payment">Payment</a>

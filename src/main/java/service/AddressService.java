@@ -7,5 +7,6 @@ import java.util.List;
 public interface AddressService {
 
     public List<Address> getAddressList();
+    public Address formingAddressFromString(String stringAddress);
 
 }

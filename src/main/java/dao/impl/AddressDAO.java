@@ -38,8 +38,8 @@ public class AddressDAO extends AbstractDAO {
         return addressList;
     }
 
-    public int getAddressIdByStreetBuilding(String street, String building){
-        int addressId = 0;
+    public Address getAddressByStreetBuilding(String street, String building){
+        Address address = null;
         try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ADDRESS_BY_STREET_BUILDING)){
             preparedStatement.setString(1, street);
             preparedStatement.setString(2, building);
@@ -47,11 +47,14 @@ public class AddressDAO extends AbstractDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()){
-                addressId = resultSet.getInt(TABLE_ADDRESS_FIELD_ID);
+                address = new Address();
+                address.setId(resultSet.getInt(TABLE_ADDRESS_FIELD_ID));
+                address.setStreet(resultSet.getString(TABLE_ADDRESS_FIELD_STREET));
+                address.setBuilding(resultSet.getString(TABLE_ADDRESS_FIELD_BUILDING));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return addressId;
+        return address;
     }
 }

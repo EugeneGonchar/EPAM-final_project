@@ -59,6 +59,11 @@ public enum CommandEnum {
         {
             this.command = new ChooseDateAndAddress();
         }
+    },
+    DRIVER_DETAILS{
+        {
+            this.command = new GetDriverDetailsPageCommand();
+        }
     };
 
     ActionCommand command;

@@ -12,7 +12,6 @@ public class Car implements Entity {
     private boolean airConditioning;
     private boolean automaticGearbox;
     private BigDecimal rental4Day;
-    private BigDecimal rental4Hour;
     private String color;
     private double fuelConsumption;
     private short enginePower;
@@ -88,14 +87,6 @@ public class Car implements Entity {
 
     public void setRental4Day(BigDecimal rental4Day) {
         this.rental4Day = rental4Day;
-    }
-
-    public BigDecimal getRental4Hour() {
-        return rental4Hour;
-    }
-
-    public void setRental4Hour(BigDecimal rental4Hour) {
-        this.rental4Hour = rental4Hour;
     }
 
     public String getColor() {

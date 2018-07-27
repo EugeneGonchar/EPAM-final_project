@@ -5,9 +5,12 @@ import dao.impl.AddressDAO;
 import entity.Address;
 import service.AddressService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class AddressServiceImpl implements AddressService {
+
+    private static final String SPACE = " ";
 
     @Override
     public List<Address> getAddressList(){
@@ -19,8 +22,35 @@ public class AddressServiceImpl implements AddressService {
 
         addressList = addressDAO.findAll();
 
-        transaction.commit();
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
         transaction.endTransaction();
         return addressList;
+    }
+
+    @Override
+    public Address formingAddressFromString(String stringAddress){
+        Address address = null;
+
+        AddressDAO addressDAO = new AddressDAO();
+        Transaction transaction = new Transaction();
+
+        String[] stringAddressData = stringAddress.split(SPACE);
+
+        transaction.beginTransaction(addressDAO);
+
+        address = addressDAO.getAddressByStreetBuilding(stringAddressData[0], stringAddressData[1]);
+
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+
+        return address;
     }
 }

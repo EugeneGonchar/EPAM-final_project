@@ -17,8 +17,8 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/rent">Choice of date and place</a>
-        <a class="nav-item nav-link col border-right" href="/cars">Car's search results</a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place</a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results</a>
         <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
         <a class="nav-item nav-link col border-right" href="/payment">Payment</a>
         <a class="nav-item nav-link col <%--disabled--%>" href="/confirmation">Confirmation</a>
@@ -139,7 +139,7 @@
                                         <h6 class="mb-1 font-weight-bold">Pick-up:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1">Somewhere</h6>
+                                        <%--<h6 class="mb-1"><c:out value="${order.}"></c:out></h6>--%>
                                     </div>
                                 </div>
                                 <div class="row text-left">

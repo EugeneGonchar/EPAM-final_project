@@ -37,13 +37,8 @@ public class Transaction {
         }
     }
 
-    public void commit(){
-        try{
+    public void commit() throws SQLException{
             connection.commit();
-        } catch (SQLException e) {
-            rollback();
-            e.printStackTrace();
-        }
     }
 
     public void rollback(){

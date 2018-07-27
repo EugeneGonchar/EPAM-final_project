@@ -3,16 +3,12 @@ package controller.command.command;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
-import controller.util.ConfigPage;
 import controller.util.URLAction;
-import dto.OrderDTO;
 import entity.Address;
 import entity.Order;
 import resource.ConfigurationManager;
-import service.OrderService;
+import service.AddressService;
 import service.ServiceFactory;
-
-import java.sql.Timestamp;
 
 public class ChooseDateAndAddress implements ActionCommand {
 
@@ -26,29 +22,38 @@ public class ChooseDateAndAddress implements ActionCommand {
 
         ActionPageContainer actionPageContainer = null;
         String page = null;
+        String stringPickupAddress = null;
+        String stringDropoffAddress = null;
         Order order = null;
+        Address pickupAddress = null;
+        Address dropoffAddress = null;
 
-        OrderDTO orderDTO = createOrderDTO(sessionRequestContent);
+        AddressService addressService = ServiceFactory.getAddressService();
 
-        OrderService orderService = ServiceFactory.getOrderService();
+        stringPickupAddress = sessionRequestContent.getRequestParameter(PARAM_NAME_PICKUP_LOCATION);
+        stringDropoffAddress = sessionRequestContent.getRequestParameter(PARAM_NAME_DROPOFF_LOCATION);
 
-        order = orderService.formingDateAddressOfOrder(orderDTO);
+        pickupAddress = addressService.formingAddressFromString(stringPickupAddress);
+        dropoffAddress = addressService.formingAddressFromString(stringDropoffAddress);
+        order = createOrder(sessionRequestContent);
+        order.setPickupAddressId(pickupAddress.getId());
+        order.setDropoffAddressId(dropoffAddress.getId());
 
+        sessionRequestContent.add2SessionAttributes("pickupAddress", pickupAddress);
+        sessionRequestContent.add2SessionAttributes("dropoffAddress", dropoffAddress);
         sessionRequestContent.add2SessionAttributes("order", order);
-        page = ConfigurationManager.getProperty(ConfigPage.CONFIG_PREPARED_CARS);
+        page = ConfigurationManager.getProperty("path.page.preparedcars");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
 
         return actionPageContainer;
     }
 
-    private OrderDTO createOrderDTO(SessionRequestContent sessionRequestContent){
-        OrderDTO orderDTO = new OrderDTO();
+    private Order createOrder(SessionRequestContent sessionRequestContent){
+        Order order = new Order();
 
-        orderDTO.setDateReceived(sessionRequestContent.getRequestParameter(PARAM_NAME_PICKUP_DATE));
-        orderDTO.setReturnDate(sessionRequestContent.getRequestParameter(PARAM_NAME_DROPOFF_DATE));
-        orderDTO.setPickupAddress(sessionRequestContent.getRequestParameter(PARAM_NAME_PICKUP_LOCATION));
-        orderDTO.setDropoffAddress(sessionRequestContent.getRequestParameter(PARAM_NAME_DROPOFF_LOCATION));
+        order.setDateReceived(sessionRequestContent.getRequestParameter(PARAM_NAME_PICKUP_DATE));
+        order.setReturnDate(sessionRequestContent.getRequestParameter(PARAM_NAME_DROPOFF_DATE));
 
-        return orderDTO;
+        return order;
     }
 }
