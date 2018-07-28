@@ -222,7 +222,31 @@ public class UserServiceImpl implements UserService {
             transaction.rollback();
         }
         transaction.endTransaction();
-
     }
 
+    @Override
+    public void checkDriverDetails(User user) throws ExistEmptyFieldException, EmailExistException{
+        if(Validator.isFieldsEmpty(user.getEmail(),
+                user.getPhone(),
+                user.getFirstName(),
+                user.getLastName())){
+            throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
+        }
+
+        UserDAO userDAO = new UserDAO();
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(userDAO);
+
+        if(userDAO.getUserIdByEmail(user.getEmail()) != INVALID_ID){
+            throw new EmailExistException();
+        }
+
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+    }
 }

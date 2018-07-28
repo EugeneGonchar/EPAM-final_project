@@ -28,7 +28,7 @@ public class ChooseDateAndAddress implements ActionCommand {
         Address pickupAddress = null;
         Address dropoffAddress = null;
 
-        AddressService addressService = ServiceFactory.getAddressService();
+        AddressService addressService = ServiceFactory.getInstance().getAddressService();
 
         stringPickupAddress = sessionRequestContent.getRequestParameter(PARAM_NAME_PICKUP_LOCATION);
         stringDropoffAddress = sessionRequestContent.getRequestParameter(PARAM_NAME_DROPOFF_LOCATION);

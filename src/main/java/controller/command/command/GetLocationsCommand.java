@@ -19,7 +19,7 @@ public class GetLocationsCommand implements ActionCommand {
         String page = null;
         List<Address> addressList = null;
 
-        AddressService addressService = ServiceFactory.getAddressService();
+        AddressService addressService = ServiceFactory.getInstance().getAddressService();
 
         addressList = addressService.getAddressList();
 

@@ -28,6 +28,7 @@ public class UserDAO extends AbstractDAO{
     private static final String TABLE_USER_FIELD_FIRST_NAME = "first_name";
     private static final String TABLE_USER_FIELD_LAST_NAME = "last_name";
     private static final String TABLE_USER_FIELD_PASSWORD = "password";
+    private static final String TABLE_USER_FIELD_ROLE_ID = "role_id";
 
     @Override
     public List<User> findAll(){
@@ -56,6 +57,7 @@ public class UserDAO extends AbstractDAO{
                 user.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
                 user.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
                 user.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));
+                user.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
             }
         } catch (SQLException e) {
             e.printStackTrace();

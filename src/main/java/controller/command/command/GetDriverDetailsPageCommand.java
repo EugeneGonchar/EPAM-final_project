@@ -31,7 +31,7 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
         Order order = (Order)sessionRequestContent.getSessionAttribute(PARAM_NAME_ORDER);
         carDTO = createCarDTO(sessionRequestContent);
 
-        CarService carService = ServiceFactory.getCarService();
+        CarService carService = ServiceFactory.getInstance().getCarService();
 
         car = carService.getCar(carDTO);
 

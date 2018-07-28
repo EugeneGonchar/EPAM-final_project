@@ -24,7 +24,7 @@ public class GetCarsCommand implements ActionCommand {
         Order order = (Order) sessionRequestContent.getSessionAttribute("order");
         int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());
 
-        CarService carService = ServiceFactory.getCarService();
+        CarService carService = ServiceFactory.getInstance().getCarService();
 
         carList = carService.getFreeCarList(createOrderDTO(order));
 

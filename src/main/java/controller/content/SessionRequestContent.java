@@ -86,8 +86,8 @@ public class SessionRequestContent {
             for(String word : requestParameters.get(key)){
                 stringBuilder.append(word);
             }
-        } else System.out.println("blet");
-        System.out.println(stringBuilder);/*----------------------------------------------------------------------------------------------------------*/
+        } else System.out.println("asdf");
+        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 

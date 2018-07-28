@@ -18,11 +18,11 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place</a>
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results</a>
-        <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
-        <a class="nav-item nav-link col border-right" href="/payment">Payment</a>
-        <a class="nav-item nav-link col <%--disabled--%>" href="/confirmation">Confirmation</a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place <i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results <i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right bg-light" href="/driverdetails">Driver</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">Payment</a>
+        <a class="nav-item nav-link col disabled" href="#">Confirmation</a>
     </nav>
 </div>
 
@@ -184,78 +184,156 @@
                 <h3 class="text-dark">Driver details</h3>
             </div>
 
-            <div class="row justify-content-center">
-                <form id="changePasswordForm" method="POST" action="/controller" class="col-8">
-                    <input type="hidden" name="command" value="change_password"/>
-                    <div>
-                        <c:choose>
-                            <c:when test="${empty updatePasswordError}">
-                                <p>
-                                    <br/>
-                                </p>
-                            </c:when>
-                            <c:otherwise>
-                                <p class="text-danger text-left">
-                                        ${updatePasswordError}
-                                </p>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+            <c:choose>
+                <c:when test="${empty user}">
+                    <div class="row justify-content-center">
+                        <form id="enterDriverDetails" method="POST" action="/controller" class="col-8">
+                            <input type="hidden" name="command" value="driver_details"/>
+                            <div>
+                                <c:choose>
+                                    <c:when test="${empty driverDetailsError}">
+                                        <p>
+                                            <br/>
+                                        </p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p class="text-danger text-left">
+                                                ${driverDetailsError}
+                                        </p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
 
-                    <p class="text-left">Please, enter your passport name and surname :</p>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
+                            <p class="text-left">Please, enter your passport name and surname :</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
                             <span class="input-group-text">
                                 Name *
                             </span>
-                            </div>
-                            <input name="first_name" class="form-control" placeholder="IVAN" type="text">
-                        </div> <!-- input-group.// -->
-                    </div> <!-- form-group// -->
+                                    </div>
+                                    <input name="first_name" class="form-control" placeholder="IVAN" type="text">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
 
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
                             <span class="input-group-text">
                                 Surname *
                             </span>
-                            </div>
-                            <input name="last_name" class="form-control" placeholder="IVANOV" type="text">
-                        </div> <!-- input-group.// -->
-                    </div> <!-- form-group// -->
+                                    </div>
+                                    <input name="last_name" class="form-control" placeholder="IVANOV" type="text">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
 
-                    <p class="text-left">Please, enter contact information :</p>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
+                            <p class="text-left">Please, enter contact information :</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
                             <span class="input-group-text">
                                 Email *
                             </span>
-                            </div>
-                            <input name="email" class="form-control" placeholder="email@example.com" type="email">
-                        </div> <!-- input-group.// -->
+                                    </div>
+                                    <input name="email" class="form-control" placeholder="email@example.com" type="email">
+                                </div> <!-- input-group.// -->
 
-                    </div> <!-- form-group// -->
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
+                            </div> <!-- form-group// -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-mobile-phone">
 
                                 </i>
                             </span>
+                                    </div>
+                                    <input name="phone" class="form-control" placeholder="+375(29)111-11-11" type="phone">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+
+                            <div class="form-group d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-                            <input name="phone" class="form-control" placeholder="+375(29)111-11-11" type="phone">
-                        </div> <!-- input-group.// -->
-                    </div> <!-- form-group// -->
 
-                    <div class="form-group d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="row justify-content-center">
+                        <form method="POST" action="/payment" class="col-8">
+                            <div>
+                                <c:choose>
+                                    <c:when test="${empty updatePasswordError}">
+                                        <p>
+                                            <br/>
+                                        </p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p class="text-danger text-left">
+                                                ${updatePasswordError}
+                                        </p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
 
-                </form>
-            </div>
+                            <p class="text-left">Please, enter your passport name and surname :</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Name *
+                            </span>
+                                    </div>
+                                    <input name="first_name" class="form-control" placeholder="<c:out value="${user.firstName}"></c:out>" type="text" disabled>
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            Surname *
+                                        </span>
+                                    </div>
+                                    <input name="last_name" class="form-control" placeholder="<c:out value="${user.lastName}"></c:out>" type="text" disabled>
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+
+                            <p class="text-left">Please, enter contact information :</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            Email *
+                                        </span>
+                                    </div>
+                                    <input name="email" class="form-control" placeholder="<c:out value="${user.email}"></c:out>" type="email" disabled>
+                                </div> <!-- input-group.// -->
+
+                            </div> <!-- form-group// -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-mobile-phone"></i>
+                                        </span>
+                                    </div>
+                                    <input name="phone" class="form-control" placeholder="<c:out value="${user.phone}"></c:out>" type="phone" disabled>
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+
+                            <div class="form-group d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+
+
         </div>
 
 

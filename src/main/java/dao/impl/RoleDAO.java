@@ -1,0 +1,42 @@
+package dao.impl;
+
+import dao.AbstractDAO;
+import entity.Role;
+import entity.User;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+public class RoleDAO extends AbstractDAO {
+
+    private static final String FIND_ROLE_BY_USER = "SELECT `role_id`, `name` FROM `role` WHERE `role_id` = ?";
+
+    private static final String TABLE_ROLE_FIELD_ROLE_ID = "role_id";
+    private static final String TABLE_ROLE_FIELD_NAME = "name";
+
+    @Override
+    public List findAll() {
+        return null;
+    }
+
+    public Role getRoleByUser(User user){
+        Role role = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ROLE_BY_USER)){
+            preparedStatement.setInt(1, user.getRoleId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                role = new Role();
+                role.setId(resultSet.getInt(TABLE_ROLE_FIELD_ROLE_ID));
+                role.setName(resultSet.getString(TABLE_ROLE_FIELD_NAME));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return role;
+    }
+}

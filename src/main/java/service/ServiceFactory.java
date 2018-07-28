@@ -1,9 +1,6 @@
 package service;
 
-import service.impl.AddressServiceImpl;
-import service.impl.CarServiceImpl;
-import service.impl.OrderServiceImpl;
-import service.impl.UserServiceImpl;
+import service.impl.*;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
@@ -11,6 +8,7 @@ public class ServiceFactory {
     private static final AddressService addressService = new AddressServiceImpl();
     private static final CarService carService = new CarServiceImpl();
     private static final OrderService orderService = new OrderServiceImpl();
+    private static final RoleService roleService = new RoleServiceImpl();
 
     public static ServiceFactory getInstance() {
         return instance;
@@ -20,15 +18,19 @@ public class ServiceFactory {
         return userService;
     }
 
-    public static AddressService getAddressService() {
+    public AddressService getAddressService() {
         return addressService;
     }
 
-    public static CarService getCarService() {
+    public CarService getCarService() {
         return carService;
     }
 
-    public static OrderService getOrderService() {
+    public OrderService getOrderService() {
         return orderService;
+    }
+
+    public RoleService getRoleService() {
+        return roleService;
     }
 }

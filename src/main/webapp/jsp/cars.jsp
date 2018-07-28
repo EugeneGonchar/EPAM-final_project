@@ -18,11 +18,11 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/rent">Choice of date and place</a>
-        <a class="nav-item nav-link col border-right" href="/cars">Car's search results</a>
-        <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
-        <a class="nav-item nav-link col border-right" href="/payment">Payment</a>
-        <a class="nav-item nav-link col <%--disabled--%>" href="/confirmation">Confirmation</a>
+        <a class="nav-item nav-link col border-right " href="/controller?command=get_locations">Choice of date and place <i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right bg-light" href="/controller?command=get_cars">Car's search results</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">Driver</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">Payment</a>
+        <a class="nav-item nav-link col disabled" href="#">Confirmation</a>
     </nav>
 </div>
 
@@ -164,7 +164,7 @@
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-3 m-3">
-                        <a href="/controller?command=driver_details&id=${car.id}" type="button" class="btn btn-block btn-success">
+                        <a href="/controller?command=go_to_driver_details&id=${car.id}" type="button" class="btn btn-block btn-success">
                             Book now
                         </a>
                     </div>

@@ -18,11 +18,11 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place</a>
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results</a>
-        <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
-        <a class="nav-item nav-link col border-right" href="/payment">Payment</a>
-        <a class="nav-item nav-link col <%--disabled--%>" href="/confirmation">Confirmation</a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place <i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results <i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="/driverdetails">Driver <i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="/payment">Payment <i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col bg-light" href="/confirmation">Confirmation</a>
     </nav>
 </div>
 
@@ -178,33 +178,64 @@
             </div>
         </div>
 
-        <div class="card col-12 mt-3">
+        <c:choose>
+            <c:when test="${not empty user}">
+                <div class="card col-12 mt-3">
 
-            <div class="mt-2 mb-0 border-bottom border-muted">
-                <h4 class="text-dark">Driver details</h4>
-            </div>
+                    <div class="mt-2 mb-0 border-bottom border-muted">
+                        <h4 class="text-dark">Driver details</h4>
+                    </div>
 
-            <div class="row m-1 justify-content-between">
-                <div class="row m-1 align-items-end">
-                    <h6>
-                        <span class="font-weight-bold">Name:</span> Ivan Ivanov
-                    </h6>
+                    <div class="row m-1 justify-content-between">
+                        <div class="row m-1 align-items-end">
+                            <h6>
+                                <span class="font-weight-bold">Name:</span> <c:out value="${user.firstName} ${user.lastName}"></c:out>
+                            </h6>
+                        </div>
+
+                        <div class="row m-1 align-items-end">
+                            <h6>
+                                <span class="font-weight-bold">Email:</span> <c:out value="${user.email}"></c:out>
+                            </h6>
+                        </div>
+
+                        <div class="row m-1 align-items-end">
+                            <h6>
+                                <span class="font-weight-bold">Phone:</span> <c:out value="${user.phone}"></c:out>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
+            </c:when>
+            <c:otherwise>
+                <div class="card col-12 mt-3">
 
-                <div class="row m-1 align-items-end">
-                    <h6>
-                        <span class="font-weight-bold">Email:</span> ivan@email.com
-                    </h6>
+                    <div class="mt-2 mb-0 border-bottom border-muted">
+                        <h4 class="text-dark">Driver details</h4>
+                    </div>
+
+                    <div class="row m-1 justify-content-between">
+                        <div class="row m-1 align-items-end">
+                            <h6>
+                                <span class="font-weight-bold">Name:</span> <c:out value="${guestUser.firstName} ${guestUser.lastName}"></c:out>
+                            </h6>
+                        </div>
+
+                        <div class="row m-1 align-items-end">
+                            <h6>
+                                <span class="font-weight-bold">Email:</span> <c:out value="${guestUser.email}"></c:out>
+                            </h6>
+                        </div>
+
+                        <div class="row m-1 align-items-end">
+                            <h6>
+                                <span class="font-weight-bold">Phone:</span> <c:out value="${guestUser.phone}"></c:out>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="row m-1 align-items-end">
-                    <h6>
-                        <span class="font-weight-bold">Phone:</span> +375291111111
-                    </h6>
-                </div>
-            </div>
-
-        </div>
+            </c:otherwise>
+        </c:choose>
 
         <div class="card col-12 mt-3">
 

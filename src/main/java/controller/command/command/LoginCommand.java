@@ -5,9 +5,11 @@ import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import dto.UserDTO;
+import entity.Role;
 import entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
+import service.RoleService;
 import service.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
@@ -26,21 +28,28 @@ public class LoginCommand implements ActionCommand {
         UserDTO userDTO = createUserDTO(sessionRequestContent);
 
         UserService userService = ServiceFactory.getInstance().getUserService();
+        RoleService roleService = ServiceFactory.getInstance().getRoleService();
+
+        User user = null;
+        Role role = null;
 
         try{
-            User user = userService.logIn(userDTO);
+            user = userService.logIn(userDTO);
+            role = roleService.getRoleOfUser(user);
             /*сделать проверку на юзера*/
-            if(user != null){
-                sessionRequestContent.add2SessionAttributes("user", user);
-                page = ConfigurationManager.getProperty("path.page.main");
-                actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
-            } else{
-                sessionRequestContent.add2RequestAttributes("loginError",
-                        MessageManager.getProperty("message.loginpassworderror"));
-            }
         } catch (ExistEmptyFieldException e){
             sessionRequestContent.add2RequestAttributes("loginError",
                     MessageManager.getProperty("message.emptyfield"));
+        }
+
+        if(user == null){
+            sessionRequestContent.add2RequestAttributes("loginError",
+                    MessageManager.getProperty("message.loginpassworderror"));
+        } else{
+            sessionRequestContent.add2SessionAttributes("user", user);
+            sessionRequestContent.add2SessionAttributes("role", role);
+            page = ConfigurationManager.getProperty("path.page.main");
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         }
 
         if(page == null){

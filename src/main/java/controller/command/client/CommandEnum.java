@@ -60,9 +60,19 @@ public enum CommandEnum {
             this.command = new ChooseDateAndAddress();
         }
     },
-    DRIVER_DETAILS{
+    GO_TO_DRIVER_DETAILS{
         {
             this.command = new GetDriverDetailsPageCommand();
+        }
+    },
+    DRIVER_DETAILS{
+        {
+            this.command = new DriverDetailsCommand();
+        }
+    },
+    PAYMENT{
+        {
+            this.command = new PaymentCommand();
         }
     };
 

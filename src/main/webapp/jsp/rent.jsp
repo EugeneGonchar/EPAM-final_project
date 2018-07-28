@@ -19,11 +19,11 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place</a>
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results</a>
-        <a class="nav-item nav-link col border-right" href="/driverdetails">Driver</a>
-        <a class="nav-item nav-link col border-right" href="/payment">Payment</a>
-        <a class="nav-item nav-link col <%--disabled--%>" href="/confirmation">Confirmation</a>
+        <a class="nav-item nav-link col border-right bg-light" href="/controller?command=get_locations">Choice of date and place</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">Car's search results</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">Driver</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">Payment</a>
+        <a class="nav-item nav-link col disabled" href="#">Confirmation</a>
     </nav>
 </div>
 

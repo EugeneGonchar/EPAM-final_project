@@ -33,4 +33,6 @@ public interface UserService {
             PasswordsUnequalException,
             WrongPasswordException;
 
+    public void checkDriverDetails(User user) throws ExistEmptyFieldException, EmailExistException;
+
 }
