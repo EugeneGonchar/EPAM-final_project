@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <title>Payment</title>
 
 </head>
@@ -113,7 +113,7 @@
             <div class="row border-bottom">
                 <div class="col-4 align-self-center">
                     <div>
-                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
+                        <img width="190" height="130" class="rounded d-block" alt="" src="../../img/sport_lrg.jpg">
                     </div>
                 </div>
 
@@ -129,7 +129,7 @@
                                         <h6 class="mb-1 font-weight-bold">Car:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1"><c:out value="${car.brand} ${car.model}"></c:out></h6>
+                                        <h6 class="mb-1">${car.brand} ${car.model}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                         <h6 class="mb-1 font-weight-bold">Pick-up:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1"><c:out value="${pickupAddressOfOrder.street} ${pickupAddressOfOrder.building}"></c:out></h6>
+                                        <h6 class="mb-1">${pickupAddressOfOrder.street} ${pickupAddressOfOrder.building}</h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
@@ -159,7 +159,7 @@
                                         <h6 class="mb-1 font-weight-bold">Drop-off:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1"><c:out value="${dropoffAddressOfOrder.street} ${dropoffAddressOfOrder.building}"></c:out></h6>
+                                        <h6 class="mb-1">${dropoffAddressOfOrder.street} ${dropoffAddressOfOrder.building}</h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
@@ -189,19 +189,19 @@
                     <div class="row m-1 justify-content-between">
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Name:</span> <c:out value="${user.firstName} ${user.lastName}"></c:out>
+                                <span class="font-weight-bold">Name:</span> ${user.firstName} ${user.lastName}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Email:</span> <c:out value="${user.email}"></c:out>
+                                <span class="font-weight-bold">Email:</span> ${user.email}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Phone:</span> <c:out value="${user.phone}"></c:out>
+                                <span class="font-weight-bold">Phone:</span> ${user.phone}
                             </h6>
                         </div>
                     </div>
@@ -218,19 +218,19 @@
                     <div class="row m-1 justify-content-between">
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Name:</span> <c:out value="${guestUser.firstName} ${guestUser.lastName}"></c:out>
+                                <span class="font-weight-bold">Name:</span> ${guestUser.firstName} ${guestUser.lastName}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Email:</span> <c:out value="${guestUser.email}"></c:out>
+                                <span class="font-weight-bold">Email:</span> ${guestUser.email}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Phone:</span> <c:out value="${guestUser.phone}"></c:out>
+                                <span class="font-weight-bold">Phone:</span> ${guestUser.phone}
                             </h6>
                         </div>
                     </div>

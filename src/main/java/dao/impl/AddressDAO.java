@@ -1,5 +1,7 @@
 package dao.impl;
 
+import static dao.util.DBFieldName.*;
+
 import dao.AbstractDAO;
 import entity.Address;
 
@@ -11,12 +13,8 @@ import java.util.List;
 
 public class AddressDAO extends AbstractDAO {
 
-    private static final String FIND_ALL_ADDRESSES = "SELECT `street`, `building` FROM `address`";
+    private static final String FIND_ALL_ADDRESSES = "SELECT `address_id`, `street`, `building` FROM `address`";
     private static final String FIND_ADDRESS_BY_STREET_BUILDING = "SELECT `address_id`, `street`, `building` FROM `address` WHERE street=? AND `building`=?";
-
-    private static final String TABLE_ADDRESS_FIELD_ID = "address_id";
-    private static final String TABLE_ADDRESS_FIELD_STREET = "street";
-    private static final String TABLE_ADDRESS_FIELD_BUILDING = "building";
 
     @Override
     public List<Address> findAll(){

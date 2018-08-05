@@ -63,7 +63,7 @@
                     <div>
                         <p class="note">
                             <span class="font-weight-bold">Email: </span>
-                        <p><c:out value="${user.email}"></c:out> </p>
+                            <p>${user.email}</p>
                         </p>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                     <div>
                         <p class="note">
                             <span class="font-weight-bold">Phone: </span>
-                        <p><c:out value="${user.phone}"></c:out></p>
+                        <p>${user.phone}</p>
                         </p>
                     </div>
                 </div>

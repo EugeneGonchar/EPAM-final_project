@@ -10,6 +10,9 @@ html{
 /*.order_icon{
     color:green;
 }*/
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: 0;
+}
 
 body{
     min-width: 1920px;

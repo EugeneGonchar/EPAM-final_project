@@ -1,7 +1,6 @@
 package controller.command.factory;
 
 import controller.command.ActionCommand;
-import controller.command.EmptyCommand;
 import controller.command.client.CommandEnum;
 import controller.content.SessionRequestContent;
 import resource.MessageManager;
@@ -11,12 +10,9 @@ public class ActionFactory {
     private static final String INPUT_NAME = "command";
 
     public ActionCommand defineCommand(SessionRequestContent sessionRequestContent){
-        ActionCommand current = new EmptyCommand();
+        ActionCommand current = null;
         String action = sessionRequestContent.getRequestParameter(INPUT_NAME);
 
-        if (action == null || action.isEmpty()){
-            return current;
-        }
         try{
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
             current = currentEnum.getCurrentCommand();

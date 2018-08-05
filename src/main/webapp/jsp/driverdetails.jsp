@@ -129,7 +129,7 @@
                                         <h6 class="mb-1 font-weight-bold">Car:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1"><c:out value="${car.brand} ${car.model}"></c:out></h6>
+                                        <h6 class="mb-1">${car.brand} ${car.model}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                         <h6 class="mb-1 font-weight-bold">Pick-up:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1"><c:out value="${pickupAddressOfOrder.street} ${pickupAddressOfOrder.building}"></c:out></h6>
+                                        <h6 class="mb-1">${pickupAddressOfOrder.street} ${pickupAddressOfOrder.building}</h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
@@ -159,7 +159,7 @@
                                         <h6 class="mb-1 font-weight-bold">Drop-off:</h6>
                                     </div>
                                     <div class="col-8">
-                                        <h6 class="mb-1"><c:out value="${dropoffAddressOfOrder.street} ${dropoffAddressOfOrder.building}"></c:out></h6>
+                                        <h6 class="mb-1">${dropoffAddressOfOrder.street} ${dropoffAddressOfOrder.building}</h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
@@ -285,7 +285,7 @@
                                 Name *
                             </span>
                                     </div>
-                                    <input name="first_name" class="form-control" placeholder="<c:out value="${user.firstName}"></c:out>" type="text" disabled>
+                                    <input name="first_name" class="form-control" placeholder="${user.firstName}" type="text" disabled>
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 
@@ -296,7 +296,7 @@
                                             Surname *
                                         </span>
                                     </div>
-                                    <input name="last_name" class="form-control" placeholder="<c:out value="${user.lastName}"></c:out>" type="text" disabled>
+                                    <input name="last_name" class="form-control" placeholder="${user.lastName}" type="text" disabled>
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 
@@ -308,7 +308,7 @@
                                             Email *
                                         </span>
                                     </div>
-                                    <input name="email" class="form-control" placeholder="<c:out value="${user.email}"></c:out>" type="email" disabled>
+                                    <input name="email" class="form-control" placeholder="${user.email}" type="email" disabled>
                                 </div> <!-- input-group.// -->
 
                             </div> <!-- form-group// -->
@@ -319,7 +319,7 @@
                                             <i class="fa fa-mobile-phone"></i>
                                         </span>
                                     </div>
-                                    <input name="phone" class="form-control" placeholder="<c:out value="${user.phone}"></c:out>" type="phone" disabled>
+                                    <input name="phone" class="form-control" placeholder="${user.phone}" type="phone" disabled>
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 

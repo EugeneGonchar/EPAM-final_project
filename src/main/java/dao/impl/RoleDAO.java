@@ -1,5 +1,7 @@
 package dao.impl;
 
+import static dao.util.DBFieldName.*;
+
 import dao.AbstractDAO;
 import entity.Role;
 import entity.User;
@@ -12,9 +14,6 @@ import java.util.List;
 public class RoleDAO extends AbstractDAO {
 
     private static final String FIND_ROLE_BY_USER = "SELECT `role_id`, `name` FROM `role` WHERE `role_id` = ?";
-
-    private static final String TABLE_ROLE_FIELD_ROLE_ID = "role_id";
-    private static final String TABLE_ROLE_FIELD_NAME = "name";
 
     @Override
     public List findAll() {

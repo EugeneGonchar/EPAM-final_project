@@ -121,35 +121,35 @@
                     <div class="p-0 col-5">
                         <div class="mb-0 p-0 col">
                             <div class="my-1 border-bottom">
-                                <h4><c:out value="${car.brand} ${car.model}"></c:out></h4>
+                                <h4>${car.brand} ${car.model}</h4>
                             </div>
                             <div class="container mx-0">
                                 <div class="row text-left">
                                     <div class="col-6">
-                                        <h6 class="car_element" class="mb-1"><c:out value="${car.seats}"></c:out> Seats</h6>
+                                        <h6 class="car_element" class="mb-1">${car.seats} Seats</h6>
                                     </div>
                                     <div class="col-6">
-                                        <h6 class="car_element" class="mb-1"><c:out value="${car.doors}"></c:out> Doors</h6>
-                                    </div>
-                                </div>
-                                <div class="row text-left">
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1"><c:out value="${car.airConditioning}"></c:out> Air conditioning</h6>
-                                    </div>
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1"><c:out value="${car.automaticGearbox}"></c:out> Automatic gearbox</h6>
+                                        <h6 class="car_element" class="mb-1">${car.doors} Doors</h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
                                     <div class="col-6">
-                                        <h6 class="car_element" class="mb-1"><c:out value="${car.fuelConsumption}"></c:out> Fuel consumption</h6>
+                                        <h6 class="car_element" class="mb-1">${car.airConditioning} Air conditioning</h6>
                                     </div>
                                     <div class="col-6">
-                                        <h6 class="car_element" class="mb-1"><c:out value="${car.enginePower}"></c:out> Engine power</h6>
+                                        <h6 class="car_element" class="mb-1">${car.automaticGearbox} Automatic gearbox</h6>
+                                    </div>
+                                </div>
+                                <div class="row text-left">
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1">${car.fuelConsumption} Fuel consumption</h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6 class="car_element" class="mb-1">${car.enginePower} Engine power</h6>
                                     </div>
                                 </div>
                                 <div class="my-2">
-                                    <h5 class="font-weight-bold"><c:out value="${car.carClass}"></c:out></h5>
+                                    <h5 class="font-weight-bold">${car.carClass}</h5>
                                 </div>
                             </div>
                         </div>
@@ -157,8 +157,8 @@
 
                     <div class="col-3 float-right">
                         <div class="text-right m-2">
-                            <h6 class="car_element" class="mb-1">Price for <c:out value="${rentDays}"></c:out> days:</h6>
-                            <h3><c:out value="${car.rental4Day * rentDays}"></c:out> $</h3>
+                            <h6 class="car_element" class="mb-1">Price for ${rentDays} days:</h6>
+                            <h3>${car.rental4Day * rentDays} $</h3>
                         </div>
                     </div>
                 </div>

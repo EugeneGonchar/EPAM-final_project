@@ -13,10 +13,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
 
 public class Controller extends HttpServlet {
 
-    private final static int SESSION_LIFE_TIME_IN_SEC = 300;
+    private final static int SESSION_LIFE_TIME_IN_SEC = -1;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -34,6 +36,18 @@ public class Controller extends HttpServlet {
 
         ActionFactory client = new ActionFactory();
 
+        HashMap<String, Object> requestAttributes = new HashMap<>();
+        Enumeration<String> keys = request.getAttributeNames();
+        System.out.println("***********************");
+        while(keys.hasMoreElements()){
+            String key = keys.nextElement();
+            Object value = request.getAttribute(key);
+            System.out.println(key+ " " +value.toString());
+            requestAttributes.put(key, value);
+        }
+        System.out.println("***********************");
+
+
         SessionRequestContent sessionRequestContent = new SessionRequestContent(request);
         sessionRequestContent.extractValues();
 
@@ -50,8 +64,7 @@ public class Controller extends HttpServlet {
         if(actionPageContainer.getUrlAction() == URLAction.REDIRECT && page != null){
             response.sendRedirect(page);
         } else if(actionPageContainer.getUrlAction() == URLAction.FORWARD && page != null){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-            dispatcher.forward(request, response);
+            getServletContext().getRequestDispatcher(page).forward(request, response);
         } else{
             page = ConfigurationManager.getProperty("path.page.index");
             response.sendRedirect(request.getContextPath() + page);

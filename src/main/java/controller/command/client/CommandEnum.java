@@ -57,7 +57,7 @@ public enum CommandEnum {
     },
     CHOOSE_DATE_ADDRESS_OF_ORDER{
         {
-            this.command = new ChooseDateAndAddress();
+            this.command = new ChooseDateAndAddressCommand();
         }
     },
     GO_TO_DRIVER_DETAILS{
@@ -73,6 +73,11 @@ public enum CommandEnum {
     PAYMENT{
         {
             this.command = new PaymentCommand();
+        }
+    },
+    GET_ORDERS{
+        {
+            this.command = new GetOrdersCommand();
         }
     };
 

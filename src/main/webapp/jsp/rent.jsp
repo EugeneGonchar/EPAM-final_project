@@ -63,7 +63,7 @@
                         </div>
                         <select class="form-control" name="pickupAddress">
                             <c:forEach var="address" items="${addressList}" varStatus="status">
-                                <option><c:out value="${address.street} ${address.building}"></c:out></option>
+                                <option>${address.street} ${address.building}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -81,7 +81,7 @@
                         </div>
                         <select class="form-control" name="dropoffAddress">
                             <c:forEach var="address" items="${addressList}" varStatus="status">
-                                <option><c:out value="${address.street} ${address.building}"></c:out></option>
+                                <option>${address.street} ${address.building}</option>
                             </c:forEach>
                         </select>
                     </div>

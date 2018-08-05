@@ -1,16 +1,22 @@
 package controller.command.command;
 
 import controller.command.ActionCommand;
+import controller.command.util.DateHelper;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
+import dto.OrderDTO;
 import entity.Address;
+import entity.Car;
 import entity.Order;
 import resource.ConfigurationManager;
 import service.AddressService;
+import service.CarService;
 import service.ServiceFactory;
 
-public class ChooseDateAndAddress implements ActionCommand {
+import java.util.List;
+
+public class ChooseDateAndAddressCommand implements ActionCommand {
 
     private static final String PARAM_NAME_PICKUP_LOCATION = "pickupAddress";
     private static final String PARAM_NAME_DROPOFF_LOCATION = "dropoffAddress";
@@ -36,8 +42,7 @@ public class ChooseDateAndAddress implements ActionCommand {
         pickupAddress = addressService.formingAddressFromString(stringPickupAddress);
         dropoffAddress = addressService.formingAddressFromString(stringDropoffAddress);
         order = createOrder(sessionRequestContent);
-        System.out.println(pickupAddress.getId());
-        System.out.println(dropoffAddress.getId());
+
         order.setPickupAddressId(pickupAddress.getId());
         order.setDropoffAddressId(dropoffAddress.getId());
 
@@ -46,7 +51,7 @@ public class ChooseDateAndAddress implements ActionCommand {
         sessionRequestContent.add2SessionAttributes("order", order);
         page = ConfigurationManager.getProperty("path.page.preparedcars");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
-
+        
         return actionPageContainer;
     }
 

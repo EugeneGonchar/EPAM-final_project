@@ -22,6 +22,7 @@ public class GetCarsCommand implements ActionCommand {
         String page = null;
         List<Car> carList = null;
         Order order = (Order) sessionRequestContent.getSessionAttribute("order");
+
         int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());
 
         CarService carService = ServiceFactory.getInstance().getCarService();
@@ -29,7 +30,7 @@ public class GetCarsCommand implements ActionCommand {
         carList = carService.getFreeCarList(createOrderDTO(order));
 
         sessionRequestContent.add2SessionAttributes("rentDays", rentDays);
-        sessionRequestContent.add2RequestAttributes("carList", carList);
+        sessionRequestContent.add2SessionAttributes("carList", carList);
         page = ConfigurationManager.getProperty("path.page.cars");
 
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);

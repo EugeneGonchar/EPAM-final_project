@@ -47,7 +47,7 @@
                     </ul>
                 </nav>
             </div>
-            </div>
+        </div>
 
         <div class="col-9 float-left">
             <div class="mt-0 mb-0 border-bottom border-muted">
@@ -73,13 +73,13 @@
                         <div>
                             <p>
                                 <span class="font-weight-bold">Name: </span>
-                                <p><c:out value="${user.firstName}"></c:out></p>
+                                <p>${user.firstName}</p>
                             </p>
                         </div>
                         <div>
                             <p>
                                 <span class="font-weight-bold">Surname: </span>
-                                <p><c:out value="${user.lastName}"></c:out></p>
+                                <p>${user.lastName}</p>
                             </p>
                         </div>
                     </div>

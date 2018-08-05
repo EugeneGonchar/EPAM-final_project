@@ -141,7 +141,16 @@
     <servlet-name>ConfirmationPage</servlet-name>
     <url-pattern>/confirmation</url-pattern>
   </servlet-mapping>
-
+  
+  <servlet>
+    <servlet-name>OrdersPage</servlet-name>
+    <jsp-file>/jsp/user/orders.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdersPage</servlet-name>
+    <url-pattern>/user/orders</url-pattern>
+  </servlet-mapping>
+  
   <error-page>
     <error-code>404</error-code>
     <location>/jsp/error.jsp</location>

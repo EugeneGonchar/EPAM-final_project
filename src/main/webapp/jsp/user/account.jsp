@@ -63,7 +63,7 @@
                         <div>
                             <p class="note">
                                 <span class="font-weight-bold">Login: </span>
-                            <p><c:out value="${user.login}"></c:out></p>
+                                <p>${user.login}</p>
                             </p>
                         </div>
                     </div>

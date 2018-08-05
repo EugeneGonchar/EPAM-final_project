@@ -1,5 +1,7 @@
 package dao.impl;
 
+import static dao.util.DBFieldName.*;
+
 import dao.AbstractDAO;
 import dto.UserDTO;
 import entity.User;
@@ -20,15 +22,6 @@ public class UserDAO extends AbstractDAO{
     private static final String UPDATE_USER_PHONE_BY_LOGIN = "UPDATE `user` SET `phone`=? WHERE `login`=?";
     private static final String UPDATE_USER_EMAIL_BY_LOGIN = "UPDATE `user` SET `email`=? WHERE `login`=?";
     private static final String UPDATE_USER_PASSWORD_BY_LOGIN = "UPDATE `user` SET `password`=? WHERE `login`=?";
-
-    private static final String TABLE_USER_FIELD_ID = "user_id";
-    private static final String TABLE_USER_FIELD_LOGIN = "login";
-    private static final String TABLE_USER_FIELD_EMAIL = "email";
-    private static final String TABLE_USER_FIELD_PHONE = "phone";
-    private static final String TABLE_USER_FIELD_FIRST_NAME = "first_name";
-    private static final String TABLE_USER_FIELD_LAST_NAME = "last_name";
-    private static final String TABLE_USER_FIELD_PASSWORD = "password";
-    private static final String TABLE_USER_FIELD_ROLE_ID = "role_id";
 
     @Override
     public List<User> findAll(){

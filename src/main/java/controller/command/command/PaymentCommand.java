@@ -14,7 +14,7 @@ public class PaymentCommand implements ActionCommand {
         String page = null;
 
         page = ConfigurationManager.getProperty("path.page.confirmation");
-        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;
     }

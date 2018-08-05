@@ -31,7 +31,7 @@ public class DriverDetailsCommand implements ActionCommand {
             userService.checkDriverDetails(user);
             sessionRequestContent.add2SessionAttributes("guestUser", user);
             page = ConfigurationManager.getProperty("path.page.payment");
-            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         } catch (ExistEmptyFieldException e){
             sessionRequestContent.add2RequestAttributes("driverDetailsError",
                     MessageManager.getProperty("message.emptyfield"));
