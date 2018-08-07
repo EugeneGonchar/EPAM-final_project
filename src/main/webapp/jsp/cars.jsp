@@ -3,6 +3,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.order.menu.date_and_place" var="date_and_place" />
+<fmt:message bundle="${loc}" key="local.order.menu.cars_search" var="cars_search" />
+<fmt:message bundle="${loc}" key="local.order.menu.driver" var="driver" />
+<fmt:message bundle="${loc}" key="local.order.menu.payment" var="payment" />
+<fmt:message bundle="${loc}" key="local.order.menu.confirmation" var="confirmation" />
+<fmt:message bundle="${loc}" key="local.car.seats_message" var="seats_message" />
+<fmt:message bundle="${loc}" key="local.car.doors_message" var="doors_message" />
+<fmt:message bundle="${loc}" key="local.car.air_conditioning_message" var="air_conditioning_message" />
+<fmt:message bundle="${loc}" key="local.car.automatic_gearbox_message" var="automatic_gearbox_message" />
+<fmt:message bundle="${loc}" key="local.car.fuel_consumption_message" var="fuel_consumption_message" />
+<fmt:message bundle="${loc}" key="local.car.engine_type_message" var="engine_type_message" />
+<fmt:message bundle="${loc}" key="local.car.year_of_issue_message" var="year_of_issue_message" />
+<fmt:message bundle="${loc}" key="local.order.cars.price_for" var="price_for" />
+<fmt:message bundle="${loc}" key="local.order.cars.days" var="days" />
+<fmt:message bundle="${loc}" key="local.order.cars.book_now_button" var="book_now_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -18,11 +37,11 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right " href="/controller?command=get_locations">Choice of date and place <i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right bg-light" href="/controller?command=get_cars">Car's search results</a>
-        <a class="nav-item nav-link col border-right disabled" href="#">Driver</a>
-        <a class="nav-item nav-link col border-right disabled" href="#">Payment</a>
-        <a class="nav-item nav-link col disabled" href="#">Confirmation</a>
+        <a class="nav-item nav-link col border-right " href="${pageContext.request.contextPath}/controller?command=get_locations">${date_and_place}<i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right bg-light" href="${pageContext.request.contextPath}/controller?command=get_cars">${cars_search}</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">${driver}</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">${payment}</a>
+        <a class="nav-item nav-link col disabled" href="#">${confirmation}</a>
     </nav>
 </div>
 
@@ -126,16 +145,16 @@
                             <div class="container mx-0 my-3">
                                 <div class="row text-left">
                                     <div class="col-6 px-0 pl-3">
-                                        <h6 class="car_element" class="mb-1">Seats: ${car.seats} </h6>
+                                        <h6 class="car_element" class="mb-1">${seats_message}: ${car.seats} </h6>
                                     </div>
                                     <div class="col-6 px-0 pl-3">
-                                        <h6 class="car_element" class="mb-1">Doors: ${car.doors}</h6>
+                                        <h6 class="car_element" class="mb-1">${doors_message}: ${car.doors}</h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
                                     <div class="col-6 px-0 pl-3">
                                         <h6 class="car_element" class="mb-1">
-                                                Air conditioning:
+                                                ${air_conditioning_message}:
                                                 <c:choose>
                                                     <c:when test="${car.airConditioning eq true}">
                                                         <i class="fa fa-check" style="color: #34ce57"></i>
@@ -148,7 +167,7 @@
                                     </div>
                                     <div class="col-6 px-0 pl-3">
                                         <h6 class="car_element" class="mb-1">
-                                                Automatic gearbox:
+                                                ${automatic_gearbox_message}:
                                                 <c:choose>
                                                     <c:when test="${car.automaticGearbox eq true}">
                                                         <i class="fa fa-check" style="color: #34ce57"></i>
@@ -162,10 +181,10 @@
                                 </div>
                                 <div class="row text-left">
                                     <div class="col-6 px-0 pl-3">
-                                        <h6 class="car_element" class="mb-1">Fuel consumption: ${car.fuelConsumption} L/100</h6>
+                                        <h6 class="car_element" class="mb-1">${fuel_consumption_message}: ${car.fuelConsumption} L/100</h6>
                                     </div>
                                     <div class="col-6 px-0 pl-3">
-                                        <h6 class="car_element" class="mb-1">Engine type: ${car.engineType}</h6>
+                                        <h6 class="car_element" class="mb-1">${engine_type_message}: ${car.engineType}</h6>
                                     </div>
                                 </div>
                                 <div class="my-2">
@@ -177,15 +196,15 @@
 
                     <div class="col-3 float-right pl-0">
                         <div class="text-right m-2">
-                            <h6 class="car_element" class="mb-1">Price for ${rentDays} days:</h6>
+                            <h6 class="car_element" class="mb-1">${price_for}${rentDays} ${days}:</h6>
                             <h3>${car.rental4Day * rentDays} $</h3>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-3 m-3">
-                        <a href="/controller?command=go_to_driver_details&id=${car.id}" type="button" class="btn btn-block btn-success">
-                            Book now
+                        <a href="${pageContext.request.contextPath}/controller?command=go_to_driver_details&id=${car.id}" type="button" class="btn btn-block btn-success">
+                            ${book_now_button}
                         </a>
                     </div>
                 </div>

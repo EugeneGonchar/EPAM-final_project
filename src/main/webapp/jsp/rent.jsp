@@ -3,6 +3,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.order.menu.date_and_place" var="date_and_place" />
+<fmt:message bundle="${loc}" key="local.order.menu.cars_search" var="cars_search" />
+<fmt:message bundle="${loc}" key="local.order.menu.driver" var="driver" />
+<fmt:message bundle="${loc}" key="local.order.menu.payment" var="payment" />
+<fmt:message bundle="${loc}" key="local.order.menu.confirmation" var="confirmation" />
+<fmt:message bundle="${loc}" key="local.order.rent.message" var="message" />
+<fmt:message bundle="${loc}" key="local.order.rent.pickup_location_message" var="pickup_location_message" />
+<fmt:message bundle="${loc}" key="local.order.rent.dropoff_location_messsage" var="dropoff_location_messsage" />
+<fmt:message bundle="${loc}" key="local.order.rent.date_and_time_pickup" var="date_and_time_pickup" />
+<fmt:message bundle="${loc}" key="local.order.rent.date_and_time_dropoff" var="date_and_time_dropoff" />
+<fmt:message bundle="${loc}" key="local.order.rent.submit_button" var="submit_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -19,18 +34,18 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right bg-light" href="/controller?command=get_locations">Choice of date and place</a>
-        <a class="nav-item nav-link col border-right disabled" href="#">Car's search results</a>
-        <a class="nav-item nav-link col border-right disabled" href="#">Driver</a>
-        <a class="nav-item nav-link col border-right disabled" href="#">Payment</a>
-        <a class="nav-item nav-link col disabled" href="#">Confirmation</a>
+        <a class="nav-item nav-link col border-right bg-light" href="${pageContext.request.contextPath}/controller?command=get_locations">${date_and_place}</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">${cars_search}</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">${driver}</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">${payment}</a>
+        <a class="nav-item nav-link col disabled" href="#">${confirmation}</a>
     </nav>
 </div>
 
 <div class="padding-top-registration">
     <div class="card container col-lg-4">
         <article class="card-body">
-            <h4 class="card-title text-center mb-4 mt-1">Let’s find your ideal car</h4>
+            <h4 class="card-title text-center mb-4 mt-1">${message}</h4>
             <hr>
 
             <div>
@@ -48,10 +63,10 @@
                 </c:choose>
             </div>
 
-            <form id="signUpForm" method="POST" action="/controller">
+            <form id="signUpForm" method="POST" action="${pageContext.request.contextPath}/controller">
                 <input type="hidden" name="command" value="choose_date_address_of_order"/>
 
-                <p class="text-left">Pick-up location :</p>
+                <p class="text-left">${pickup_location_message}:</p>
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -69,7 +84,7 @@
                     </div>
                 </div> <!-- form-group// -->
 
-                <p class="text-left">Drop-off location :</p>
+                <p class="text-left">${dropoff_location_messsage}:</p>
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -89,7 +104,7 @@
 
                 <div class="row justify-content-between">
                     <div class="col-6">
-                        <p class="text-left">Pick-up date and time :</p>
+                        <p class="text-left">${date_and_time_pickup}:</p>
                         <div class="form-group">
                             <div class='input-group date' >
                                 <div class="input-group-prepend">
@@ -104,7 +119,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <p class="text-left">Drop-off date and time :</p>
+                        <p class="text-left">${date_and_time_dropoff}:</p>
                         <div class="form-group">
                             <div class='input-group date' >
                                 <div class="input-group-prepend">
@@ -123,7 +138,7 @@
 
                 <br/>
                 <div class="form-group d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">${submit_button}</button>
                 </div> <!-- form-group// -->
             </form>
         </article>

@@ -2,6 +2,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.header.home_button" var="home_button" />
+<fmt:message bundle="${loc}" key="local.header.rent_button" var="rent_button" />
+<fmt:message bundle="${loc}" key="local.header.about_button" var="about_button" />
+<fmt:message bundle="${loc}" key="local.header.hello_message" var="hello_message" />
+<fmt:message bundle="${loc}" key="local.header.signin_as" var="signin_as" />
+<fmt:message bundle="${loc}" key="local.header.your_profile_button" var="your_profile_button" />
+<fmt:message bundle="${loc}" key="local.header.your_orders_button" var="your_orders_button" />
+<fmt:message bundle="${loc}" key="local.header.help_button" var="help_button" />
+<fmt:message bundle="${loc}" key="local.header.signout_button" var="signout_button" />
+<fmt:message bundle="${loc}" key="local.header.sign_up_button" var="sign_up_button" />
+<fmt:message bundle="${loc}" key="local.header.login_button" var="login_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -30,18 +45,19 @@
                         </a>
                     </li>
                     <li class="nav-item px-2<%--active--%>">
-                        <a class="nav-link" href="/main">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/main">
                             <i class="fa fa-home">
 
                             </i>
-                            Home
+                            <c:out value="${home_button}"/>
+
                         </a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="/controller?command=get_locations">Rent</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=get_locations">${rent_button}</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#">${about_button}</a>
                     </li>
                 </ul>
             </div>
@@ -55,46 +71,53 @@
                             <i class="fa fa-language">
                                 <%--засунуть язык--%>
                             </i>
-                            (en)
+                            <c:choose>
+                                <c:when test="${empty sessionScope.local}">
+                                    (ru)
+                                </c:when>
+                                <c:otherwise>
+                                    (${sessionScope.local})
+                                </c:otherwise>
+                            </c:choose>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">English</a>
-                            <a class="dropdown-item" href="#">Русский</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=language&lang=en">English</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=language&lang=ru">Русский</a>
                         </div>
                     </li>
 
                     <c:choose>
                         <c:when test="${not empty user}">
                             <li class="nav-item px-2">
-                                <a class="nav-link invisible" href="/signup">
+                                <a class="nav-link invisible" href="${pageContext.request.contextPath}/signup">
                                     <i class="fa fa-user-plus">
 
                                     </i>
-                                    Sign Up
+                                    ${sign_up_button}
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown px-2">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Hello,
+                                    ${hello_message},
                                     <c:out value="${user.login}">
 
                                     </c:out>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <h6 class="dropdown-header">Signed in as</h6>
+                                    <h6 class="dropdown-header">${signin_as}</h6>
                                     <span class="dropdown-item-text font-weight-bold" href="#">
                                         ${user.firstName }
                                         ${user.lastName}
                                     </span>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/user/profile">Your profile</a>
-                                    <a class="dropdown-item" href="/controller?command=get_orders">Your orders</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">${your_profile_button}</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=get_orders">${your_orders_button}</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Help</a>
-                                    <form id="logoutForm" method="POST" action="/controller">
+                                    <a class="dropdown-item" href="#">${help_button}</a>
+                                    <form id="logoutForm" method="POST" action="${pageContext.request.contextPath}/controller">
                                         <input type="hidden" name="command" value="logout"/>
-                                        <button class="dropdown-item" type="submit">Sign out</button>
+                                        <button class="dropdown-item" type="submit">${signout_button}</button>
                                     </form>
                                 </div>
                             </li>
@@ -102,19 +125,19 @@
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item px-2">
-                                <a class="nav-link" href="/signup">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/signup">
                                     <i class="fa fa-user-plus">
 
                                     </i>
-                                    Sign Up
+                                    ${sign_up_button}
                                 </a>
                             </li>
                             <li class="nav-item px-2">
-                                <a class="nav-link" href="/login">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/login">
                                     <i class="fa fa-sign-in">
 
                                     </i>
-                                    Log in
+                                    ${login_button}
                                 </a>
                             </li>
                         </c:otherwise>

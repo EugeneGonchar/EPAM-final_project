@@ -3,6 +3,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.orders.orders_message" var="orders_message" />
+<fmt:message bundle="${loc}" key="local.orders.car_column" var="car_column" />
+<fmt:message bundle="${loc}" key="local.orders.start_date_column" var="start_date_column" />
+<fmt:message bundle="${loc}" key="local.orders.end_date_column" var="end_date_column" />
+<fmt:message bundle="${loc}" key="local.orders.status_column" var="status_column" />
+<fmt:message bundle="${loc}" key="local.orders.action_column" var="action_column" />
+<fmt:message bundle="${loc}" key="local.orders.common_information_message" var="common_information_message" />
+<fmt:message bundle="${loc}" key="local.car.seats_message" var="seats_message" />
+<fmt:message bundle="${loc}" key="local.car.doors_message" var="doors_message" />
+<fmt:message bundle="${loc}" key="local.car.air_conditioning_message" var="air_conditioning_message" />
+<fmt:message bundle="${loc}" key="local.car.automatic_gearbox_message" var="automatic_gearbox_message" />
+<fmt:message bundle="${loc}" key="local.car.fuel_consumption_message" var="fuel_consumption_message" />
+<fmt:message bundle="${loc}" key="local.car.engine_type_message" var="engine_type_message" />
+<fmt:message bundle="${loc}" key="local.car.year_of_issue_message" var="year_of_issue_message" />
+<fmt:message bundle="${loc}" key="local.orders.close_button" var="close_button" />
+<fmt:message bundle="${loc}" key="local.orders.details_button" var="details_button" />
+<fmt:message bundle="${loc}" key="local.orders.order_info_message" var="order_info_message" />
+<fmt:message bundle="${loc}" key="local.orders.date_message" var="date_message" />
+<fmt:message bundle="${loc}" key="local.orders.start_message" var="start_message" />
+<fmt:message bundle="${loc}" key="local.orders.end_message" var="end_message" />
+<fmt:message bundle="${loc}" key="local.orders.place_message" var="place_message" />
+<fmt:message bundle="${loc}" key="local.orders.pickup_message" var="pickup_message" />
+<fmt:message bundle="${loc}" key="local.orders.dropoff_message" var="dropoff_message" />
+<fmt:message bundle="${loc}" key="local.orders.rent_cost_message" var="rent_cost_message" />
+
 <!doctype html>
 <html>
 <head>
@@ -19,7 +47,7 @@
 <div class="container my-3">
 
     <div class="col-12 mt-0 mb-3 border-bottom border-muted float-right">
-        <h3 class="text-dark">Orders</h3>
+        <h3 class="text-dark">${orders_message}</h3>
     </div>
 
     <div class="col-12 float-left">
@@ -28,11 +56,11 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Car</th>
-                    <th scope="col">Start date</th>
-                    <th scope="col">End date</th>
-                    <th scope="col" class="text-center">Status</th>
-                    <th scope="col" class="text-center">Action</th>
+                    <th scope="col">${car_column}</th>
+                    <th scope="col">${start_date_column}</th>
+                    <th scope="col">${end_date_column}</th>
+                    <th scope="col" class="text-center">${status_column}</th>
+                    <th scope="col" class="text-center">${action_column}</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,20 +90,20 @@
                                                     </div>
                                                     <div class="col-7">
                                                         <div class="row mb-1 border-bottom border-muted ">
-                                                            <h5 class="">Common information</h5>
+                                                            <h5 class="">${common_information_message}</h5>
                                                         </div>
                                                         <div class="row my-1 text-left">
                                                             <div class="col-6 px-0 pl-3">
-                                                                <h6 class="car_element" class="mb-1">Seats: ${orderElement.car.seats} </h6>
+                                                                <h6 class="car_element" class="mb-1">${seats_message}: ${orderElement.car.seats} </h6>
                                                             </div>
                                                             <div class="col-6 px-0 pl-3">
-                                                                <h6 class="car_element" class="mb-1">Doors: ${orderElement.car.doors}</h6>
+                                                                <h6 class="car_element" class="mb-1">${doors_message}: ${orderElement.car.doors}</h6>
                                                             </div>
                                                         </div>
                                                         <div class="row my-1 text-left">
                                                             <div class="col-6 px-0 pl-3">
                                                                 <h6 class="car_element" class="mb-1">
-                                                                    Air conditioning:
+                                                                    ${air_conditioning_message}:
                                                                     <c:choose>
                                                                         <c:when test="${orderElement.car.airConditioning eq true}">
                                                                             <i class="fa fa-check" style="color: #34ce57"></i>
@@ -88,7 +116,7 @@
                                                             </div>
                                                             <div class="col-6 px-0 pl-3">
                                                                 <h6 class="car_element" class="mb-1">
-                                                                    Automatic gearbox:
+                                                                    ${automatic_gearbox_message}:
                                                                     <c:choose>
                                                                         <c:when test="${orderElement.car.automaticGearbox eq true}">
                                                                             <i class="fa fa-check" style="color: #34ce57"></i>
@@ -102,15 +130,15 @@
                                                         </div>
                                                         <div class="row my-1 text-left">
                                                             <div class="col-6 px-0 pl-3">
-                                                                <h6 class="car_element" class="mb-1">Fuel consumption: ${orderElement.car.fuelConsumption} L/100</h6>
+                                                                <h6 class="car_element" class="mb-1">${fuel_consumption_message}: ${orderElement.car.fuelConsumption} L/100</h6>
                                                             </div>
                                                             <div class="col-6 px-0 pl-3">
-                                                                <h6 class="car_element" class="mb-1">Engine power: ${orderElement.car.engineType}</h6>
+                                                                <h6 class="car_element" class="mb-1">${engine_type_message}: ${orderElement.car.engineType}</h6>
                                                             </div>
                                                         </div>
                                                         <div class="row my-1 text-left">
                                                             <div class="col-6 px-0 pl-3">
-                                                                <h6 class="car_element" class="mb-1">Year of issue: ${orderElement.car.yearOfIssue}</h6>
+                                                                <h6 class="car_element" class="mb-1">${year_of_issue_message}: ${orderElement.car.yearOfIssue}</h6>
                                                             </div>
                                                             <div class="col-6 px-0 pl-3">
                                                                 <h6 class="car_element" class="mb-1"></h6>
@@ -121,7 +149,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">${close_button}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +174,7 @@
                             <!-- Button trigger modal -->
                             <div class="d-flex justify-content-center">
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#order${status.count}">
-                                    Details
+                                    ${details_button}
                                 </button>
                             </div>
 
@@ -155,7 +183,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h3 class="modal-title" id="exampleModalLongTitle">Order info</h3>
+                                            <h3 class="modal-title" id="exampleModalLongTitle">${order_info_message}</h3>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -165,11 +193,11 @@
                                                 <div class="row justify-content-between">
                                                     <div class="col-5">
                                                         <div class="mb-1 border-bottom border-muted ">
-                                                            <div class="h5 text-dark text-muted">Date</div>
+                                                            <div class="h5 text-dark text-muted">${date_message}</div>
                                                         </div>
                                                         <div class="row px-3 justify-content-between">
                                                             <div class="h6">
-                                                                Start:
+                                                                ${start_message}:
                                                             </div>
                                                             <div>
                                                                 <fmt:formatDate value="${ orderElement.order.dateReceived}" pattern="yyyy-MM-dd HH:mm" />
@@ -177,7 +205,7 @@
                                                         </div>
                                                         <div class="row px-3 justify-content-between">
                                                             <div class="h6">
-                                                                End:
+                                                                ${end_message}:
                                                             </div>
                                                             <div>
                                                                 <fmt:formatDate value="${ orderElement.order.returnDate}" pattern="yyyy-MM-dd HH:mm" />
@@ -186,11 +214,11 @@
                                                     </div>
                                                     <div class="col-5">
                                                         <div class="mb-1 border-bottom border-muted ">
-                                                            <div class="h5 text-dark text-muted">Place</div>
+                                                            <div class="h5 text-dark text-muted">${place_message}</div>
                                                         </div>
                                                         <div class="row px-3 justify-content-between">
                                                             <div class="h6">
-                                                                Pick-up:
+                                                                ${pickup_message}:
                                                             </div>
                                                             <div>
                                                                 ${ orderElement.pickupAddress.street} ${ orderElement.pickupAddress.building}
@@ -198,7 +226,7 @@
                                                         </div>
                                                         <div class="row px-3 justify-content-between">
                                                             <div class="h6">
-                                                                Drop-off:
+                                                                ${dropoff_message}:
                                                             </div>
                                                             <div>
                                                                     ${ orderElement.dropoffAddress.street} ${ orderElement.dropoffAddress.building}
@@ -209,7 +237,7 @@
                                                     <div class="container my-3">
                                                         <div class="row justify-content-end">
                                                             <div class="col col-4 text-right">
-                                                                <span class="h5">Rent cost:</span>
+                                                                <span class="h5">${rent_cost_message}:</span>
                                                                 <span class="h4">${ orderElement.order.totalCost} $</span>
                                                             </div>
                                                         </div>
@@ -218,7 +246,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">${close_button}</button>
                                         </div>
                                     </div>
                                 </div>

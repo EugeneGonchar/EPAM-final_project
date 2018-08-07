@@ -3,6 +3,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.order.menu.date_and_place" var="date_and_place" />
+<fmt:message bundle="${loc}" key="local.order.menu.cars_search" var="cars_search" />
+<fmt:message bundle="${loc}" key="local.order.menu.driver" var="driver" />
+<fmt:message bundle="${loc}" key="local.order.menu.payment" var="payment" />
+<fmt:message bundle="${loc}" key="local.order.menu.confirmation" var="confirmation" />
+<fmt:message bundle="${loc}" key="local.order.payment.payment_details" var="payment_details" />
+<fmt:message bundle="${loc}" key="local.order.payment.name_message" var="name_message" />
+<fmt:message bundle="${loc}" key="local.order.payment.card_number_message" var="card_number_message" />
+<fmt:message bundle="${loc}" key="local.order.order_details_message" var="order_details_message" />
+<fmt:message bundle="${loc}" key="local.order.pickup_message" var="pickup_message" />
+<fmt:message bundle="${loc}" key="local.order.dropoff_message" var="dropoff_message" />
+<fmt:message bundle="${loc}" key="local.order.car_message" var="car_message" />
+<fmt:message bundle="${loc}" key="local.order.confirmation.driver_details_message" var="driver_details_message" />
+<fmt:message bundle="${loc}" key="local.order.driver.passport_name_surname_info" var="passport_name_surname_info" />
+<fmt:message bundle="${loc}" key="local.order.driver.name_message" var="name_message" />
+<fmt:message bundle="${loc}" key="local.order.driver.surname_message" var="surname_message" />
+<fmt:message bundle="${loc}" key="local.order.driver.contact_info_message" var="contact_info_message" />
+<fmt:message bundle="${loc}" key="local.order.driver.email_message" var="email_message" />
+<fmt:message bundle="${loc}" key="local.order.driver.submit_button" var="submit_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -18,11 +41,11 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place <i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results <i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right bg-light" href="/driverdetails">Driver</a>
-        <a class="nav-item nav-link col border-right disabled" href="#">Payment</a>
-        <a class="nav-item nav-link col disabled" href="#">Confirmation</a>
+        <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/controller?command=get_locations">${date_and_place}<i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/controller?command=get_cars">${cars_search}<i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right bg-light" href="${pageContext.request.contextPath}/driverdetails">${driver}</a>
+        <a class="nav-item nav-link col border-right disabled" href="#">${payment}</a>
+        <a class="nav-item nav-link col disabled" href="#">${confirmation}</a>
     </nav>
 </div>
 
@@ -120,13 +143,13 @@
                 <div class="p-0 col-8 pr-2">
                     <div class="mb-0 p-0 col">
                         <div class="my-1 border-bottom">
-                            <h4>Order details</h4>
+                            <h4>${order_details_message}</h4>
                         </div>
                         <div class="container mx-0 my-2">
                             <div class="py-2 border-bottom">
                                 <div class="row text-left">
                                     <div class="col-4">
-                                        <h6 class="mb-1 font-weight-bold">Car:</h6>
+                                        <h6 class="mb-1 font-weight-bold">${car_message}:</h6>
                                     </div>
                                     <div class="col-8">
                                         <h6 class="mb-1">${car.brand} ${car.model}</h6>
@@ -137,7 +160,7 @@
                             <div class="py-2 border-bottom">
                                 <div class="row text-left">
                                     <div class="col-4">
-                                        <h6 class="mb-1 font-weight-bold">Pick-up:</h6>
+                                        <h6 class="mb-1 font-weight-bold">${pickup_message}:</h6>
                                     </div>
                                     <div class="col-8">
                                         <h6 class="mb-1">${pickupAddressOfOrder.street} ${pickupAddressOfOrder.building}</h6>
@@ -156,7 +179,7 @@
                             <div class="py-2">
                                 <div class="row text-left">
                                     <div class="col-4">
-                                        <h6 class="mb-1 font-weight-bold">Drop-off:</h6>
+                                        <h6 class="mb-1 font-weight-bold">${dropoff_message}:</h6>
                                     </div>
                                     <div class="col-8">
                                         <h6 class="mb-1">${dropoffAddressOfOrder.street} ${dropoffAddressOfOrder.building}</h6>
@@ -181,13 +204,13 @@
         <div class="card col-12 mt-3">
 
             <div class="mt-2 mb-0 border-bottom border-muted">
-                <h3 class="text-dark">Driver details</h3>
+                <h3 class="text-dark">${driver_details_message}</h3>
             </div>
 
             <c:choose>
                 <c:when test="${empty user}">
                     <div class="row justify-content-center">
-                        <form id="enterDriverDetails" method="POST" action="/controller" class="col-8">
+                        <form id="enterDriverDetails" method="POST" action="${pageContext.request.contextPath}/controller" class="col-8">
                             <input type="hidden" name="command" value="driver_details"/>
                             <div>
                                 <c:choose>
@@ -204,12 +227,12 @@
                                 </c:choose>
                             </div>
 
-                            <p class="text-left">Please, enter your passport name and surname :</p>
+                            <p class="text-left">${passport_name_surname_info}:</p>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                             <span class="input-group-text">
-                                Name *
+                                ${name_message}*
                             </span>
                                     </div>
                                     <input name="first_name" class="form-control" placeholder="IVAN" type="text">
@@ -220,19 +243,19 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                             <span class="input-group-text">
-                                Surname *
+                                ${surname_message}*
                             </span>
                                     </div>
                                     <input name="last_name" class="form-control" placeholder="IVANOV" type="text">
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 
-                            <p class="text-left">Please, enter contact information :</p>
+                            <p class="text-left">${contact_info_message}:</p>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                             <span class="input-group-text">
-                                Email *
+                                ${email_message}*
                             </span>
                                     </div>
                                     <input name="email" class="form-control" placeholder="email@example.com" type="email">
@@ -253,7 +276,7 @@
                             </div> <!-- form-group// -->
 
                             <div class="form-group d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">${submit_button}</button>
                             </div>
 
                         </form>
@@ -261,7 +284,7 @@
                 </c:when>
                 <c:otherwise>
                     <div class="row justify-content-center">
-                        <form method="POST" action="/payment" class="col-8">
+                        <form method="POST" action="${pageContext.request.contextPath}/payment" class="col-8">
                             <div>
                                 <c:choose>
                                     <c:when test="${empty updatePasswordError}">
@@ -277,12 +300,12 @@
                                 </c:choose>
                             </div>
 
-                            <p class="text-left">Please, enter your passport name and surname :</p>
+                            <p class="text-left">${passport_name_surname_info}:</p>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                             <span class="input-group-text">
-                                Name *
+                                ${name_message}*
                             </span>
                                     </div>
                                     <input name="first_name" class="form-control" placeholder="${user.firstName}" type="text" disabled>
@@ -293,19 +316,19 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            Surname *
+                                            ${surname_message}*
                                         </span>
                                     </div>
                                     <input name="last_name" class="form-control" placeholder="${user.lastName}" type="text" disabled>
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 
-                            <p class="text-left">Please, enter contact information :</p>
+                            <p class="text-left">${contact_info_message}:</p>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            Email *
+                                            ${email_message}*
                                         </span>
                                     </div>
                                     <input name="email" class="form-control" placeholder="${user.email}" type="email" disabled>
@@ -324,7 +347,7 @@
                             </div> <!-- form-group// -->
 
                             <div class="form-group d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">${submit_button}</button>
                             </div>
 
                         </form>

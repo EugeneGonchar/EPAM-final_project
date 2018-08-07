@@ -3,6 +3,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.account.personal_settings_message" var="personal_settings_message" />
+<fmt:message bundle="${loc}" key="local.account.profile_button" var="profile_button" />
+<fmt:message bundle="${loc}" key="local.account.account_button" var="account_button" />
+<fmt:message bundle="${loc}" key="local.profile.profile_message" var="profile_message" />
+<fmt:message bundle="${loc}" key="local.profile.profile_picture_message" var="profile_picture_message" />
+<fmt:message bundle="${loc}" key="local.profile.upload_picture_button" var="upload_picture_button" />
+<fmt:message bundle="${loc}" key="local.profile.name_message" var="name_message" />
+<fmt:message bundle="${loc}" key="local.profile.surname_message" var="surname_message" />
+<fmt:message bundle="${loc}" key="local.profile.new_name_message" var="new_name_message" />
+<fmt:message bundle="${loc}" key="local.profile.new_surname_message" var="new_surname_message" />
+<fmt:message bundle="${loc}" key="local.profile.note_message" var="note_message" />
+<fmt:message bundle="${loc}" key="local.profile.update_profile_button" var="update_profile_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -26,22 +42,22 @@
                     <ul class="navbar-nav">
                         <span class="border-bottom bg-light">
                             <li class="pl-3 nav-item text-dark">
-                                <a class="nav-link disabled text-secondary" href="#">Personal settings</a>
+                                <a class="nav-link disabled text-secondary" href="#">${personal_settings_message}</a>
                             </li>
                         </span>
                         <span class="border-bottom active">
                             <li class="pl-3 nav-item active">
-                                <a class="nav-link text-dark" href="/user/profile">Profile</a>
+                                <a class="nav-link text-dark" href="${pageContext.request.contextPath}/user/profile">${profile_button}</a>
                             </li>
                         </span>
                         <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/account">Account</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/account">${account_button}</a>
                             </li>
                         </span>
                         <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/contacts">Email & phone</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/contacts">${email_and_phone_button}</a>
                             </li>
                         </span>
                     </ul>
@@ -51,18 +67,18 @@
 
         <div class="col-9 float-left">
             <div class="mt-0 mb-0 border-bottom border-muted">
-                <h3 class="text-dark">Profile</h3>
+                <h3 class="text-dark">${profile_message}</h3>
             </div>
 
-            <form id="changeNameOrSurnameForm" method="POST" action="/controller">
+            <form id="changeNameOrSurnameForm" method="POST" action="${pageContext.request.contextPath}/controller">
                 <input type="hidden" name="command" value="change_name_surname"/>
                 <dl class="form-group edit-profile-avatar mt-3 pl-1 float-right col-4">
-                    <dt><label>Profile picture</label></dt>
+                    <dt><label>${profile_picture_message}</label></dt>
                     <dd class="avatar-upload-container clearfix">
                         <img width="200" height="200" class="avatar rounded-2" alt="" src="https://avatars0.githubusercontent.com/u/32580446?s=400&amp;v=4">
                         <div class="custom-file mt-3">
                             <button class="btn btn-block btn-primary">
-                                Upload the file
+                                ${upload_picture_button}
                             </button>
                         </div> <!-- /.avatar-upload -->
                     </dd>
@@ -72,13 +88,13 @@
                     <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                         <div>
                             <p>
-                                <span class="font-weight-bold">Name: </span>
+                                <span class="font-weight-bold">${name_message}: </span>
                                 <p>${user.firstName}</p>
                             </p>
                         </div>
                         <div>
                             <p>
-                                <span class="font-weight-bold">Surname: </span>
+                                <span class="font-weight-bold">${surname_message}: </span>
                                 <p>${user.lastName}</p>
                             </p>
                         </div>
@@ -100,20 +116,20 @@
                     </div>
 
                     <div class="form-group mt-3">
-                        <label class="font-weight-bold">New name:</label>
+                        <label class="font-weight-bold">${new_name_message}:</label>
                         <input name="first_name" placeholder="Ivan" type="text" class="form-control">
                     </div>
                     <div class="form-group mt-3">
-                        <label class="font-weight-bold">New surname:</label>
+                        <label class="font-weight-bold">${new_surname_message}:</label>
                         <input name="last_name" placeholder="Ivanov" type="text" class="form-control">
                     </div>
                     <div>
                         <p class="text-small">
-                            Note that name and surname should be as in your passport.
+                            ${note_message}
                         </p>
                     </div>
                     <div class="form-group mt-3">
-                        <button class="btn btn-success" type="submit">Update profile</button>
+                        <button class="btn btn-success" type="submit">${update_profile_button}</button>
                     </div>
                 </div>
             </form>

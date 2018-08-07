@@ -3,6 +3,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.account.personal_settings_message" var="personal_settings_message" />
+<fmt:message bundle="${loc}" key="local.account.profile_button" var="profile_button" />
+<fmt:message bundle="${loc}" key="local.account.account_button" var="account_button" />
+<fmt:message bundle="${loc}" key="local.account.email_and_phone_button" var="email_and_phone_button" />
+<fmt:message bundle="${loc}" key="local.account.change_login_message" var="change_login_message" />
+<fmt:message bundle="${loc}" key="local.account.login_message" var="login_message" />
+<fmt:message bundle="${loc}" key="local.account.new_login_message" var="new_login_message" />
+<fmt:message bundle="${loc}" key="local.account.change_login_button" var="change_login_button" />
+<fmt:message bundle="${loc}" key="local.account.change_password_message" var="change_password_message" />
+<fmt:message bundle="${loc}" key="local.account.old_password_message" var="old_password_message" />
+<fmt:message bundle="${loc}" key="local.account.new_password_message" var="new_password_message" />
+<fmt:message bundle="${loc}" key="local.account.confirm_password_message" var="confirm_password_message" />
+<fmt:message bundle="${loc}" key="local.account.change_password_button" var="change_password_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -26,22 +43,22 @@
                 <ul class="navbar-nav">
                         <span class="border-bottom bg-light">
                             <li class="pl-3 nav-item text-dark">
-                                <a class="nav-link disabled text-secondary" href="#">Personal settings</a>
+                                <a class="nav-link disabled text-secondary" href="#">${personal_settings_message}</a>
                             </li>
                         </span>
                     <span class="border-bottom active">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/profile">Profile</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/profile">${profile_button}</a>
                             </li>
                         </span>
                     <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link text-dark" href="/user/account">Account</a>
+                                <a class="nav-link text-dark" href="${pageContext.request.contextPath}/user/account">${account_button}</a>
                             </li>
                         </span>
                     <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/contacts">Email & phone</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/contacts">${email_and_phone_button}</a>
                             </li>
                         </span>
                 </ul>
@@ -54,15 +71,15 @@
         <div class="card border-0 col-12">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
-                <h3 class="text-dark">Change login</h3>
+                <h3 class="text-dark">${change_login_message}</h3>
             </div>
 
-            <form id="changeLoginForm" method="POST" action="/controller" class="col-8">
+            <form id="changeLoginForm" method="POST" action="${pageContext.request.contextPath}/controller" class="col-8">
                 <input type="hidden" name="command" value="change_login"/>
                     <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                         <div>
                             <p class="note">
-                                <span class="font-weight-bold">Login: </span>
+                                <span class="font-weight-bold">${login_message}: </span>
                                 <p>${user.login}</p>
                             </p>
                         </div>
@@ -84,12 +101,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="b" class="font-weight-bold">New login:</label>
+                        <label for="b" class="font-weight-bold">${new_login_message}:</label>
                         <input name="login" placeholder="login" type="text" class="form-control" id="b">
                     </div>
 
                     <div class="form-group mt-1">
-                        <button class="btn btn-light border" type="submit">Change login</button>
+                        <button class="btn btn-light border" type="submit">${change_login_button}</button>
                     </div>
 
             </form>
@@ -98,10 +115,10 @@
         <div class="card border-0 col-12 mt-3">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
-                <h3 class="text-dark">Change password</h3>
+                <h3 class="text-dark">${change_password_message}</h3>
             </div>
 
-            <form id="changePasswordForm" method="POST" action="/controller" class="col-8">
+            <form id="changePasswordForm" method="POST" action="${pageContext.request.contextPath}/controller" class="col-8">
                 <input type="hidden" name="command" value="change_password"/>
                 <div>
                     <c:choose>
@@ -119,22 +136,22 @@
                 </div>
 
                 <div class="form-group mt-1">
-                    <label for="pass" class="font-weight-bold">Old password:</label>
+                    <label for="pass" class="font-weight-bold">${old_password_message}:</label>
                     <input name="old_password" placeholder="******" type="password" class="form-control" id="pass">
                 </div>
 
                 <div class="form-group mt-1">
-                    <label for="pass1" class="font-weight-bold">New password:</label>
+                    <label for="pass1" class="font-weight-bold">${new_password_message}:</label>
                     <input name="new_password" placeholder="******" type="password" class="form-control" id="pass1">
                 </div>
 
                 <div class="form-group mt-1">
-                    <label for="pass2" class="font-weight-bold">Confirm new password:</label>
+                    <label for="pass2" class="font-weight-bold">${confirm_password_message}:</label>
                     <input name="new_password2" placeholder="******" type="password" class="form-control" id="pass2">
                 </div>
 
                 <div class="form-group mt-1">
-                    <button class="btn btn-light border" type="submit">Change password</button>
+                    <button class="btn btn-light border" type="submit">${change_password_button}</button>
                 </div>
 
             </form>
@@ -144,7 +161,6 @@
     </div>
 
 
-</div>
 </div>
 
 

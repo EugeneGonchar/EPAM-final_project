@@ -1,4 +1,12 @@
 <%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.404.message" var="message" />
+<fmt:message bundle="${loc}" key="local.header.contact" var="contact" />
+<fmt:message bundle="${loc}" key="local.header.home_button" var="home_button" />
+
 <html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -54,10 +62,9 @@
                 <!-- Info -->
                 <div class="info">
                     <img src="../img/404.gif" alt="404 error" />
-                    <h4>The page you are looking for was moved, removed,
-renamed or never existed.</h4>
-                    <a href="/" class="btn">Home</a>
-                    <a href="#" class="btn btn-brown">Contact</a>
+                    <h4>${message}</h4>
+                    <a href="${pageContext.request.contextPath}/main" class="btn">${home_button}</a>
+                    <a href="#" class="btn btn-brown">${contact}</a>
                 </div>
                 <!-- end Info -->
             </div>

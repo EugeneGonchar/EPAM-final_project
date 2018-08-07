@@ -84,6 +84,11 @@ public enum CommandEnum {
         {
             this.command = new AddOrderForRegisteredUserCommand();
         }
+    },
+    LANGUAGE{
+        {
+            this.command = new LanguageCommand();
+        }
     };
 
     ActionCommand command;

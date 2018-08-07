@@ -3,6 +3,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.order.menu.date_and_place" var="date_and_place" />
+<fmt:message bundle="${loc}" key="local.order.menu.cars_search" var="cars_search" />
+<fmt:message bundle="${loc}" key="local.order.menu.driver" var="driver" />
+<fmt:message bundle="${loc}" key="local.order.menu.payment" var="payment" />
+<fmt:message bundle="${loc}" key="local.order.menu.confirmation" var="confirmation" />
+<fmt:message bundle="${loc}" key="local.order.order_details_message" var="order_details_message" />
+<fmt:message bundle="${loc}" key="local.order.pickup_message" var="pickup_message" />
+<fmt:message bundle="${loc}" key="local.order.dropoff_message" var="dropoff_message" />
+<fmt:message bundle="${loc}" key="local.order.car_message" var="car_message" />
+<fmt:message bundle="${loc}" key="local.order.confirm_button" var="confirm_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -18,11 +32,11 @@
 
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_locations">Choice of date and place <i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right" href="/controller?command=get_cars">Car's search results <i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right" href="/driverdetails">Driver <i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right bg-light" href="/payment">Payment</a>
-        <a class="nav-item nav-link col disabled" href="#">Confirmation</a>
+        <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/controller?command=get_locations">${date_and_place}<i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/controller?command=get_cars">${cars_search}<i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/driverdetails">${driver}<i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right bg-light" href="${pageContext.request.contextPath}/payment">${payment}</a>
+        <a class="nav-item nav-link col disabled" href="#">${confirmation}</a>
     </nav>
 </div>
 
@@ -113,20 +127,20 @@
             <div class="row border-bottom">
                 <div class="col-4 align-self-center">
                     <div>
-                        <img width="190" height="130" class="rounded d-block" alt="" src="../../img/sport_lrg.jpg">
+                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
                     </div>
                 </div>
 
                 <div class="p-0 col-8 pr-2">
                     <div class="mb-0 p-0 col">
                         <div class="my-1 border-bottom">
-                            <h4>Order details</h4>
+                            <h4>${order_details_message}</h4>
                         </div>
                         <div class="container mx-0 my-2">
                             <div class="py-2 border-bottom">
                                 <div class="row text-left">
                                     <div class="col-4">
-                                        <h6 class="mb-1 font-weight-bold">Car:</h6>
+                                        <h6 class="mb-1 font-weight-bold">${car_message}:</h6>
                                     </div>
                                     <div class="col-8">
                                         <h6 class="mb-1">${car.brand} ${car.model}</h6>
@@ -137,7 +151,7 @@
                             <div class="py-2 border-bottom">
                                 <div class="row text-left">
                                     <div class="col-4">
-                                        <h6 class="mb-1 font-weight-bold">Pick-up:</h6>
+                                        <h6 class="mb-1 font-weight-bold">${pickup_message}:</h6>
                                     </div>
                                     <div class="col-8">
                                         <h6 class="mb-1">${pickupAddressOfOrder.street} ${pickupAddressOfOrder.building}</h6>
@@ -156,7 +170,7 @@
                             <div class="py-2">
                                 <div class="row text-left">
                                     <div class="col-4">
-                                        <h6 class="mb-1 font-weight-bold">Drop-off:</h6>
+                                        <h6 class="mb-1 font-weight-bold">${dropoff_message}:</h6>
                                     </div>
                                     <div class="col-8">
                                         <h6 class="mb-1">${dropoffAddressOfOrder.street} ${dropoffAddressOfOrder.building}</h6>
@@ -183,58 +197,56 @@
                 <div class="card col-12 mt-3">
 
                     <div class="mt-2 mb-0 border-bottom border-muted">
-                        <h4 class="text-dark">Driver details</h4>
+                        <h4 class="text-dark">${driver_details_message}</h4>
                     </div>
 
                     <div class="row m-1 justify-content-between">
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Name:</span> ${user.firstName} ${user.lastName}
+                                <span class="font-weight-bold">${name_message}:</span> ${user.firstName} ${user.lastName}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Email:</span> ${user.email}
+                                <span class="font-weight-bold">${email_message}:</span> ${user.email}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Phone:</span> ${user.phone}
+                                <span class="font-weight-bold">${phone_message}:</span> ${user.phone}
                             </h6>
                         </div>
                     </div>
-
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="card col-12 mt-3">
 
                     <div class="mt-2 mb-0 border-bottom border-muted">
-                        <h4 class="text-dark">Driver details</h4>
+                        <h4 class="text-dark">${driver_details_message}</h4>
                     </div>
 
                     <div class="row m-1 justify-content-between">
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Name:</span> ${guestUser.firstName} ${guestUser.lastName}
+                                <span class="font-weight-bold">${name_message}:</span> ${guestUser.firstName} ${guestUser.lastName}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Email:</span> ${guestUser.email}
+                                <span class="font-weight-bold">${email_message}:</span> ${guestUser.email}
                             </h6>
                         </div>
 
                         <div class="row m-1 align-items-end">
                             <h6>
-                                <span class="font-weight-bold">Phone:</span> ${guestUser.phone}
+                                <span class="font-weight-bold">${phone_message}:</span> ${guestUser.phone}
                             </h6>
                         </div>
                     </div>
-
                 </div>
             </c:otherwise>
         </c:choose>
@@ -247,7 +259,7 @@
             </div>
 
             <div class="row justify-content-center">
-                <form id="changePasswordForm" method="POST" action="/controller" class="col-8">
+                <form id="changePasswordForm" method="POST" action="${pageContext.request.contextPath}/controller" class="col-8">
                     <input type="hidden" name="command" value="payment"/>
                     <div>
                         <c:choose>

@@ -3,6 +3,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "/jsp/header.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.account.personal_settings_message" var="personal_settings_message" />
+<fmt:message bundle="${loc}" key="local.account.profile_button" var="profile_button" />
+<fmt:message bundle="${loc}" key="local.account.account_button" var="account_button" />
+<fmt:message bundle="${loc}" key="local.account.email_and_phone_button" var="email_and_phone_button" />
+<fmt:message bundle="${loc}" key="local.contacts.change_email_message" var="change_email_message" />
+<fmt:message bundle="${loc}" key="local.contacts.email_message" var="email_message" />
+<fmt:message bundle="${loc}" key="local.contacts.new_email_message" var="new_email_message" />
+<fmt:message bundle="${loc}" key="local.contacts.change_email_button" var="change_email_button" />
+<fmt:message bundle="${loc}" key="local.contacts.change_phone_message" var="change_phone_message" />
+<fmt:message bundle="${loc}" key="local.contacts.phone_message" var="phone_message" />
+<fmt:message bundle="${loc}" key="local.contacts.new_phone_message" var="new_phone_message" />
+<fmt:message bundle="${loc}" key="local.contacts.change_phone_button" var="change_phone_button" />
+
 <!doctype html>
 <html>
 <head>
@@ -26,22 +42,22 @@
                 <ul class="navbar-nav">
                         <span class="border-bottom bg-light">
                             <li class="pl-3 nav-item text-dark">
-                                <a class="nav-link disabled text-secondary" href="#">Personal settings</a>
+                                <a class="nav-link disabled text-secondary" href="#">${personal_settings_message}</a>
                             </li>
                         </span>
                     <span class="border-bottom active">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/profile">Profile</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/profile">${profile_button}</a>
                             </li>
                         </span>
                     <span class="border-bottom">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link" href="/user/account">Account</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/user/account">${account_button}</a>
                             </li>
                         </span>
                     <span class="">
                             <li class="pl-3 nav-item">
-                                <a class="nav-link text-dark" href="/user/contacts">Email & phone</a>
+                                <a class="nav-link text-dark" href="${pageContext.request.contextPath}/user/contacts">${email_and_phone_button}</a>
                             </li>
                         </span>
                 </ul>
@@ -54,15 +70,15 @@
         <div class="card border-0 col-12">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
-                <h3 class="text-dark">Change email</h3>
+                <h3 class="text-dark">${change_email_message}</h3>
             </div>
 
-            <form id="changeEmailForm" method="POST" action="/controller" class="col-8">
+            <form id="changeEmailForm" method="POST" action="${pageContext.request.contextPath}/controller" class="col-8">
                 <input type="hidden" name="command" value="change_email"/>
                 <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                     <div>
                         <p class="note">
-                            <span class="font-weight-bold">Email: </span>
+                            <span class="font-weight-bold">${email_message}: </span>
                             <p>${user.email}</p>
                         </p>
                     </div>
@@ -84,12 +100,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="b" class="font-weight-bold">New email:</label>
+                    <label for="b" class="font-weight-bold">${new_email_message}:</label>
                     <input name="email" placeholder="example@mail.com" type="text" class="form-control" id="b">
                 </div>
 
                 <div class="form-group mt-1">
-                    <button class="btn btn-light border" type="submit">Change email</button>
+                    <button class="btn btn-light border" type="submit">${change_email_button}</button>
                 </div>
 
             </form>
@@ -98,7 +114,7 @@
         <div class="card border-0 col-12 mt-3">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
-                <h3 class="text-dark">Change phone</h3>
+                <h3 class="text-dark">${change_phone_message}</h3>
             </div>
 
             <form id="changePhoneForm" method="POST" action="/controller" class="col-8">
@@ -106,7 +122,7 @@
                 <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                     <div>
                         <p class="note">
-                            <span class="font-weight-bold">Phone: </span>
+                            <span class="font-weight-bold">${phone_message}: </span>
                         <p>${user.phone}</p>
                         </p>
                     </div>
@@ -128,12 +144,12 @@
                 </div>
 
                 <div class="form-group mt-1">
-                    <label class="font-weight-bold">New phone:</label>
+                    <label class="font-weight-bold">${new_phone_message}:</label>
                     <input name="phone" placeholder="+375291000000" type="text" class="form-control">
                 </div>
 
                 <div class="form-group mt-1">
-                    <button class="btn btn-light border" type="submit">Change phone</button>
+                    <button class="btn btn-light border" type="submit">${change_phone_button}</button>
                 </div>
 
             </form>
@@ -144,8 +160,6 @@
 
 
 </div>
-</div>
-
 
 </body>
 </html>

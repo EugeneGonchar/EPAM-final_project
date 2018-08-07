@@ -14,9 +14,9 @@ public class SessionRequestContent {
     private HttpServletRequest request;
 
     public SessionRequestContent(HttpServletRequest request){
-        requestAttributes = new HashMap<String, Object>();
-        requestParameters = new HashMap<String, String[]>();
-        sessionAttributes = new HashMap<String, Object>();
+        requestAttributes = new HashMap<>();
+        requestParameters = new HashMap<>();
+        sessionAttributes = new HashMap<>();
 
         this.request = request;
     }
@@ -91,6 +91,10 @@ public class SessionRequestContent {
         }
 
         return stringBuilder.toString();
+    }
+
+    public String getRequestHeader(String s){
+        return request.getHeader(s);
     }
 
     public Object getSessionAttribute(String key){
