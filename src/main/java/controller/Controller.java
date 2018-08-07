@@ -36,18 +36,6 @@ public class Controller extends HttpServlet {
 
         ActionFactory client = new ActionFactory();
 
-        HashMap<String, Object> requestAttributes = new HashMap<>();
-        Enumeration<String> keys = request.getAttributeNames();
-        System.out.println("***********************");
-        while(keys.hasMoreElements()){
-            String key = keys.nextElement();
-            Object value = request.getAttribute(key);
-            System.out.println(key+ " " +value.toString());
-            requestAttributes.put(key, value);
-        }
-        System.out.println("***********************");
-
-
         SessionRequestContent sessionRequestContent = new SessionRequestContent(request);
         sessionRequestContent.extractValues();
 

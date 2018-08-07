@@ -10,7 +10,9 @@ import entity.Car;
 import entity.Order;
 import resource.ConfigurationManager;
 import service.CarService;
+import service.OrderService;
 import service.ServiceFactory;
+import service.impl.OrderServiceImpl;
 
 public class GetDriverDetailsPageCommand implements ActionCommand {
 
@@ -29,15 +31,21 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
         Address pickupAddress = (Address)sessionRequestContent.getSessionAttribute(PARAM_NAME_PICKUP_LOCATION);
         Address dropoffAddress = (Address)sessionRequestContent.getSessionAttribute(PARAM_NAME_DROPOFF_LOCATION);
         Order order = (Order)sessionRequestContent.getSessionAttribute(PARAM_NAME_ORDER);
+        int rentDays = (int)sessionRequestContent.getSessionAttribute("rentDays");
+
         carDTO = createCarDTO(sessionRequestContent);
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 
         car = carService.getCar(carDTO);
 
+        order.setCarId(car.getId());
+        order.setTotalCost(OrderServiceImpl.getCalculatedTotalCost(car, rentDays));
+
+        sessionRequestContent.removeSessionAttribute("carList");
         sessionRequestContent.add2SessionAttributes("car", car);
         page = ConfigurationManager.getProperty("path.page.driverdetails");
-        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
 
         return actionPageContainer;
     }
@@ -47,7 +55,6 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
 
         int id = Integer.parseInt(sessionRequestContent.getRequestParameter(PARAM_NAME_CAR_ID));
         carDTO.setId(id);
-        System.out.println(id);
         return carDTO;
     }
 }

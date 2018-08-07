@@ -150,7 +150,16 @@
     <servlet-name>OrdersPage</servlet-name>
     <url-pattern>/user/orders</url-pattern>
   </servlet-mapping>
-  
+
+  <servlet>
+    <servlet-name>SuccessfullOrder</servlet-name>
+    <jsp-file>/jsp/successfullorder.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SuccessfullOrder</servlet-name>
+    <url-pattern>/success</url-pattern>
+  </servlet-mapping>
+
   <error-page>
     <error-code>404</error-code>
     <location>/jsp/error.jsp</location>

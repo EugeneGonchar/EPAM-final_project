@@ -1,9 +1,6 @@
 package dto;
 
-import entity.Accident;
-import entity.Address;
-import entity.Car;
-import entity.Order;
+import entity.*;
 
 public class FullOrderDTO {
 
@@ -12,6 +9,7 @@ public class FullOrderDTO {
     private Address pickupAddress;
     private Address dropoffAddress;
     private Accident[] accidents;
+    private OrderStatus orderStatus;
 
     public Order getOrder() {
         return order;
@@ -51,5 +49,13 @@ public class FullOrderDTO {
 
     public void setAccidents(Accident[] accidents) {
         this.accidents = accidents;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

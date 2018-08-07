@@ -3,9 +3,12 @@ package service.impl;
 import dao.Transaction;
 import dao.impl.OrderDAO;
 import dto.FullOrderDTO;
+import entity.Car;
+import entity.Order;
 import entity.User;
 import service.OrderService;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -31,4 +34,24 @@ public class OrderServiceImpl implements OrderService {
         return fullOrderDTOList;
     }
 
+    @Override
+    public void insertOrder(Order order){
+        OrderDAO orderDAO = new OrderDAO();
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(orderDAO);
+
+        orderDAO.insertOrder(order);
+
+        try{
+            transaction.commit();
+        } catch (SQLException e){
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+    }
+
+    public static BigDecimal getCalculatedTotalCost(Car car, int rentDays){
+        return car.getRental4Day().multiply(new BigDecimal(rentDays));
+    }
 }

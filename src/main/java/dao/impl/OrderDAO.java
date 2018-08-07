@@ -5,10 +5,7 @@ import static dao.util.DBFieldName.*;
 import dao.AbstractDAO;
 import dao.util.DBFieldName;
 import dto.FullOrderDTO;
-import entity.Address;
-import entity.Car;
-import entity.Order;
-import entity.User;
+import entity.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +15,7 @@ import java.util.List;
 
 public class OrderDAO extends AbstractDAO {
 
-    private static final String FIND_FULL_ORDERS_BY_USER_ID = "SELECT `user_orders`.`order_id`, `user_orders`.`user_id`, `user_orders`.`car_id`, `user_orders`.`date_received`, `user_orders`.`return_date`, `user_orders`.`pickup_address_id`, `user_orders`.`dropoff_address_id`, `user_orders`.`total_cost`, `car`.`seats`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `car`.`engine_power`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`\n" +
+    private static final String FIND_FULL_ORDERS_BY_USER_ID = "SELECT `user_orders`.`order_id`, `user_orders`.`user_id`, `user_orders`.`car_id`, `user_orders`.`date_received`, `user_orders`.`return_date`, `user_orders`.`pickup_address_id`, `user_orders`.`dropoff_address_id`, `user_orders`.`total_cost`, `car`.`seats`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `user_orders`.`status_id`\n" +
             "FROM (SELECT * FROM `order` WHERE `user_id` = ?) AS `user_orders`\n" +
             "JOIN `car`\n" +
             "ON `user_orders`.`car_id` = `car`.`car_id`\n" +
@@ -28,11 +25,18 @@ public class OrderDAO extends AbstractDAO {
             "ON `model`.`brand_id` = `brand`.`brand_id`\n" +
             "JOIN `car_class`\n" +
             "ON `car_class`.`car_class_id` = `car`.`car_class_id`\n" +
+            "JOIN `engine`\n"+
+            "ON `engine`.`engine_id` = `car`.`engine_id`\n"+
             "JOIN `address` AS `pickup_address`\n" +
             "ON `pickup_address`.`address_id` = `user_orders`.`pickup_address_id`\n" +
             "JOIN `address` AS `dropoff_address`\n" +
             "ON `dropoff_address`.`address_id` = `user_orders`.`dropoff_address_id`\n" +
+            "JOIN `order_status`\n" +
+            "ON `order_status`.`status_id` = `user_orders`.`status_id`\n" +
             "ORDER BY `date_received`, `return_date`";
+
+    private static final String INSERT_ORDER = "INSERT INTO `order` (`user_id`, `car_id`, `date_received`, `return_date`, `pickup_address_id`, `dropoff_address_id`, `total_cost`)\n" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public List findAll() {
@@ -52,6 +56,7 @@ public class OrderDAO extends AbstractDAO {
                 fullOrderDTO.setCar(createCar(resultSet));
                 fullOrderDTO.setPickupAddress(createPickupAddress(resultSet));
                 fullOrderDTO.setDropoffAddress(createDropoffAddress(resultSet));
+                fullOrderDTO.setOrderStatus(createOrderStatus(resultSet));
                 fullOrderDTOList.add(fullOrderDTO);
             }
 
@@ -60,6 +65,28 @@ public class OrderDAO extends AbstractDAO {
         }
 
         return fullOrderDTOList;
+    }
+
+    public void insertOrder(Order order){
+        try(PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER)){
+            System.out.println(order.getUserId());
+            preparedStatement.setInt(1, order.getUserId());
+            System.out.println(order.getCarId());
+            preparedStatement.setInt(2, order.getCarId());
+            System.out.println(order.getDateReceived());
+            preparedStatement.setTimestamp(3, order.getDateReceived());
+            System.out.println(order.getReturnDate());
+            preparedStatement.setTimestamp(4, order.getReturnDate());
+            System.out.println(order.getPickupAddressId());
+            preparedStatement.setInt(5, order.getPickupAddressId());
+            System.out.println(order.getDropoffAddressId());
+            preparedStatement.setInt(6, order.getDropoffAddressId());
+            System.out.println(order.getTotalCost());
+            preparedStatement.setBigDecimal(7, order.getTotalCost());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     private Order createOrder(ResultSet resultSet) throws SQLException{
@@ -73,6 +100,7 @@ public class OrderDAO extends AbstractDAO {
         order.setPickupAddressId(resultSet.getInt(TABLE_ORDER_FIELD_PICKUP_ADDRESS_ID));
         order.setDropoffAddressId(resultSet.getInt(TABLE_ORDER_FIELD_DROPOFF_ADDRESS_ID));
         order.setTotalCost(resultSet.getBigDecimal(TABLE_ORDER_FIELD_TOTAL_COST));
+        order.setStatusId(resultSet.getInt(TABLE_ORDER_FIELD_STATUS_ID));
         return order;
     }
 
@@ -89,7 +117,7 @@ public class OrderDAO extends AbstractDAO {
         car.setAutomaticGearbox(resultSet.getBoolean(TABLE_CAR_FIELD_AUTOMATIC_GEARBOX));
         car.setRental4Day(resultSet.getBigDecimal(TABLE_CAR_FIELD_RENTAL_4_DAY));
         car.setFuelConsumption(resultSet.getDouble(TABLE_CAR_FIELD_FUEL_CONSUMPTION));
-        car.setEnginePower(resultSet.getShort(TABLE_CAR_FIELD_ENGINE_POWER));
+        car.setEngineType(resultSet.getString(TABLE_CAR_FIELD_ENGINE_TYPE));
         car.setColor(resultSet.getString(TABLE_CAR_FIELD_COLOR));
         car.setYearOfIssue(resultSet.getShort(TABLE_CAR_FIELD_YEAR_OF_ISSUE));
         return car;
@@ -111,5 +139,13 @@ public class OrderDAO extends AbstractDAO {
         address.setStreet(resultSet.getString(DBFieldName.FIELD_DROPOFF_ADDRESS_STREET));
         address.setBuilding(resultSet.getString(DBFieldName.FIELD_DROPOFF_ADDRESS_BUILDING));
         return address;
+    }
+
+    private OrderStatus createOrderStatus(ResultSet resultSet) throws SQLException{
+        OrderStatus orderStatus = new OrderStatus();
+
+        orderStatus.setId(resultSet.getInt(DBFieldName.TABLE_ORDER_STATUS_FIELD_ID));
+        orderStatus.setStatus(resultSet.getString(DBFieldName.TABLE_ORDER_STATUS_FIELD_STATUS));
+        return orderStatus;
     }
 }

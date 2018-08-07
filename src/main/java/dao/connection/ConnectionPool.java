@@ -162,18 +162,6 @@ public class ConnectionPool {
         }
     }
 
-    public void deregisterAllDrivers() {
-        try {
-            Enumeration<Driver> drivers = DriverManager.getDrivers();
-            while (drivers.hasMoreElements()) {
-                Driver driver = drivers.nextElement();
-                DriverManager.deregisterDriver(driver);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public class ProxyConnection implements Connection{
         private Connection connection;
 

@@ -11,13 +11,12 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-
+        ConnectionPool.getInstance();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         connectionPool.dispose();
-        connectionPool.deregisterAllDrivers();
     }
 }

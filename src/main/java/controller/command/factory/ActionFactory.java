@@ -1,6 +1,7 @@
 package controller.command.factory;
 
 import controller.command.ActionCommand;
+import controller.command.EmptyCommand;
 import controller.command.client.CommandEnum;
 import controller.content.SessionRequestContent;
 import resource.MessageManager;
@@ -10,7 +11,7 @@ public class ActionFactory {
     private static final String INPUT_NAME = "command";
 
     public ActionCommand defineCommand(SessionRequestContent sessionRequestContent){
-        ActionCommand current = null;
+        ActionCommand current = new EmptyCommand();
         String action = sessionRequestContent.getRequestParameter(INPUT_NAME);
 
         try{

@@ -14,6 +14,7 @@ public class Order implements Entity {
     private int pickupAddressId;
     private int dropoffAddressId;
     private BigDecimal totalCost;
+    private int statusId;
 
     public int getId() {
         return id;
@@ -85,5 +86,13 @@ public class Order implements Entity {
 
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 }

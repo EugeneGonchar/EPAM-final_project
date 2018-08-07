@@ -14,8 +14,8 @@ public class Car implements Entity {
     private BigDecimal rental4Day;
     private String color;
     private double fuelConsumption;
-    private short enginePower;
     private String carClass;
+    private String engineType;
 
     public int getId() {
         return id;
@@ -105,19 +105,19 @@ public class Car implements Entity {
         this.fuelConsumption = fuelConsumption;
     }
 
-    public short getEnginePower() {
-        return enginePower;
-    }
-
-    public void setEnginePower(short enginePower) {
-        this.enginePower = enginePower;
-    }
-
     public String getCarClass() {
         return carClass;
     }
 
     public void setCarClass(String carClass) {
         this.carClass = carClass;
+    }
+
+    public String getEngineType() {
+        return engineType;
+    }
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
     }
 }

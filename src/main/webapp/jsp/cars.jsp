@@ -123,29 +123,49 @@
                             <div class="my-1 border-bottom">
                                 <h4>${car.brand} ${car.model}</h4>
                             </div>
-                            <div class="container mx-0">
+                            <div class="container mx-0 my-3">
                                 <div class="row text-left">
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1">${car.seats} Seats</h6>
+                                    <div class="col-6 px-0 pl-3">
+                                        <h6 class="car_element" class="mb-1">Seats: ${car.seats} </h6>
                                     </div>
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1">${car.doors} Doors</h6>
+                                    <div class="col-6 px-0 pl-3">
+                                        <h6 class="car_element" class="mb-1">Doors: ${car.doors}</h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1">${car.airConditioning} Air conditioning</h6>
+                                    <div class="col-6 px-0 pl-3">
+                                        <h6 class="car_element" class="mb-1">
+                                                Air conditioning:
+                                                <c:choose>
+                                                    <c:when test="${car.airConditioning eq true}">
+                                                        <i class="fa fa-check" style="color: #34ce57"></i>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <i class="fa fa-minus" style="color: red"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                        </h6>
                                     </div>
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1">${car.automaticGearbox} Automatic gearbox</h6>
+                                    <div class="col-6 px-0 pl-3">
+                                        <h6 class="car_element" class="mb-1">
+                                                Automatic gearbox:
+                                                <c:choose>
+                                                    <c:when test="${car.automaticGearbox eq true}">
+                                                        <i class="fa fa-check" style="color: #34ce57"></i>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <i class="fa fa-minus" style="color: red"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                        </h6>
                                     </div>
                                 </div>
                                 <div class="row text-left">
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1">${car.fuelConsumption} Fuel consumption</h6>
+                                    <div class="col-6 px-0 pl-3">
+                                        <h6 class="car_element" class="mb-1">Fuel consumption: ${car.fuelConsumption} L/100</h6>
                                     </div>
-                                    <div class="col-6">
-                                        <h6 class="car_element" class="mb-1">${car.enginePower} Engine power</h6>
+                                    <div class="col-6 px-0 pl-3">
+                                        <h6 class="car_element" class="mb-1">Engine type: ${car.engineType}</h6>
                                     </div>
                                 </div>
                                 <div class="my-2">
@@ -155,7 +175,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3 float-right">
+                    <div class="col-3 float-right pl-0">
                         <div class="text-right m-2">
                             <h6 class="car_element" class="mb-1">Price for ${rentDays} days:</h6>
                             <h3>${car.rental4Day * rentDays} $</h3>

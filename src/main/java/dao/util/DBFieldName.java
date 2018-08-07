@@ -16,7 +16,7 @@ public class DBFieldName {
     public static final String TABLE_CAR_FIELD_AUTOMATIC_GEARBOX = "automatic_gearbox";
     public static final String TABLE_CAR_FIELD_RENTAL_4_DAY = "rental_value_for_day";
     public static final String TABLE_CAR_FIELD_FUEL_CONSUMPTION = "fuel_consumption";
-    public static final String TABLE_CAR_FIELD_ENGINE_POWER = "engine_power";
+    public static final String TABLE_CAR_FIELD_ENGINE_TYPE = "engine_type";
     public static final String TABLE_CAR_FIELD_COLOR = "color";
     public static final String TABLE_CAR_FIELD_YEAR_OF_ISSUE = "year_of_issue";
 
@@ -28,6 +28,10 @@ public class DBFieldName {
     public static final String TABLE_ORDER_FIELD_PICKUP_ADDRESS_ID = "pickup_address_id";
     public static final String TABLE_ORDER_FIELD_DROPOFF_ADDRESS_ID = "dropoff_address_id";
     public static final String TABLE_ORDER_FIELD_TOTAL_COST = "total_cost";
+    public static final String TABLE_ORDER_FIELD_STATUS_ID = "status_id";
+
+    public static final String TABLE_ORDER_STATUS_FIELD_ID = "status_id";
+    public static final String TABLE_ORDER_STATUS_FIELD_STATUS = "status";
 
     public static final String FIELD_PICKUP_ADDRESS_STREET = "pickup_address_street";
     public static final String FIELD_PICKUP_ADDRESS_BUILDING = "pickup_address_building";

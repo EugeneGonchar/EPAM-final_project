@@ -266,16 +266,22 @@
             </div>
 
             <div class="row justify-content-center">
-                <form id="changePasswordForm" method="POST" action="/controller" class="col-8">
-                    <input type="hidden" name="command" value="change_password"/>
-                    <p class="text-danger my-2">
-                        Bla blab alb alb alb lab la dlfkjlasdkbj adslkbj a;ldkgj ldsafk; sdajkf haslfkjhas lfkhja sfdlh sadlfkha sfdlha sfd!
-                    </p>
-                    <div class="form-group d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Confirm</button>
-                    </div>
+                <c:choose>
+                    <c:when test="${not empty user}">
+                        <form id="changePasswordForm" method="POST" action="/controller" class="col-8">
+                            <input type="hidden" name="command" value="add_order_for_registered_user"/>
+                            <p class="text-danger my-2">
+                                Click the button if you are ready to confirm your order.
+                            </p>
+                            <div class="form-group d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
 
-                </form>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
 

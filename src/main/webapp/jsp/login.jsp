@@ -74,8 +74,5 @@
     </div> <!-- card.// -->
 </div>
 
-
-
-</div>
 </body>
 </html>

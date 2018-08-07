@@ -33,47 +33,24 @@ public class SessionRequestContent {
         requestParameters = request.getParameterMap();
     }
 
-    private void extractRequestAttributes(){
-        Enumeration<String> keys = request.getAttributeNames();
-        System.out.println("request Attr!!!!!!!!!!!!!!!!!!!!!!!!");
-        while(keys.hasMoreElements()){
-            String key = keys.nextElement();
-            Object value = request.getAttribute(key);
-            System.out.println(key+ " " +value.toString());
-            requestAttributes.put(key, value);
-        }
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
-    }
-
     private void extractSessionAttributes(){
         Enumeration<String> keys = request.getSession().getAttributeNames();
         while(keys.hasMoreElements()){
             String key = keys.nextElement();
             Object value = request.getSession().getAttribute(key);
-            System.out.println(key+ " " +value.toString());
             sessionAttributes.put(key, value);
         }
     }
 
     public void extractValues(){
         extractRequestParameters();
-        extractRequestAttributes();
         extractSessionAttributes();
     }
 
     public void insertRequestAttributes(){
         for(HashMap.Entry<String, Object> pair : requestAttributes.entrySet()){
-            System.out.println("-----++++++"+pair.getKey()+" "+pair.getValue());
             request.setAttribute(pair.getKey(), pair.getValue());
         }
-        Enumeration<String> keys = request.getAttributeNames();
-        System.out.println("+_+_+_+_+_+_+_+_+_+_+_");
-        while(keys.hasMoreElements()){
-            String key = keys.nextElement();
-            Object value = request.getAttribute(key);
-            System.out.println(key+ " " +value.toString());
-        }
-        System.out.println("+_+_+_+_+_+_+_+_+_+_++_+_+_");
     }
 
     private void insertSessionAttributes(){
@@ -104,18 +81,16 @@ public class SessionRequestContent {
 
     public String getRequestParameter(String key){
         StringBuilder stringBuilder = new StringBuilder();
+
         if(!requestParameters.isEmpty()){
             for(String word : requestParameters.get(key)){
                 stringBuilder.append(word);
             }
-        } else System.out.println("asdf");
-        System.out.println("Req Param");
-        System.out.println(stringBuilder);
-        return stringBuilder.toString();
-    }
+        } else {
+            System.out.println("asdf");
+        }
 
-    public Object getRequestAttribute(String key){
-        return requestAttributes.get(key);
+        return stringBuilder.toString();
     }
 
     public Object getSessionAttribute(String key){

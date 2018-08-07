@@ -79,6 +79,11 @@ public enum CommandEnum {
         {
             this.command = new GetOrdersCommand();
         }
+    },
+    ADD_ORDER_FOR_REGISTERED_USER{
+        {
+            this.command = new AddOrderForRegisteredUserCommand();
+        }
     };
 
     ActionCommand command;
