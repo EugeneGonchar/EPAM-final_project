@@ -4,9 +4,11 @@ import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
 import dto.UserDTO;
+import dto.UserRoleDTO;
 import entity.User;
 
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserDAO extends AbstractDAO{
@@ -14,6 +16,11 @@ public class UserDAO extends AbstractDAO{
     private static final String FIND_USER_BY_LOGIN = "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_LOGIN = "SELECT `user_id` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_EMAIL = "SELECT `user_id` FROM `user` WHERE `email`=?";
+    private static final String FIND_ALL_USERS_WITH_ROLES = "SELECT `user`.`user_id`, `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`login`, `user`.`email`, `user`.`role_id`, `role`.`name` AS `role`\n" +
+            "FROM `user`\n" +
+            "JOIN `role`\n" +
+            "ON `role`.`role_id` = `user`.`role_id`\n" +
+            "ORDER BY `user`.`first_name`, `user`.`last_name`";
 
     private static final String INSERT_USER = "INSERT INTO `user`(`login`, `password`, `email`, `phone`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -154,4 +161,33 @@ public class UserDAO extends AbstractDAO{
         }
     }
 
+    public List<UserRoleDTO> getUsersWithRoles(){
+        List<UserRoleDTO> userRoleDTOList = new LinkedList<>();
+        UserRoleDTO userRoleDTO = null;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_USERS_WITH_ROLES)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                userRoleDTO = createUserRoleDTO(resultSet);
+                userRoleDTOList.add(userRoleDTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userRoleDTOList;
+    }
+
+    private UserRoleDTO createUserRoleDTO(ResultSet resultSet) throws SQLException{
+        UserRoleDTO userRoleDTO = new UserRoleDTO();
+
+        userRoleDTO.setId(resultSet.getInt(TABLE_USER_FIELD_ID));
+        userRoleDTO.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
+        userRoleDTO.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));
+        userRoleDTO.setLogin(resultSet.getString(TABLE_USER_FIELD_LOGIN));
+        userRoleDTO.setEmail(resultSet.getString(TABLE_USER_FIELD_EMAIL));
+        userRoleDTO.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
+        userRoleDTO.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
+        userRoleDTO.setRole(resultSet.getString(FIELD_ROLE));
+        return userRoleDTO;
+    }
 }

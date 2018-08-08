@@ -44,7 +44,7 @@
 </head>
 <body>
 
-<div class="container my-3">
+<div class="container my-4">
 
     <div class="col-12 mt-0 mb-3 border-bottom border-muted float-right">
         <h3 class="text-dark">${orders_message}</h3>
@@ -64,7 +64,6 @@
                 </tr>
             </thead>
             <tbody>
-                <jsp:useBean id="orderList" scope="session" type="java.util.List"/>
                 <c:forEach var="orderElement" items="${orderList}" varStatus="status">
                     <tr>
                         <th scope="row" class="align-middle">${status.count}</th>

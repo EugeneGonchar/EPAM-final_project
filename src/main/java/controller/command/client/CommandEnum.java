@@ -2,6 +2,7 @@ package controller.command.client;
 
 import controller.command.ActionCommand;
 import controller.command.command.*;
+import controller.command.command.admin.GetUsersTableCommand;
 import controller.command.command.user.*;
 
 public enum CommandEnum {
@@ -88,6 +89,11 @@ public enum CommandEnum {
     LANGUAGE{
         {
             this.command = new LanguageCommand();
+        }
+    },
+    USERS_TABLE{
+        {
+            this.command = new GetUsersTableCommand();
         }
     };
 

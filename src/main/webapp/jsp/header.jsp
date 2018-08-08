@@ -32,10 +32,10 @@
     <title>Header</title>
 
 </head>
-<body>
+<body class="body">
 
     <div class="bg-dark container-fluid">
-        <nav class="navbar navbar-expand-sm navbar-dark <%--fixed-top--%>">
+        <nav class="navbar navbar-expand-sm navbar-dark">
             <div class="d-flex ml-auto justify-content-start col-lg-4">
                 <ul class="navbar-nav">
                     <li class="nav-item px-2<%--active--%>">
@@ -45,19 +45,16 @@
                         </a>
                     </li>
                     <li class="nav-item px-2<%--active--%>">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/main">
-                            <i class="fa fa-home">
-
-                            </i>
-                            <c:out value="${home_button}"/>
+                        <a class="nav-link font-weight-bold" href="${pageContext.request.contextPath}/main">
+                            ${home_button}
 
                         </a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=get_locations">${rent_button}</a>
+                        <a class="nav-link font-weight-bold" href="${pageContext.request.contextPath}/controller?command=get_locations">${rent_button}</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" href="#">${about_button}</a>
+                        <a class="nav-link font-weight-bold" href="/admin/main">${about_button}</a>
                     </li>
                 </ul>
             </div>
@@ -67,10 +64,8 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item dropdown px-2">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-language">
-                                <%--засунуть язык--%>
-                            </i>
+                        <a class="nav-link dropdown-toggle font-weight-bold" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-language"></i>
                             <c:choose>
                                 <c:when test="${empty sessionScope.local}">
                                     (ru)
@@ -89,7 +84,7 @@
                     <c:choose>
                         <c:when test="${not empty user}">
                             <li class="nav-item px-2">
-                                <a class="nav-link invisible" href="${pageContext.request.contextPath}/signup">
+                                <a class="nav-link invisible font-weight-bold" href="${pageContext.request.contextPath}/signup">
                                     <i class="fa fa-user-plus">
 
                                     </i>
@@ -98,11 +93,9 @@
                             </li>
 
                             <li class="nav-item dropdown px-2">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     ${hello_message},
-                                    <c:out value="${user.login}">
-
-                                    </c:out>
+                                    ${user.login}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <h6 class="dropdown-header">${signin_as}</h6>
@@ -125,7 +118,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item px-2">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/signup">
+                                <a class="nav-link font-weight-bold" href="${pageContext.request.contextPath}/signup">
                                     <i class="fa fa-user-plus">
 
                                     </i>
@@ -133,7 +126,7 @@
                                 </a>
                             </li>
                             <li class="nav-item px-2">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/login">
+                                <a class="nav-link font-weight-bold" href="${pageContext.request.contextPath}/login">
                                     <i class="fa fa-sign-in">
 
                                     </i>

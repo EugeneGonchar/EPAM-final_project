@@ -33,7 +33,7 @@ public class GetCarsCommand implements ActionCommand {
         sessionRequestContent.add2SessionAttributes("carList", carList);
         page = ConfigurationManager.getProperty("path.page.cars");
 
-        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
 
         return actionPageContainer;
     }

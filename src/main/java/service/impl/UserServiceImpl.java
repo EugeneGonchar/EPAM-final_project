@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.Transaction;
+import dto.UserRoleDTO;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
 import service.exception.WrongPasswordException;
@@ -16,6 +17,7 @@ import service.util.Hash;
 import service.validation.Validator;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
@@ -248,5 +250,25 @@ public class UserServiceImpl implements UserService {
             transaction.rollback();
         }
         transaction.endTransaction();
+    }
+
+    @Override
+    public List<UserRoleDTO> getUserRoleList(){
+        UserDAO userDAO = new UserDAO();
+        List<UserRoleDTO> userRoleDTOList = null;
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(userDAO);
+
+        userRoleDTOList = userDAO.getUsersWithRoles();
+
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+
+        return userRoleDTOList;
     }
 }

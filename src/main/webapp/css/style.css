@@ -4,15 +4,28 @@ html{
 }*/
 
 *{
-    font-family: "Segoe UI";
+    font-family: Roboto;
 }
+@font-face {
 
+}
 /*.order_icon{
     color:green;
 }*/
 
 body{
     min-width: 1920px;
+    /*background-color: #d7d7d7;*/
+    /*
+    background: url(../img/bg.jpg) fixed;
+    */
+    background-size: 100%;
+}
+
+.left-admin-menu{
+    height: 100vh;
+    min-height: 100%;
+    background-color: white;
 }
 
 .padding-top {

@@ -160,6 +160,69 @@
     <url-pattern>/success</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>AdminMainPage</servlet-name>
+    <jsp-file>/jsp/admin/admin_main.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminMainPage</servlet-name>
+    <url-pattern>/admin/main</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AccidentsTablePage</servlet-name>
+    <jsp-file>/jsp/admin/accidents.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccidentsTablePage</servlet-name>
+    <url-pattern>/admin/tables/accidents</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CarsTablePage</servlet-name>
+    <jsp-file>/jsp/admin/cars.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CarsTablePage</servlet-name>
+    <url-pattern>/admin/tables/cars</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>IncomeExpensesPage</servlet-name>
+    <jsp-file>/jsp/admin/income_expenses.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IncomeExpensesPage</servlet-name>
+    <url-pattern>/admin/statistics/income_expenses</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>OrdersTablePage</servlet-name>
+    <jsp-file>/jsp/admin/orders.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdersTablePage</servlet-name>
+    <url-pattern>/admin/tables/orders</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UsersTablePage</servlet-name>
+    <jsp-file>/jsp/admin/users.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsersTablePage</servlet-name>
+    <url-pattern>/admin/tables/users</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UsersVisitsPage</servlet-name>
+    <jsp-file>/jsp/admin/users_visits.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsersVisitsPage</servlet-name>
+    <url-pattern>/admin/statistics/users_visits</url-pattern>
+  </servlet-mapping>
+
   <error-page>
     <error-code>404</error-code>
     <location>/jsp/error.jsp</location>

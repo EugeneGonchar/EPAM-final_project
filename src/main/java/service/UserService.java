@@ -1,5 +1,6 @@
 package service;
 
+import dto.UserRoleDTO;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
 import service.exception.WrongPasswordException;
@@ -8,6 +9,8 @@ import entity.User;
 import service.exception.ExistEmptyFieldException;
 import service.exception.PasswordShorter6SymbolsException;
 import service.exception.PasswordsUnequalException;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -34,5 +37,7 @@ public interface UserService {
             WrongPasswordException;
 
     public void checkDriverDetails(User user) throws ExistEmptyFieldException, EmailExistException;
+
+    public List<UserRoleDTO> getUserRoleList();
 
 }

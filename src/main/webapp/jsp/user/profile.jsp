@@ -9,6 +9,7 @@
 <fmt:message bundle="${loc}" key="local.account.personal_settings_message" var="personal_settings_message" />
 <fmt:message bundle="${loc}" key="local.account.profile_button" var="profile_button" />
 <fmt:message bundle="${loc}" key="local.account.account_button" var="account_button" />
+<fmt:message bundle="${loc}" key="local.account.email_and_phone_button" var="email_and_phone_button" />
 <fmt:message bundle="${loc}" key="local.profile.profile_message" var="profile_message" />
 <fmt:message bundle="${loc}" key="local.profile.profile_picture_message" var="profile_picture_message" />
 <fmt:message bundle="${loc}" key="local.profile.upload_picture_button" var="upload_picture_button" />

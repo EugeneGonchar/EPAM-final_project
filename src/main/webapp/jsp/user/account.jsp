@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="import" href="../header.jsp">
     <title>Account</title>
-
 </head>
 <body>
 

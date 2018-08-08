@@ -50,4 +50,6 @@ public class DBFieldName {
     public static final String TABLE_USER_FIELD_PASSWORD = "password";
     public static final String TABLE_USER_FIELD_ROLE_ID = "role_id";
 
+    public static final String FIELD_ROLE = "role";
+
 }

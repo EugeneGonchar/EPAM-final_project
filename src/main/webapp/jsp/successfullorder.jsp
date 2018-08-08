@@ -24,7 +24,7 @@
                     <hr>
 
                     <div class="form-group text-center">
-                        <span class="text-danger">Note: </span>You can check out order's status on <a href="/user/orders">Your Orders</a> page.
+                        <span class="text-danger">Note: </span>You can check out order's status on <a href="${pageContext.request.contextPath}/user/orders">Your Orders</a> page.
                     </div>
                     <div class="form-group d-flex justify-content-center">
                         <button class="btn btn-primary" href="/main">Ok</button>
