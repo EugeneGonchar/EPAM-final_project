@@ -16,6 +16,10 @@
 <fmt:message bundle="${loc}" key="local.order.dropoff_message" var="dropoff_message" />
 <fmt:message bundle="${loc}" key="local.order.car_message" var="car_message" />
 <fmt:message bundle="${loc}" key="local.order.confirm_button" var="confirm_button" />
+<fmt:message bundle="${loc}" key="local.order.confirmation.driver_details_message" var="driver_details_message" />
+<fmt:message bundle="${loc}" key="local.order.confirmation.name_message" var="name_message" />
+<fmt:message bundle="${loc}" key="local.order.confirmation.email_message" var="email_message" />
+<fmt:message bundle="${loc}" key="local.order.confirmation.phone_message" var="phone_message" />
 
 <!doctype html>
 <html>

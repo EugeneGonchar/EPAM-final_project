@@ -2,6 +2,8 @@ package controller.command.client;
 
 import controller.command.ActionCommand;
 import controller.command.command.*;
+import controller.command.command.admin.GetCarsTableCommand;
+import controller.command.command.admin.GetOrdersTableCommand;
 import controller.command.command.admin.GetUsersTableCommand;
 import controller.command.command.user.*;
 
@@ -94,6 +96,16 @@ public enum CommandEnum {
     USERS_TABLE{
         {
             this.command = new GetUsersTableCommand();
+        }
+    },
+    CARS_TABLE{
+        {
+            this.command = new GetCarsTableCommand();
+        }
+    },
+    ORDERS_TABLE{
+        {
+            this.command = new GetOrdersTableCommand();
         }
     };
 

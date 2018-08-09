@@ -30,8 +30,8 @@
                 </a>
                 <div class="collapse list-group-submenu" id="demo2">
                     <a href="${pageContext.request.contextPath}/admin/tables/accidents" class="list-group-item text-muted">Accidents</a>
-                    <a href="${pageContext.request.contextPath}/admin/tables/cars" class="list-group-item text-muted">Cars</a>
-                    <a href="${pageContext.request.contextPath}/admin/tables/orders" class="list-group-item text-muted">Orders</a>
+                    <a href="${pageContext.request.contextPath}/controller?command=cars_table" class="list-group-item text-muted">Cars</a>
+                    <a href="${pageContext.request.contextPath}/controller?command=orders_table" class="list-group-item text-muted">Orders</a>
                     <a href="${pageContext.request.contextPath}/controller?command=users_table" class="list-group-item text-muted">Users</a>
                 </div>
             </div>

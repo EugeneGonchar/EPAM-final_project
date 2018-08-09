@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CarDAO extends AbstractDAO {
 
-    private static final String FIND_ALL_CARS = "SELECT `car`.car_id ,`brand`.name AS brand, `model`.name AS model, `car_class`.name AS car_class, seats, doors, air_conditioning, automatic_gearbox, rental_value_for_day, fuel_consumption, color, year_of_issue, `type` AS `engine_type`\n" +
+    private static final String FIND_ALL_CARS = "SELECT `car`.car_id ,`brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car` \n" +
             "JOIN `model`\n" +
             "ON `car`.model_id = `model`.model_id\n" +
@@ -21,7 +21,8 @@ public class CarDAO extends AbstractDAO {
             "JOIN `car_class`\n" +
             "ON `car_class`.car_class_id = `car`.car_class_id\n"+
             "JOIN `engine`\n"+
-            "ON `engine`.`engine_id` = `car`.`engine_id`";
+            "ON `engine`.`engine_id` = `car`.`engine_id`" +
+            "ORDER BY `brand`, `model`";
 
     private static final String FIND_ALL_FREE_CARS = "SELECT `car`.`car_id` ,`brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car`\n" +

@@ -5,6 +5,7 @@ import static dao.util.DBFieldName.*;
 import dao.AbstractDAO;
 import dao.util.DBFieldName;
 import dto.FullOrderDTO;
+import dto.FullUserOrderDTO;
 import entity.*;
 
 import java.sql.PreparedStatement;
@@ -33,6 +34,28 @@ public class OrderDAO extends AbstractDAO {
             "ON `dropoff_address`.`address_id` = `user_orders`.`dropoff_address_id`\n" +
             "JOIN `order_status`\n" +
             "ON `order_status`.`status_id` = `user_orders`.`status_id`\n" +
+            "ORDER BY `date_received`, `return_date`";
+
+    private static final String FIND_FULL_ORDERS_WITH_USERS = "SELECT `order`.`order_id`, `order`.`user_id`, `order`.`car_id`, `order`.`date_received`, `order`.`return_date`, `order`.`pickup_address_id`, `order`.`dropoff_address_id`, `order`.`total_cost`, `car`.`seats`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `order`.`status_id`, `user`.`user_id`, `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`login`, `user`.`email`, `user`.`role_id`\n" +
+            "FROM `order`\n" +
+            "JOIN `user`\n" +
+            "ON `order`.`user_id` = `user`.`user_id`" +
+            "JOIN `car`\n" +
+            "ON `order`.`car_id` = `car`.`car_id`\n" +
+            "JOIN `model`\n" +
+            "ON `car`.`model_id` = `model`.`model_id`\n" +
+            "JOIN `brand`\n" +
+            "ON `model`.`brand_id` = `brand`.`brand_id`\n" +
+            "JOIN `car_class`\n" +
+            "ON `car_class`.`car_class_id` = `car`.`car_class_id`\n" +
+            "JOIN `engine`\n"+
+            "ON `engine`.`engine_id` = `car`.`engine_id`\n"+
+            "JOIN `address` AS `pickup_address`\n" +
+            "ON `pickup_address`.`address_id` = `order`.`pickup_address_id`\n" +
+            "JOIN `address` AS `dropoff_address`\n" +
+            "ON `dropoff_address`.`address_id` = `order`.`dropoff_address_id`\n" +
+            "JOIN `order_status`\n" +
+            "ON `order_status`.`status_id` = `order`.`status_id`\n" +
             "ORDER BY `date_received`, `return_date`";
 
     private static final String INSERT_ORDER = "INSERT INTO `order` (`user_id`, `car_id`, `date_received`, `return_date`, `pickup_address_id`, `dropoff_address_id`, `total_cost`)\n" +
@@ -67,21 +90,38 @@ public class OrderDAO extends AbstractDAO {
         return fullOrderDTOList;
     }
 
+    public List<FullUserOrderDTO> getFullOrders(){
+        List<FullUserOrderDTO> fullUserOrderDTOList = new LinkedList<>();
+        FullUserOrderDTO fullUserOrderDTO = null;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_FULL_ORDERS_WITH_USERS)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                fullUserOrderDTO = new FullUserOrderDTO();
+                fullUserOrderDTO.setOrder(createOrder(resultSet));
+                fullUserOrderDTO.setCar(createCar(resultSet));
+                fullUserOrderDTO.setPickupAddress(createPickupAddress(resultSet));
+                fullUserOrderDTO.setDropoffAddress(createDropoffAddress(resultSet));
+                fullUserOrderDTO.setOrderStatus(createOrderStatus(resultSet));
+                fullUserOrderDTO.setUser(createUser(resultSet));
+                fullUserOrderDTOList.add(fullUserOrderDTO);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fullUserOrderDTOList;
+    }
+
     public void insertOrder(Order order){
         try(PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER)){
-            System.out.println(order.getUserId());
             preparedStatement.setInt(1, order.getUserId());
-            System.out.println(order.getCarId());
             preparedStatement.setInt(2, order.getCarId());
-            System.out.println(order.getDateReceived());
             preparedStatement.setTimestamp(3, order.getDateReceived());
-            System.out.println(order.getReturnDate());
             preparedStatement.setTimestamp(4, order.getReturnDate());
-            System.out.println(order.getPickupAddressId());
             preparedStatement.setInt(5, order.getPickupAddressId());
-            System.out.println(order.getDropoffAddressId());
             preparedStatement.setInt(6, order.getDropoffAddressId());
-            System.out.println(order.getTotalCost());
             preparedStatement.setBigDecimal(7, order.getTotalCost());
             preparedStatement.executeUpdate();
         } catch (SQLException e){
@@ -147,5 +187,18 @@ public class OrderDAO extends AbstractDAO {
         orderStatus.setId(resultSet.getInt(DBFieldName.TABLE_ORDER_STATUS_FIELD_ID));
         orderStatus.setStatus(resultSet.getString(DBFieldName.TABLE_ORDER_STATUS_FIELD_STATUS));
         return orderStatus;
+    }
+
+    private User createUser(ResultSet resultSet) throws SQLException{
+        User user = new User();
+
+        user.setId(resultSet.getInt(TABLE_USER_FIELD_ID));
+        user.setLogin(resultSet.getString(TABLE_USER_FIELD_LOGIN));
+        user.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
+        user.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));
+        user.setEmail(resultSet.getString(TABLE_USER_FIELD_EMAIL));
+        user.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
+        user.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
+        return user;
     }
 }

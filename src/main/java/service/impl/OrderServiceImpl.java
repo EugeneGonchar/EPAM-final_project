@@ -3,6 +3,7 @@ package service.impl;
 import dao.Transaction;
 import dao.impl.OrderDAO;
 import dto.FullOrderDTO;
+import dto.FullUserOrderDTO;
 import entity.Car;
 import entity.Order;
 import entity.User;
@@ -32,6 +33,26 @@ public class OrderServiceImpl implements OrderService {
         transaction.endTransaction();
 
         return fullOrderDTOList;
+    }
+
+    @Override
+    public List<FullUserOrderDTO> getFullOrders(){
+        OrderDAO orderDAO = new OrderDAO();
+        Transaction transaction = new Transaction();
+        List<FullUserOrderDTO> fullUserOrderDTOList = null;
+
+        transaction.beginTransaction(orderDAO);
+
+        fullUserOrderDTOList = orderDAO.getFullOrders();
+
+        try{
+            transaction.commit();
+        } catch (SQLException e){
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+
+        return fullUserOrderDTOList;
     }
 
     @Override

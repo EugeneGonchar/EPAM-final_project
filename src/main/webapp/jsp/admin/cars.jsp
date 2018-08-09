@@ -4,6 +4,25 @@
 <%@ include file = "/jsp/header.jsp" %>
 <%@ include file = "/jsp/admin/admin_menu.jsp" %>
 
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="local" var="loc"/>
+
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.car_message" var="car_message" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.car_column" var="car_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.photo_column" var="photo_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.seats_column" var="seats_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.doors_column" var="doors_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.air_cond_column" var="air_cond_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.auto_gearbox_column" var="auto_gearbox_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.rental_for_a_day" var="rental_for_a_day" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.color_column" var="color_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.fuel_consumption_column" var="fuel_consumption_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.engine_type_column" var="engine_type_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.year_of_issue_column" var="year_of_issue_column" />
+<fmt:message bundle="${loc}" key="local.admin.tables.cars.car_class" var="car_class" />
+<fmt:message bundle="${loc}" key="local.admin.tables.users.items_on_page_message" var="items_on_page_message" />
+<fmt:message bundle="${loc}" key="local.admin.tables.users.actions_column" var="actions_column" />
+
 <!doctype html>
 <html>
 <head>
@@ -21,7 +40,7 @@
 <div class="container my-4">
     <div class="container">
         <div class="card border rounded-0">
-            <h5 class="card-header">${users_message}</h5>
+            <h5 class="card-header">${car_message}</h5>
             <div class="row mt-2 mx-1 col-3 align-items-center">
                 <label class="">
                     <select class="form-control rounded-0">
@@ -30,37 +49,37 @@
                         <option>50</option>
                     </select>
                 </label>
-                <h6 class="mx-2">${ }</h6>
+                <h6 class="mx-2">${ items_on_page_message}</h6>
             </div>
             <table class="table col-8">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">${}</th>
-                    <th scope="col">${}</th>
-                    <th scope="col">${}</th>
-                    <th scope="col">${}</th>
-                    <th scope="col">${}</th>
-                    <th scope="col">${}</th>
-                    <th scope="col">${}</th>
+                    <th scope="col">${photo_column}</th>
+                    <th scope="col">${car_column}</th>
+                    <th scope="col">${rental_for_a_day}</th>
+                    <th scope="col">${fuel_consumption_column}</th>
+                    <th scope="col">${engine_type_column}</th>
+                    <th scope="col">${year_of_issue_column}</th>
+                    <th scope="col">${actions_column}</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="" items="${}" varStatus="status">
+                <c:forEach var="car" items="${carList}" varStatus="status">
                     <tr>
-                        <th scope="row">${.}</th>
-                        <td>${.}</td>
-                        <td>${.}</td>
-                        <td>${.}</td>
-                        <td>${.}</td>
-                        <td>${.}</td>
-                        <td>${.}</td>
+                        <th scope="row">${status.count}</th>
+                        <td></td>
+                        <td>${car.brand} ${car.model}</td>
+                        <td>${car.rental4Day}</td>
+                        <td>${car.fuelConsumption}</td>
+                        <td>${car.engineType}</td>
+                        <td>${car.yearOfIssue}</td>
                         <td>
                             <button class="btn btn-success btn-sm">
                                 <i class="fa fa-edit"></i>
                             </button>
                             <button class="btn btn-danger btn-sm">
-                                block
+                                <i class="fa fa-trash"></i>
                             </button>
                         </td>
                     </tr>
