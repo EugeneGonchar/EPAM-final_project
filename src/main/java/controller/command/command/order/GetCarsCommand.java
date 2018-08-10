@@ -1,4 +1,4 @@
-package controller.command.command;
+package controller.command.command.order;
 
 import controller.command.ActionCommand;
 import controller.command.util.DateHelper;
@@ -30,10 +30,10 @@ public class GetCarsCommand implements ActionCommand {
         carList = carService.getFreeCarList(createOrderDTO(order));
 
         sessionRequestContent.add2SessionAttributes("rentDays", rentDays);
-        sessionRequestContent.add2SessionAttributes("carList", carList);
+        sessionRequestContent.add2RequestAttributes("carList", carList);
         page = ConfigurationManager.getProperty("path.page.cars");
 
-        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;
     }

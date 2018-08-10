@@ -11,6 +11,8 @@ public class LogoutCommand implements ActionCommand {
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent){
         String page = ConfigurationManager.getProperty("path.page.main");
+
+        sessionRequestContent.removeSessionAttribute("role");
         sessionRequestContent.removeSessionAttribute("user");
         return new ActionPageContainer(page, URLAction.REDIRECT);
     }

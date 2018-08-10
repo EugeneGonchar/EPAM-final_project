@@ -2,12 +2,15 @@ package service.impl;
 
 import dao.Transaction;
 import dao.impl.OrderDAO;
+import dao.impl.UserDAO;
 import dto.FullOrderDTO;
 import dto.FullUserOrderDTO;
 import entity.Car;
 import entity.Order;
 import entity.User;
 import service.OrderService;
+import service.util.Hash;
+import service.util.PasswordCreator;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -70,6 +73,36 @@ public class OrderServiceImpl implements OrderService {
             transaction.rollback();
         }
         transaction.endTransaction();
+    }
+
+    @Override
+    public User insertOrder(Order order, User user){
+        OrderDAO orderDAO = new OrderDAO();
+        UserDAO userDAO = new UserDAO();
+        Transaction transaction = new Transaction();
+        User registeredUser = new User();
+
+        user.setLogin(user.getEmail());
+        String generatedPassword = PasswordCreator.createPassword();
+        user.setPassword(Hash.getCryptoSha256(generatedPassword));
+
+        transaction.beginTransaction(orderDAO, userDAO);
+
+        userDAO.insertUser(user);
+        registeredUser = userDAO.getUserByLogin(user.getLogin());
+        order.setUserId(registeredUser.getId());
+        orderDAO.insertOrder(order);
+
+        try{
+            transaction.commit();
+        } catch (SQLException e){
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+
+        registeredUser.setPassword(generatedPassword);
+
+        return registeredUser;
     }
 
     public static BigDecimal getCalculatedTotalCost(Car car, int rentDays){

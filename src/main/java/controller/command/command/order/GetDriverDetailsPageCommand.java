@@ -1,6 +1,7 @@
-package controller.command.command;
+package controller.command.command.order;
 
 import controller.command.ActionCommand;
+import controller.command.util.OrderProcessStatusConstant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
@@ -43,7 +44,10 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
         order.setTotalCost(OrderServiceImpl.getCalculatedTotalCost(car, rentDays));
 
         sessionRequestContent.removeSessionAttribute("carList");
+
+        sessionRequestContent.add2SessionAttributes("orderProcessStatus", OrderProcessStatusConstant.STATUS_READY_CAR);
         sessionRequestContent.add2SessionAttributes("car", car);
+
         page = ConfigurationManager.getProperty("path.page.driverdetails");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
 

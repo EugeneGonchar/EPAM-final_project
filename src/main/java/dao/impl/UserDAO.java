@@ -105,6 +105,21 @@ public class UserDAO extends AbstractDAO{
         }
     }
 
+    public void insertUser(User user){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)){
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPhone());
+            preparedStatement.setString(5, user.getFirstName());
+            preparedStatement.setString(6, user.getLastName());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateNameSurname(UserDTO userDTO){
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_FIRST_NAME_LAST_NAME_BY_LOGIN)){
             preparedStatement.setString(1, userDTO.getFirstName());

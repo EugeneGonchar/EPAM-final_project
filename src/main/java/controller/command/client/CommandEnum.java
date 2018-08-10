@@ -5,6 +5,7 @@ import controller.command.command.*;
 import controller.command.command.admin.GetCarsTableCommand;
 import controller.command.command.admin.GetOrdersTableCommand;
 import controller.command.command.admin.GetUsersTableCommand;
+import controller.command.command.order.*;
 import controller.command.command.user.*;
 
 public enum CommandEnum {
@@ -83,9 +84,9 @@ public enum CommandEnum {
             this.command = new GetOrdersCommand();
         }
     },
-    ADD_ORDER_FOR_REGISTERED_USER{
+    ADD_ORDER{
         {
-            this.command = new AddOrderForRegisteredUserCommand();
+            this.command = new AddOrderCommand();
         }
     },
     LANGUAGE{

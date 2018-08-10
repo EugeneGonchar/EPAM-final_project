@@ -13,6 +13,8 @@ public interface OrderService {
 
     public void insertOrder(Order order);
 
+    public User insertOrder(Order order, User user);
+
     public List<FullUserOrderDTO> getFullOrders();
 
 }

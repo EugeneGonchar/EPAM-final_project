@@ -5,16 +5,11 @@ import controller.command.factory.ActionFactory;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dao.connection.ConnectionPool;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
 
 public class Controller extends HttpServlet {
 
@@ -22,7 +17,7 @@ public class Controller extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        processRequest(request, response);/*оставить пустым*/
+        processRequest(request, response);
     }
 
     @Override

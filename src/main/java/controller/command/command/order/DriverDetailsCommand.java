@@ -1,6 +1,7 @@
-package controller.command.command;
+package controller.command.command.order;
 
 import controller.command.ActionCommand;
+import controller.command.util.OrderProcessStatusConstant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
@@ -29,6 +30,8 @@ public class DriverDetailsCommand implements ActionCommand {
 
         try{
             userService.checkDriverDetails(user);
+
+            sessionRequestContent.add2SessionAttributes("orderProcessStatus", OrderProcessStatusConstant.STATUS_READY_DRIVER_DETAILS);
             sessionRequestContent.add2SessionAttributes("guestUser", user);
             page = ConfigurationManager.getProperty("path.page.payment");
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);

@@ -66,7 +66,6 @@ public class LoginCommand implements ActionCommand {
 
         try{
             user = userService.logIn(userDTO);
-            /*сделать проверку на юзера*/
         } catch (ExistEmptyFieldException e){
             sessionRequestContent.add2RequestAttributes("loginError",
                     MessageManager.getProperty("message.emptyfield"));

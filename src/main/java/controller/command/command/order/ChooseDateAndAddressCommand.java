@@ -1,20 +1,16 @@
-package controller.command.command;
+package controller.command.command.order;
 
 import controller.command.ActionCommand;
 import controller.command.util.DateHelper;
+import controller.command.util.OrderProcessStatusConstant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dto.OrderDTO;
 import entity.Address;
-import entity.Car;
 import entity.Order;
 import resource.ConfigurationManager;
 import service.AddressService;
-import service.CarService;
 import service.ServiceFactory;
-
-import java.util.List;
 
 public class ChooseDateAndAddressCommand implements ActionCommand {
 
@@ -46,6 +42,7 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
         order.setPickupAddressId(pickupAddress.getId());
         order.setDropoffAddressId(dropoffAddress.getId());
 
+        sessionRequestContent.add2SessionAttributes("orderProcessStatus", OrderProcessStatusConstant.STATUS_READY_DATE_ADDRESS);
         sessionRequestContent.add2SessionAttributes("pickupAddressOfOrder", pickupAddress);
         sessionRequestContent.add2SessionAttributes("dropoffAddressOfOrder", dropoffAddress);
         sessionRequestContent.add2SessionAttributes("order", order);
