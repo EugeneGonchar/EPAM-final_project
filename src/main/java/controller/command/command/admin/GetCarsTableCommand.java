@@ -4,7 +4,7 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import entity.Car;
+import pojo.entity.Car;
 import resource.ConfigurationManager;
 import service.CarService;
 import service.ServiceFactory;

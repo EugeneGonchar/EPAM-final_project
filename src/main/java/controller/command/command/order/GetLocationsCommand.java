@@ -4,7 +4,7 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import entity.Address;
+import pojo.entity.Address;
 import resource.ConfigurationManager;
 import service.AddressService;
 import service.ServiceFactory;

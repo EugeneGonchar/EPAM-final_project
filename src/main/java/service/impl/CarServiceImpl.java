@@ -2,9 +2,9 @@ package service.impl;
 
 import dao.Transaction;
 import dao.impl.CarDAO;
-import dto.CarDTO;
-import dto.OrderDTO;
-import entity.Car;
+import pojo.dto.CarDTO;
+import pojo.dto.OrderDTO;
+import pojo.entity.Car;
 import service.CarService;
 
 import java.sql.SQLException;

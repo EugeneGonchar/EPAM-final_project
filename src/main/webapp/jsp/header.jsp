@@ -88,7 +88,7 @@
                                     </span>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">${your_profile_button}</a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=get_orders">${your_orders_button}</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=10&page=1">${your_orders_button}</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">${help_button}</a>
                                 <form id="logoutForm" method="POST" action="${pageContext.request.contextPath}/controller">

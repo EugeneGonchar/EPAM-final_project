@@ -1,9 +1,9 @@
-package entity;
+package pojo.dto;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Order implements Entity {
+public class OrderDTO {
     private static final String SECONDS = ":00";
 
     private int id;
@@ -11,8 +11,8 @@ public class Order implements Entity {
     private int carId;
     private Timestamp dateReceived;
     private Timestamp returnDate;
-    private int pickupAddressId;
-    private int dropoffAddressId;
+    private String pickupAddress;
+    private String dropoffAddress;
     private BigDecimal totalCost;
     private int statusId;
 
@@ -61,23 +61,23 @@ public class Order implements Entity {
     }
 
     public void setReturnDate(String returnDate) {
-        this.returnDate = Timestamp.valueOf(returnDate+SECONDS);
+        this.dateReceived = Timestamp.valueOf(returnDate+SECONDS);
     }
 
-    public int getPickupAddressId() {
-        return pickupAddressId;
+    public String getPickupAddress() {
+        return pickupAddress;
     }
 
-    public void setPickupAddressId(int pickupAddressId) {
-        this.pickupAddressId = pickupAddressId;
+    public void setPickupAddress(String pickupAddress) {
+        this.pickupAddress = pickupAddress;
     }
 
-    public int getDropoffAddressId() {
-        return dropoffAddressId;
+    public String getDropoffAddress() {
+        return dropoffAddress;
     }
 
-    public void setDropoffAddressId(int dropoffAddressId) {
-        this.dropoffAddressId = dropoffAddressId;
+    public void setDropoffAddress(String dropoffAddress) {
+        this.dropoffAddress = dropoffAddress;
     }
 
     public BigDecimal getTotalCost() {

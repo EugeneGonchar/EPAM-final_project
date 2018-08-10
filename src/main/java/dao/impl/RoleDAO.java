@@ -3,8 +3,8 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
-import entity.Role;
-import entity.User;
+import pojo.entity.Role;
+import pojo.entity.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,11 +13,18 @@ import java.util.List;
 
 public class RoleDAO extends AbstractDAO {
 
+    private static final String GET_ROLES_COUNT = "SELECT COUNT(*) AS `count` FROM `role`";
+
     private static final String FIND_ROLE_BY_USER = "SELECT `role_id`, `name` FROM `role` WHERE `role_id` = ?";
 
     @Override
     public List findAll() {
         return null;
+    }
+
+    @Override
+    public int getCount(){
+        return getElementsCount(GET_ROLES_COUNT);
     }
 
     public Role getRoleByUser(User user){

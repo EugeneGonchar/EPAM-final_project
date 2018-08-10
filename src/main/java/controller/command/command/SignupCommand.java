@@ -4,7 +4,7 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
-import dto.UserDTO;
+import pojo.dto.UserDTO;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import resource.ConfigurationManager;

@@ -2,6 +2,8 @@ package dao.util;
 
 public class DBFieldName {
 
+    public static final String FIELD_COUNT = "count";
+
     public static final String TABLE_ADDRESS_FIELD_ID = "address_id";
     public static final String TABLE_ADDRESS_FIELD_STREET = "street";
     public static final String TABLE_ADDRESS_FIELD_BUILDING = "building";

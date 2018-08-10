@@ -4,9 +4,11 @@ import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
 import dao.util.DBFieldName;
-import dto.FullOrderDTO;
-import dto.FullUserOrderDTO;
-import entity.*;
+import dao.util.QueryBuilder;
+import pojo.dto.FullOrderDTO;
+import pojo.dto.FullUserOrderDTO;
+import pojo.dto.PageDTO;
+import pojo.entity.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +17,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class OrderDAO extends AbstractDAO {
+
+    private static final String GET_ORDERS_COUNT_BY_USER_ID = "SELECT COUNT(*) AS `count`\n" +
+            "FROM (SELECT * FROM `order` WHERE `user_id` = ?) AS `user_orders`\n";
 
     private static final String FIND_FULL_ORDERS_BY_USER_ID = "SELECT `user_orders`.`order_id`, `user_orders`.`user_id`, `user_orders`.`car_id`, `user_orders`.`date_received`, `user_orders`.`return_date`, `user_orders`.`pickup_address_id`, `user_orders`.`dropoff_address_id`, `user_orders`.`total_cost`, `car`.`seats`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `user_orders`.`status_id`\n" +
             "FROM (SELECT * FROM `order` WHERE `user_id` = ?) AS `user_orders`\n" +
@@ -66,10 +71,29 @@ public class OrderDAO extends AbstractDAO {
         return null;
     }
 
-    public List<FullOrderDTO> getFullOrdersByUser(User user){
+    @Override
+    public int getCount(){
+        return getElementsCount(GET_ORDERS_COUNT_BY_USER_ID);
+    }
+
+    public int getOrdersCountByUserId(User user){
+        int count = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(GET_ORDERS_COUNT_BY_USER_ID)){
+            preparedStatement.setInt(1, user.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                count = resultSet.getInt(DBFieldName.FIELD_COUNT);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public List<FullOrderDTO> getFullOrdersByUser(User user, PageDTO pageDTO){
         List<FullOrderDTO> fullOrderDTOList = new LinkedList<>();
         FullOrderDTO fullOrderDTO = null;
-        try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_FULL_ORDERS_BY_USER_ID)){
+        try(PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(FIND_FULL_ORDERS_BY_USER_ID, pageDTO))){
             preparedStatement.setInt(1, user.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -82,6 +106,9 @@ public class OrderDAO extends AbstractDAO {
                 fullOrderDTO.setOrderStatus(createOrderStatus(resultSet));
                 fullOrderDTOList.add(fullOrderDTO);
             }
+
+            resultSet.last();
+            pageDTO.setElementsCount(resultSet.getRow());
 
         } catch (SQLException e) {
             e.printStackTrace();

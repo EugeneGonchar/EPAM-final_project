@@ -5,11 +5,7 @@ import controller.command.util.OrderProcessStatusConstant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import entity.Order;
-import entity.User;
 import resource.ConfigurationManager;
-import service.OrderService;
-import service.ServiceFactory;
 
 public class PaymentCommand implements ActionCommand {
 

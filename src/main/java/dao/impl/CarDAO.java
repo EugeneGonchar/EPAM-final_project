@@ -3,14 +3,16 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
-import dto.CarDTO;
-import entity.Car;
+import pojo.dto.CarDTO;
+import pojo.entity.Car;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CarDAO extends AbstractDAO {
+
+    private static final String GET_CARS_COUNT = "SELECT COUNT(*) AS `count` FROM `car`";
 
     private static final String FIND_ALL_CARS = "SELECT `car`.car_id ,`brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car` \n" +
@@ -69,6 +71,11 @@ public class CarDAO extends AbstractDAO {
             e.printStackTrace();
         }
         return carList;
+    }
+
+    @Override
+    public int getCount(){
+        return getElementsCount(GET_CARS_COUNT);
     }
 
     public List<Car> findAllFreeCars(Timestamp dateReceived, Timestamp returnDate){

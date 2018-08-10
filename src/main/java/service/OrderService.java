@@ -1,20 +1,21 @@
 package service;
 
-import dto.FullOrderDTO;
-import dto.FullUserOrderDTO;
-import entity.Order;
-import entity.User;
+import pojo.dto.FullOrderDTO;
+import pojo.dto.FullUserOrderDTO;
+import pojo.dto.PageDTO;
+import pojo.entity.Order;
+import pojo.entity.User;
 
 import java.util.List;
 
 public interface OrderService {
 
-    public List<FullOrderDTO> getFullUserOrders(User user);
+    List<FullOrderDTO> getFullUserOrders(User user, PageDTO pageDTO);
 
-    public void insertOrder(Order order);
+    void insertOrder(Order order);
 
-    public User insertOrder(Order order, User user);
+    User insertOrder(Order order, User user);
 
-    public List<FullUserOrderDTO> getFullOrders();
+    List<FullUserOrderDTO> getFullOrders();
 
 }

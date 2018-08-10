@@ -2,7 +2,7 @@ package service.impl;
 
 import dao.Transaction;
 import dao.impl.AddressDAO;
-import entity.Address;
+import pojo.entity.Address;
 import service.AddressService;
 
 import java.sql.SQLException;

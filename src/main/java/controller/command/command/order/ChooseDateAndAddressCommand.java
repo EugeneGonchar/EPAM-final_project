@@ -1,13 +1,12 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
-import controller.command.util.DateHelper;
 import controller.command.util.OrderProcessStatusConstant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import entity.Address;
-import entity.Order;
+import pojo.entity.Address;
+import pojo.entity.Order;
 import resource.ConfigurationManager;
 import service.AddressService;
 import service.ServiceFactory;

@@ -3,15 +3,17 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
-import dto.UserDTO;
-import dto.UserRoleDTO;
-import entity.User;
+import pojo.dto.UserDTO;
+import pojo.dto.UserRoleDTO;
+import pojo.entity.User;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
 public class UserDAO extends AbstractDAO{
+
+    private static final String GET_USERS_COUNT = "SELECT COUNT(*) AS `count` FROM `user`";
 
     private static final String FIND_USER_BY_LOGIN = "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_LOGIN = "SELECT `user_id` FROM `user` WHERE `login`=?";
@@ -39,6 +41,11 @@ public class UserDAO extends AbstractDAO{
             e.printStackTrace();
         }*/
         return null;
+    }
+
+    @Override
+    public int getCount(){
+        return getElementsCount(GET_USERS_COUNT);
     }
 
     public User getUserByLogin(String login){

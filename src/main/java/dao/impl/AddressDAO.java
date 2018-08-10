@@ -3,7 +3,7 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
-import entity.Address;
+import pojo.entity.Address;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AddressDAO extends AbstractDAO {
+
+    private static final String GET_ADDRESS_COUNT = "SELECT COUNT(*) AS `count` FROM `address`";
 
     private static final String FIND_ALL_ADDRESSES = "SELECT `address_id`, `street`, `building` FROM `address`";
     private static final String FIND_ADDRESS_BY_STREET_BUILDING = "SELECT `address_id`, `street`, `building` FROM `address` WHERE street=? AND `building`=?";
@@ -34,6 +36,11 @@ public class AddressDAO extends AbstractDAO {
         }
 
         return addressList;
+    }
+
+    @Override
+    public int getCount(){
+        return getElementsCount(GET_ADDRESS_COUNT);
     }
 
     public Address getAddressByStreetBuilding(String street, String building){

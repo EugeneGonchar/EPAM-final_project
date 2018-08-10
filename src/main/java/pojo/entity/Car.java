@@ -1,4 +1,4 @@
-package entity;
+package pojo.entity;
 
 import java.math.BigDecimal;
 

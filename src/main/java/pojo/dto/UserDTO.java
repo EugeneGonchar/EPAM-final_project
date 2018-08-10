@@ -1,22 +1,14 @@
-package dto;
+package pojo.dto;
 
-public class UserRoleDTO {
-    private int id;
+public class UserDTO {
     private String login;
+    private String password;
+    private String password2;
+    private String password3;
     private String email;
     private String phone;
     private String firstName;
     private String lastName;
-    private int roleId;
-    private String role;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
-    }
 
     public String getLogin() {
         return login;
@@ -24,6 +16,30 @@ public class UserRoleDTO {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    public String getPassword3() {
+        return password3;
+    }
+
+    public void setPassword3(String password3) {
+        this.password3 = password3;
     }
 
     public String getEmail() {
@@ -56,21 +72,5 @@ public class UserRoleDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

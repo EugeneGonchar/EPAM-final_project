@@ -4,25 +4,15 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dto.UserDTO;
-import entity.Role;
-import entity.User;
+import pojo.dto.UserDTO;
+import pojo.entity.Role;
+import pojo.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.RoleService;
 import service.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
-
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
 
 public class LoginCommand implements ActionCommand {
 

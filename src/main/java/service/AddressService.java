@@ -1,12 +1,12 @@
 package service;
 
-import entity.Address;
+import pojo.entity.Address;
 
 import java.util.List;
 
 public interface AddressService {
 
-    public List<Address> getAddressList();
-    public Address formingAddressFromString(String stringAddress);
+    List<Address> getAddressList();
+    Address formingAddressFromString(String stringAddress);
 
 }

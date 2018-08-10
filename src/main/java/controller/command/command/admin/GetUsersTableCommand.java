@@ -4,7 +4,7 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dto.UserRoleDTO;
+import pojo.dto.UserRoleDTO;
 import resource.ConfigurationManager;
 import service.ServiceFactory;
 import service.UserService;

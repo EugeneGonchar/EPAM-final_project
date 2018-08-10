@@ -2,8 +2,8 @@ package service.impl;
 
 import dao.Transaction;
 import dao.impl.RoleDAO;
-import entity.Role;
-import entity.User;
+import pojo.entity.Role;
+import pojo.entity.User;
 import service.RoleService;
 
 import java.sql.SQLException;

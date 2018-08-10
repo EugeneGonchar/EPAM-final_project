@@ -1,4 +1,4 @@
-package entity;
+package pojo.entity;
 
 public class Address implements Entity {
     private int id;

@@ -1,13 +1,13 @@
 package service.impl;
 
 import dao.Transaction;
-import dto.UserRoleDTO;
+import pojo.dto.UserRoleDTO;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
 import service.exception.WrongPasswordException;
 import dao.impl.UserDAO;
-import dto.UserDTO;
-import entity.User;
+import pojo.dto.UserDTO;
+import pojo.entity.User;
 import resource.MessageManager;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;

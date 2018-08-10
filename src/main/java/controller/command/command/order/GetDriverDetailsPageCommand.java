@@ -5,13 +5,12 @@ import controller.command.util.OrderProcessStatusConstant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dto.CarDTO;
-import entity.Address;
-import entity.Car;
-import entity.Order;
+import pojo.dto.CarDTO;
+import pojo.entity.Address;
+import pojo.entity.Car;
+import pojo.entity.Order;
 import resource.ConfigurationManager;
 import service.CarService;
-import service.OrderService;
 import service.ServiceFactory;
 import service.impl.OrderServiceImpl;
 

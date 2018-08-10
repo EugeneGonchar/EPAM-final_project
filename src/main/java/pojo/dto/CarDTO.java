@@ -1,4 +1,4 @@
-package dto;
+package pojo.dto;
 
 public class CarDTO {
     private int id;

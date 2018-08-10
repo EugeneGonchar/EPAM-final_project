@@ -1,6 +1,6 @@
-package dto;
+package pojo.dto;
 
-import entity.*;
+import pojo.entity.*;
 
 public class FullOrderDTO {
 

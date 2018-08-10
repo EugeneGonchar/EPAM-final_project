@@ -1,4 +1,4 @@
-package entity;
+package pojo.entity;
 
 public class Role implements Entity {
     private int id;

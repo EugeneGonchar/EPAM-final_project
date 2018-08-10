@@ -5,7 +5,7 @@ import controller.command.util.OrderProcessStatusConstant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import entity.User;
+import pojo.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.ServiceFactory;

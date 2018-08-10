@@ -1,4 +1,4 @@
-package entity;
+package pojo.entity;
 
 public class OrderStatus implements Entity {
     private int id;

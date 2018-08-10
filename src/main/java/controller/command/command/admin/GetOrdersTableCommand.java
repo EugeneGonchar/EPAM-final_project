@@ -4,7 +4,7 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import dto.FullUserOrderDTO;
+import pojo.dto.FullUserOrderDTO;
 import resource.ConfigurationManager;
 import service.OrderService;
 import service.ServiceFactory;
