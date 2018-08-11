@@ -29,7 +29,6 @@
 <fmt:message bundle="${loc}" key="local.orders.pickup_message" var="pickup_message" />
 <fmt:message bundle="${loc}" key="local.orders.dropoff_message" var="dropoff_message" />
 <fmt:message bundle="${loc}" key="local.orders.rent_cost_message" var="rent_cost_message" />
-<fmt:message bundle="${loc}" key="local.admin.tables.users.items_on_page_message" var="items_on_page_message" />
 
 <!doctype html>
 <html>
@@ -57,22 +56,9 @@
     </div>
 
     <div class="col-12 float-left">
-        <div class="row mx-1 col-3 align-items-center">
-            <label>
-                <select class="form-control rounded-0" onchange="top.location=this.value">
-                    <option value="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=10&page=1" <c:if test="${pageDTO.elementsOnPage eq 10}">selected="selected"</c:if>>
-                        10
-                    </option>
-                    <option value="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=25&page=1" <c:if test="${pageDTO.elementsOnPage eq 25}">selected="selected"</c:if>>
-                        25
-                    </option>
-                    <option value="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=50&page=1" <c:if test="${pageDTO.elementsOnPage eq 50}">selected="selected"</c:if>>
-                        50
-                    </option>
-                </select>
-            </label>
-            <h6 class="mx-2">${ items_on_page_message}</h6>
-        </div>
+        <c:set var="command" scope="session" value="get_orders"/>
+        <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
+
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -276,79 +262,9 @@
                 </c:forEach>
             </tbody>
         </table>
-        <div class="d-flex justify-content-end">
-            <ul class="pagination pagination-sm">
-                <li class="page-item <c:if test="${pageDTO.currentPage eq 1}">disabled</c:if>">
-                    <a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${pageDTO.currentPage - 1}" aria-label="Previous">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <c:choose>
-                    <c:when test="${pageDTO.pagesCount le 5}">
-                        <c:forEach var="i" begin="1" end="${pageDTO.pagesCount}">
-                            <c:choose>
-                                <c:when test="${i eq pageDTO.currentPage}">
-                                    <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <c:choose>
-                            <c:when test="${pageDTO.currentPage gt 3 and pageDTO.currentPage lt pageDTO.pagesCount - 2}">
-                                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=1">1</a></li>
-                                <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${pageDTO.currentPage - 1}">${pageDTO.currentPage - 1}</a></li>
-                                <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${pageDTO.currentPage}">${pageDTO.currentPage}</a></li>
-                                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${pageDTO.currentPage + 1}">${pageDTO.currentPage + 1}</a></li>
-                                <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${pageDTO.pagesCount}">${pageDTO.pagesCount}</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <c:choose>
-                                    <c:when test="${pageDTO.currentPage le 3}">
-                                        <c:forEach var="i" begin="1" end="3">
-                                            <c:choose>
-                                                <c:when test="${i eq pageDTO.currentPage}">
-                                                    <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                        <li class="page-item"><a class="page-link" href="#">..</a></li>
-                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${pageDTO.pagesCount}">${pageDTO.pagesCount}</a></li>
-                                    </c:when>
-                                    <c:when test="${pageDTO.currentPage ge pageDTO.pagesCount - 2}">
-                                        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=1">1</a></li>
-                                        <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                                        <c:forEach var="i" begin="${pageDTO.pagesCount - 2}" end="${pageDTO.pagesCount}">
-                                            <c:choose>
-                                                <c:when test="${i eq pageDTO.currentPage}">
-                                                    <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                    </c:when>
-                                </c:choose>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:otherwise>
-                </c:choose>
-                <li class="page-item <c:if test="${pageDTO.currentPage eq pageDTO.pagesCount}">disabled</c:if>">
-                    <a class="page-link" href="${pageContext.request.contextPath}/controller?command=get_orders&elementsOnPage=${pageDTO.elementsOnPage}&page=${pageDTO.currentPage + 1}" aria-label="Previous">
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+        <%@ include file = "/jsp/pagination/pagination.jsp" %>
+
     </div>
 </div>
 

@@ -107,9 +107,6 @@ public class OrderDAO extends AbstractDAO {
                 fullOrderDTOList.add(fullOrderDTO);
             }
 
-            resultSet.last();
-            pageDTO.setElementsCount(resultSet.getRow());
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

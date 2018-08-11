@@ -6,6 +6,7 @@ import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import pojo.dto.OrderDTO;
+import pojo.dto.PageDTO;
 import pojo.entity.Car;
 import pojo.entity.Order;
 import resource.ConfigurationManager;
@@ -22,13 +23,17 @@ public class GetCarsCommand implements ActionCommand {
         String page = null;
         List<Car> carList = null;
         Order order = (Order) sessionRequestContent.getSessionAttribute("order");
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setElementsOnPage(Integer.parseInt(sessionRequestContent.getRequestParameter("elementsOnPage")));
+        pageDTO.setCurrentPage(Integer.parseInt(sessionRequestContent.getRequestParameter("page")));
 
         int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 
-        carList = carService.getFreeCarList(createOrderDTO(order));
+        carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
 
+        sessionRequestContent.add2SessionAttributes("pageDTO", pageDTO);
         sessionRequestContent.add2SessionAttributes("rentDays", rentDays);
         sessionRequestContent.add2RequestAttributes("carList", carList);
         page = ConfigurationManager.getProperty("path.page.cars");

@@ -43,7 +43,7 @@
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
         <a class="nav-item nav-link col border-right " href="${pageContext.request.contextPath}/controller?command=get_locations">${date_and_place}<i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right bg-light" href="${pageContext.request.contextPath}/controller?command=get_cars">${cars_search}</a>
+        <a class="nav-item nav-link col border-right bg-light" href="${pageContext.request.contextPath}/controller?command=${command}&elementsOnPage=10&page=1">${cars_search}</a>
         <a class="nav-item nav-link col border-right disabled" href="#">${driver}</a>
         <a class="nav-item nav-link col border-right disabled" href="#">${payment}</a>
         <a class="nav-item nav-link col disabled" href="#">${confirmation}</a>
@@ -133,6 +133,9 @@
 
     <div class="col-9 float-left">
 
+        <c:set var="command" scope="session" value="get_cars"/>
+        <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
+
         <c:forEach var="car" items="${carList}" varStatus="status">
             <div class="card col-auto my-3">
                 <div class="row border-bottom">
@@ -215,6 +218,8 @@
                 </div>
             </div>
         </c:forEach>
+
+        <%@ include file = "/jsp/pagination/pagination.jsp" %>
 
     </div>
 </div>

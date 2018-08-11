@@ -4,6 +4,7 @@ import dao.Transaction;
 import dao.impl.CarDAO;
 import pojo.dto.CarDTO;
 import pojo.dto.OrderDTO;
+import pojo.dto.PageDTO;
 import pojo.entity.Car;
 import service.CarService;
 
@@ -33,14 +34,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> getFreeCarList(OrderDTO orderDTO){
+    public List<Car> getFreeCarList(OrderDTO orderDTO, PageDTO pageDTO){
         CarDAO carDAO = new CarDAO();
         Transaction transaction = new Transaction();
         List<Car> carList = null;
 
         transaction.beginTransaction(carDAO);
 
-        carList = carDAO.findAllFreeCars(orderDTO.getDateReceived(), orderDTO.getReturnDate());
+        pageDTO.setElementsCount(carDAO.getFreeCarsCount(orderDTO.getDateReceived(), orderDTO.getReturnDate()));
+        pageDTO.calculatePagesCount();
+        carList = carDAO.findFreeCars(orderDTO.getDateReceived(), orderDTO.getReturnDate(), pageDTO);
 
         try {
             transaction.commit();

@@ -40,6 +40,7 @@
     <div class="container">
         <div class="card border rounded-0">
             <h5 class="card-header">${orders_message}</h5>
+
             <div class="row mt-2 mx-1 col-3 align-items-center">
                 <label class="">
                     <select class="form-control rounded-0">
@@ -50,6 +51,7 @@
                 </label>
                 <h6 class="mx-2">${ items_on_page_message}</h6>
             </div>
+
             <table class="table col-8">
                 <thead class="thead-light">
                 <tr>

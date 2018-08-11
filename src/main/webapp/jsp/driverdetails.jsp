@@ -47,7 +47,7 @@
 <div class="container my-3 px-0">
     <nav class="nav row border rounded text-center">
         <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/controller?command=get_locations">${date_and_place}<i class="fa fa-check" style="color: #34ce57"></i></a>
-        <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/controller?command=get_cars">${cars_search}<i class="fa fa-check" style="color: #34ce57"></i></a>
+        <a class="nav-item nav-link col border-right" href="${pageContext.request.contextPath}/controller?command=get_cars&elementsOnPage=10&page=1">${cars_search}<i class="fa fa-check" style="color: #34ce57"></i></a>
         <a class="nav-item nav-link col border-right bg-light" href="${pageContext.request.contextPath}/driverdetails">${driver}</a>
         <a class="nav-item nav-link col border-right disabled" href="#">${payment}</a>
         <a class="nav-item nav-link col disabled" href="#">${confirmation}</a>
