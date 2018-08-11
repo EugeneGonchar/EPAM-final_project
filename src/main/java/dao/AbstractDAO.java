@@ -15,9 +15,9 @@ public abstract class AbstractDAO <T extends Entity> {
 
     public abstract List<T> findAll();
 
-    public abstract int getCount();
+    /*public abstract int getCount();*/
 
-    protected int getElementsCount(String query){
+    /*protected int getElementsCount(String query){
         int count = 0;
         try(PreparedStatement preparedStatement = connection.prepareStatement(query)){
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -28,7 +28,7 @@ public abstract class AbstractDAO <T extends Entity> {
             e.printStackTrace();
         }
         return count;
-    }
+    }*/
 
     void setConnection(Connection connection){
         this.connection = connection;

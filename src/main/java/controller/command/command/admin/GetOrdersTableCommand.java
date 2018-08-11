@@ -5,6 +5,7 @@ import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import pojo.dto.FullUserOrderDTO;
+import pojo.dto.PageDTO;
 import resource.ConfigurationManager;
 import service.OrderService;
 import service.ServiceFactory;
@@ -18,11 +19,15 @@ public class GetOrdersTableCommand implements ActionCommand {
         ActionPageContainer actionPageContainer = null;
         String page = null;
         List<FullUserOrderDTO> fullUserOrderDTOList = null;
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setElementsOnPage(Integer.parseInt(sessionRequestContent.getRequestParameter("elementsOnPage")));
+        pageDTO.setCurrentPage(Integer.parseInt(sessionRequestContent.getRequestParameter("page")));
 
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
 
-        fullUserOrderDTOList = orderService.getFullOrders();
+        fullUserOrderDTOList = orderService.getOrdersList(pageDTO);
 
+        sessionRequestContent.add2SessionAttributes("pageDTO", pageDTO);
         sessionRequestContent.add2RequestAttributes("fullUserOrderDTOList", fullUserOrderDTOList);
         page = ConfigurationManager.getProperty("path.page.admin.orders");
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);

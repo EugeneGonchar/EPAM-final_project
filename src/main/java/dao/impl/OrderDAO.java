@@ -18,6 +18,8 @@ import java.util.List;
 
 public class OrderDAO extends AbstractDAO {
 
+    private static final String GET_ORDERS_COUNT = "SELECT COUNT(*) AS `count` FROM `order`";
+
     private static final String GET_ORDERS_COUNT_BY_USER_ID = "SELECT COUNT(*) AS `count`\n" +
             "FROM (SELECT * FROM `order` WHERE `user_id` = ?) AS `user_orders`\n";
 
@@ -71,12 +73,12 @@ public class OrderDAO extends AbstractDAO {
         return null;
     }
 
-    @Override
+    /*@Override
     public int getCount(){
         return getElementsCount(GET_ORDERS_COUNT_BY_USER_ID);
-    }
+    }*/
 
-    public int getOrdersCountByUserId(User user){
+    public int getFullOrdersCountByUser(User user){
         int count = 0;
         try(PreparedStatement preparedStatement = connection.prepareStatement(GET_ORDERS_COUNT_BY_USER_ID)){
             preparedStatement.setInt(1, user.getId());
@@ -114,10 +116,23 @@ public class OrderDAO extends AbstractDAO {
         return fullOrderDTOList;
     }
 
-    public List<FullUserOrderDTO> getFullOrders(){
+    public int getFullOrdersCount(){
+        int count = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(GET_ORDERS_COUNT)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                count = resultSet.getInt(DBFieldName.FIELD_COUNT);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public List<FullUserOrderDTO> getFullOrders(PageDTO pageDTO){
         List<FullUserOrderDTO> fullUserOrderDTOList = new LinkedList<>();
         FullUserOrderDTO fullUserOrderDTO = null;
-        try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_FULL_ORDERS_WITH_USERS)){
+        try(PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(FIND_FULL_ORDERS_WITH_USERS, pageDTO))){
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){

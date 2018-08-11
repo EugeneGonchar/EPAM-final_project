@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CarService {
 
-    List<Car> getCarList();
+    List<Car> getCarList(PageDTO pageDTO);
 
     List<Car> getFreeCarList(OrderDTO orderDTO, PageDTO pageDTO);
 

@@ -16,6 +16,6 @@ public interface OrderService {
 
     User insertOrder(Order order, User user);
 
-    List<FullUserOrderDTO> getFullOrders();
+    List<FullUserOrderDTO> getOrdersList(PageDTO pageDTO);
 
 }

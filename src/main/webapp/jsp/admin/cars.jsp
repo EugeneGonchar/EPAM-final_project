@@ -42,41 +42,35 @@
 <div class="container my-4">
     <div class="container">
         <div class="card border rounded-0">
-            <h5 class="card-header">${car_message}</h5>
-            <div class="row mt-2 mx-1 col-3 align-items-center">
-                <label class="">
-                    <select class="form-control rounded-0">
-                        <option>10</option>
-                        <option selected="selected">25</option>
-                        <option>50</option>
-                    </select>
-                </label>
-                <h6 class="mx-2">${ items_on_page_message}</h6>
-            </div>
+            <h5 class="card-header mb-2">${car_message}</h5>
+
+            <c:set var="command" scope="session" value="cars_table"/>
+            <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
+
             <table class="table col-8">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">${photo_column}</th>
-                    <th scope="col">${car_column}</th>
-                    <th scope="col">${rental_for_a_day}</th>
-                    <th scope="col">${fuel_consumption_column}</th>
-                    <th scope="col">${engine_type_column}</th>
-                    <th scope="col">${year_of_issue_column}</th>
-                    <th scope="col">${actions_column}</th>
+                    <th scope="col" class="align-middle text-center">#</th>
+                    <th scope="col" class="align-middle text-center">${photo_column}</th>
+                    <th scope="col" class="align-middle">${car_column}</th>
+                    <th scope="col" class="align-middle text-center">${engine_type_column}</th>
+                    <th scope="col" class="align-middle text-right">${fuel_consumption_column}</th>
+                    <th scope="col" class="align-middle text-right">${year_of_issue_column}</th>
+                    <th scope="col" class="align-middle text-right">${rental_for_a_day}</th>
+                    <th scope="col" class="align-middle text-center">${actions_column}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="car" items="${carList}" varStatus="status">
                     <tr>
-                        <th scope="row">${status.count}</th>
-                        <td></td>
-                        <td>${car.brand} ${car.model}</td>
-                        <td>${car.rental4Day}</td>
-                        <td>${car.fuelConsumption}</td>
-                        <td>${car.engineType}</td>
-                        <td>${car.yearOfIssue}</td>
-                        <td>
+                        <th scope="row" class="align-middle text-center">${(pageDTO.currentPage-1) * pageDTO.elementsOnPage + status.count}</th>
+                        <td class="align-middle text-center"></td>
+                        <td class="align-middle">${car.brand} ${car.model}</td>
+                        <td class="align-middle text-center">${car.engineType}</td>
+                        <td class="align-middle text-right">${car.fuelConsumption}</td>
+                        <td class="align-middle text-right">${car.yearOfIssue}</td>
+                        <td class="align-middle text-right">${car.rental4Day}</td>
+                        <td class="align-middle text-center">
                             <button class="btn btn-success btn-sm">
                                 <i class="fa fa-edit"></i>
                             </button>
@@ -89,26 +83,9 @@
                 </tbody>
             </table>
             <nav class="card-footer">
-                <div class="d-flex justify-content-end">
-                    <ul class="pagination pagination-sm">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
+                <%@ include file = "/jsp/pagination/pagination.jsp" %>
+
             </nav>
         </div>
     </div>

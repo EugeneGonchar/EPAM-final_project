@@ -70,6 +70,19 @@ public class CarDAO extends AbstractDAO {
             "ON `engine`.`engine_id` = `car`.`engine_id`\n"+
             "WHERE `car_id` = ?";
 
+    public int getCarsCount(){
+        int count = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(GET_CARS_COUNT)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                count = resultSet.getInt(DBFieldName.FIELD_COUNT);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     @Override
     public List<Car> findAll() {
         List<Car> carList = new LinkedList<>();
@@ -87,9 +100,20 @@ public class CarDAO extends AbstractDAO {
         return carList;
     }
 
-    @Override
-    public int getCount(){
-        return getElementsCount(GET_CARS_COUNT);
+    public List<Car> findAll(PageDTO pageDTO) {
+        List<Car> carList = new LinkedList<>();
+        Car car = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(FIND_ALL_CARS, pageDTO))){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                car = createCar(resultSet);
+                carList.add(car);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carList;
     }
 
     public int getFreeCarsCount(Timestamp dateReceived, Timestamp returnDate){

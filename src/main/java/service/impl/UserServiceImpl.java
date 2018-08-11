@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.Transaction;
+import pojo.dto.PageDTO;
 import pojo.dto.UserRoleDTO;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
@@ -253,14 +254,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserRoleDTO> getUserRoleList(){
+    public List<UserRoleDTO> getUserRoleList(PageDTO pageDTO){
         UserDAO userDAO = new UserDAO();
         List<UserRoleDTO> userRoleDTOList = null;
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
 
-        userRoleDTOList = userDAO.getUsersWithRoles();
+        pageDTO.setElementsCount(userDAO.getUsersWithRolesCount());
+        pageDTO.calculatePagesCount();
+        userRoleDTOList = userDAO.getUsersWithRoles(pageDTO);
 
         try {
             transaction.commit();

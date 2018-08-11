@@ -1,5 +1,6 @@
 package service;
 
+import pojo.dto.PageDTO;
 import pojo.dto.UserRoleDTO;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
@@ -14,30 +15,30 @@ import java.util.List;
 
 public interface UserService {
 
-    public User logIn(UserDTO userDTO) throws ExistEmptyFieldException;
+    User logIn(UserDTO userDTO) throws ExistEmptyFieldException;
 
-    public void signUp(UserDTO userDTO) throws ExistEmptyFieldException,
+    void signUp(UserDTO userDTO) throws ExistEmptyFieldException,
             PasswordShorter6SymbolsException,
             PasswordsUnequalException,
             EmailExistException,
             LoginExistException;
 
-    public void changeNameSurname(UserDTO userDTO) throws ExistEmptyFieldException;
+    void changeNameSurname(UserDTO userDTO) throws ExistEmptyFieldException;
 
-    public void changeLogin(UserDTO userDTO) throws ExistEmptyFieldException,
+    void changeLogin(UserDTO userDTO) throws ExistEmptyFieldException,
             LoginExistException;
 
-    public void changePhone(UserDTO userDTO) throws ExistEmptyFieldException;
+    void changePhone(UserDTO userDTO) throws ExistEmptyFieldException;
 
-    public void changeEmail(UserDTO userDTO) throws ExistEmptyFieldException, EmailExistException;
+    void changeEmail(UserDTO userDTO) throws ExistEmptyFieldException, EmailExistException;
 
-    public void changePassword(UserDTO userDTO) throws ExistEmptyFieldException,
+    void changePassword(UserDTO userDTO) throws ExistEmptyFieldException,
             PasswordShorter6SymbolsException,
             PasswordsUnequalException,
             WrongPasswordException;
 
-    public void checkDriverDetails(User user) throws ExistEmptyFieldException, EmailExistException;
+    void checkDriverDetails(User user) throws ExistEmptyFieldException, EmailExistException;
 
-    public List<UserRoleDTO> getUserRoleList();
+    List<UserRoleDTO> getUserRoleList(PageDTO pageDTO);
 
 }

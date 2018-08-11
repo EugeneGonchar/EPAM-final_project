@@ -39,43 +39,35 @@
 <div class="container my-4">
     <div class="container">
         <div class="card border rounded-0">
-            <h5 class="card-header">${orders_message}</h5>
+            <h5 class="card-header mb-2">${orders_message}</h5>
 
-            <div class="row mt-2 mx-1 col-3 align-items-center">
-                <label class="">
-                    <select class="form-control rounded-0">
-                        <option>10</option>
-                        <option selected="selected">25</option>
-                        <option>50</option>
-                    </select>
-                </label>
-                <h6 class="mx-2">${ items_on_page_message}</h6>
-            </div>
+            <c:set var="command" scope="session" value="orders_table"/>
+            <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
 
             <table class="table col-8">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">${login_column}</th>
-                    <th scope="col">${name_column} ${surname_column}</th>
-                    <th scope="col">${car_column}</th>
-                    <th scope="col">${date_received_column}</th>
-                    <th scope="col">${date_return_column}</th>
-                    <th scope="col">${status_column}</th>
-                    <th scope="col">${total_cost_column}</th>
-                    <th scope="col">${actions_column}</th>
+                    <th scope="col" class="align-middle">#</th>
+                    <th scope="col" class="align-middle">${login_column}</th>
+                    <th scope="col" class="align-middle">${name_column} ${surname_column}</th>
+                    <th scope="col" class="align-middle">${car_column}</th>
+                    <th scope="col" class="align-middle text-right">${date_received_column}</th>
+                    <th scope="col" class="align-middle text-right">${date_return_column}</th>
+                    <th scope="col" class="align-middle text-center">${status_column}</th>
+                    <th scope="col" class="align-middle text-right">${total_cost_column}</th>
+                    <th scope="col" class="align-middle text-center">${actions_column}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="fullUserOrderDTO" items="${fullUserOrderDTOList}" varStatus="status">
                     <tr>
-                        <th scope="row">${status.count}</th>
-                        <td>${fullUserOrderDTO.user.login}</td>
-                        <td>${fullUserOrderDTO.user.firstName} ${fullUserOrderDTO.user.lastName}</td>
-                        <td>${fullUserOrderDTO.car.brand} ${fullUserOrderDTO.car.model}</td>
-                        <td><fmt:formatDate value="${fullUserOrderDTO.order.dateReceived}" pattern="yyyy-MM-dd HH:mm" /></td>
-                        <td><fmt:formatDate value="${fullUserOrderDTO.order.returnDate}" pattern="yyyy-MM-dd HH:mm" /></td>
-                        <td>
+                        <th scope="row" class="align-middle">${(pageDTO.currentPage-1) * pageDTO.elementsOnPage + status.count}</th>
+                        <td class="align-middle">${fullUserOrderDTO.user.login}</td>
+                        <td class="align-middle">${fullUserOrderDTO.user.firstName} ${fullUserOrderDTO.user.lastName}</td>
+                        <td class="align-middle">${fullUserOrderDTO.car.brand} ${fullUserOrderDTO.car.model}</td>
+                        <td class="align-middle text-right"><fmt:formatDate value="${fullUserOrderDTO.order.dateReceived}" pattern="yyyy-MM-dd HH:mm" /></td>
+                        <td class="align-middle text-right"><fmt:formatDate value="${fullUserOrderDTO.order.returnDate}" pattern="yyyy-MM-dd HH:mm" /></td>
+                        <td class="align-middle text-center">
                             <c:choose>
                                 <c:when test="${fullUserOrderDTO.orderStatus.status eq 'is processed'}">
                                     <span class="badge badge-pill badge-warning">${orderElement.orderStatus.status}</span>
@@ -88,8 +80,8 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td>${fullUserOrderDTO.order.totalCost}</td>
-                        <td>
+                        <td class="align-middle text-right">${fullUserOrderDTO.order.totalCost}</td>
+                        <td class="align-middle text-center">
                             <button class="btn btn-success btn-sm">
                                 <i class="fa fa-edit"></i>
                             </button>
@@ -102,26 +94,9 @@
                 </tbody>
             </table>
             <nav class="card-footer">
-                <div class="d-flex justify-content-end">
-                    <ul class="pagination pagination-sm">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
+                <%@ include file = "/jsp/pagination/pagination.jsp" %>
+
             </nav>
         </div>
     </div>

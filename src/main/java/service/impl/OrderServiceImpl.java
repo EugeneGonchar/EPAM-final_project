@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
         transaction.beginTransaction(orderDAO);
 
-        pageDTO.setElementsCount(orderDAO.getOrdersCountByUserId(user));
+        pageDTO.setElementsCount(orderDAO.getFullOrdersCountByUser(user));
         pageDTO.calculatePagesCount();
         fullOrderDTOList = orderDAO.getFullOrdersByUser(user, pageDTO);
 
@@ -42,14 +42,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<FullUserOrderDTO> getFullOrders(){
+    public List<FullUserOrderDTO> getOrdersList(PageDTO pageDTO){
         OrderDAO orderDAO = new OrderDAO();
         Transaction transaction = new Transaction();
         List<FullUserOrderDTO> fullUserOrderDTOList = null;
 
         transaction.beginTransaction(orderDAO);
 
-        fullUserOrderDTOList = orderDAO.getFullOrders();
+        pageDTO.setElementsCount(orderDAO.getFullOrdersCount());
+        pageDTO.calculatePagesCount();
+        fullUserOrderDTOList = orderDAO.getFullOrders(pageDTO);
 
         try{
             transaction.commit();

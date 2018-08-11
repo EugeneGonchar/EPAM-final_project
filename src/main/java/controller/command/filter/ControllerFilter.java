@@ -20,7 +20,7 @@ public class ControllerFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        response.sendRedirect(ConfigurationManager.getProperty("path.page.main"));
+        /*response.sendRedirect(ConfigurationManager.getProperty("path.page.main"));*/
     }
 
     @Override

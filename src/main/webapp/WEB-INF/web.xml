@@ -33,7 +33,7 @@
     <url-pattern>/admin/*</url-pattern>
   </filter-mapping>
 
-  <filter>
+  <!--<filter>
     <filter-name>OrderCarListFilter</filter-name>
     <filter-class>controller.command.filter.OrderFilter</filter-class>
   </filter>
@@ -67,7 +67,7 @@
   <filter-mapping>
     <filter-name>OrderConfirmationFilter</filter-name>
     <url-pattern>/confirmation</url-pattern>
-  </filter-mapping>
+  </filter-mapping>-->
 
   <servlet>
     <servlet-name>Controller</servlet-name>

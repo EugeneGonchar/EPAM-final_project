@@ -14,14 +14,16 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
 
     @Override
-    public List<Car> getCarList(){
+    public List<Car> getCarList(PageDTO pageDTO){
         CarDAO carDAO = new CarDAO();
         Transaction transaction = new Transaction();
         List<Car> carList = null;
 
         transaction.beginTransaction(carDAO);
 
-        carList = carDAO.findAll();
+        pageDTO.setElementsCount(carDAO.getCarsCount());
+        pageDTO.calculatePagesCount();
+        carList = carDAO.findAll(pageDTO);
 
         try {
             transaction.commit();

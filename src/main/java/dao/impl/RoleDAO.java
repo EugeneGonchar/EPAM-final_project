@@ -22,11 +22,6 @@ public class RoleDAO extends AbstractDAO {
         return null;
     }
 
-    @Override
-    public int getCount(){
-        return getElementsCount(GET_ROLES_COUNT);
-    }
-
     public Role getRoleByUser(User user){
         Role role = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ROLE_BY_USER)){

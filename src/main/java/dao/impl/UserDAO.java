@@ -3,6 +3,9 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
+import dao.util.DBFieldName;
+import dao.util.QueryBuilder;
+import pojo.dto.PageDTO;
 import pojo.dto.UserDTO;
 import pojo.dto.UserRoleDTO;
 import pojo.entity.User;
@@ -41,11 +44,6 @@ public class UserDAO extends AbstractDAO{
             e.printStackTrace();
         }*/
         return null;
-    }
-
-    @Override
-    public int getCount(){
-        return getElementsCount(GET_USERS_COUNT);
     }
 
     public User getUserByLogin(String login){
@@ -183,10 +181,23 @@ public class UserDAO extends AbstractDAO{
         }
     }
 
-    public List<UserRoleDTO> getUsersWithRoles(){
+    public int getUsersWithRolesCount(){
+        int count = 0;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS_COUNT)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                count = resultSet.getInt(DBFieldName.FIELD_COUNT);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public List<UserRoleDTO> getUsersWithRoles(PageDTO pageDTO){
         List<UserRoleDTO> userRoleDTOList = new LinkedList<>();
         UserRoleDTO userRoleDTO = null;
-        try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_USERS_WITH_ROLES)){
+        try(PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(FIND_ALL_USERS_WITH_ROLES, pageDTO))){
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){

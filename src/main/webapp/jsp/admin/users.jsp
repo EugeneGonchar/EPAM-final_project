@@ -37,41 +37,33 @@
 <div class="container my-4">
     <div class="container">
         <div class="card border rounded-0">
-            <h5 class="card-header">${users_message}</h5>
-            <div class="row mt-2 mx-1 col-3 align-items-center">
-                <label class="">
-                    <select class="form-control rounded-0">
-                        <option>10</option>
-                        <option selected="selected">25</option>
-                        <option>50</option>
-                    </select>
-                </label>
-                <h6 class="mx-2">${ items_on_page_message}</h6>
-            </div>
+            <h5 class="card-header mb-2">${users_message}</h5>
+
+            <c:set var="command" scope="session" value="users_table"/>
+            <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
+
             <table class="table col-8">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">${name_column}</th>
-                    <th scope="col">${surname_column}</th>
-                    <th scope="col">${login_column}</th>
-                    <th scope="col">${email_column}</th>
-                    <th scope="col">${phone_column}</th>
-                    <th scope="col">${role_column}</th>
-                    <th scope="col">${actions_column}</th>
+                    <th scope="col" class="align-middle text-center">#</th>
+                    <th scope="col" class="align-middle">${name_column} ${surname_column}</th>
+                    <th scope="col" class="align-middle">${login_column}</th>
+                    <th scope="col" class="align-middle text-center">${email_column}</th>
+                    <th scope="col" class="align-middle text-center">${phone_column}</th>
+                    <th scope="col" class="align-middle text-center">${role_column}</th>
+                    <th scope="col" class="align-middle text-center">${actions_column}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="userRoleDTO" items="${userRoleDTOList}" varStatus="status">
                     <tr>
-                        <th scope="row">${status.count}</th>
-                        <td>${userRoleDTO.firstName}</td>
-                        <td>${userRoleDTO.lastName}</td>
-                        <td>${userRoleDTO.login}</td>
-                        <td>${userRoleDTO.email}</td>
-                        <td>${userRoleDTO.phone}</td>
-                        <td>${userRoleDTO.role}</td>
-                        <td>
+                        <th scope="row" class="align-middle text-center">${(pageDTO.currentPage-1) * pageDTO.elementsOnPage + status.count}</th>
+                        <td class="align-middle">${userRoleDTO.firstName} ${userRoleDTO.lastName}</td>
+                        <td class="align-middle">${userRoleDTO.login}</td>
+                        <td class="align-middle">${userRoleDTO.email}</td>
+                        <td class="align-middle text-center">${userRoleDTO.phone}</td>
+                        <td class="align-middle text-center">${userRoleDTO.role}</td>
+                        <td class="align-middle text-center">
                             <button class="btn btn-success btn-sm">
                                 <i class="fa fa-edit"></i>
                             </button>
@@ -84,26 +76,9 @@
                 </tbody>
             </table>
             <nav class="card-footer">
-                <div class="d-flex justify-content-end">
-                    <ul class="pagination pagination-sm">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
+                <%@ include file = "/jsp/pagination/pagination.jsp" %>
+
             </nav>
         </div>
     </div>

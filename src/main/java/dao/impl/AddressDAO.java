@@ -38,11 +38,6 @@ public class AddressDAO extends AbstractDAO {
         return addressList;
     }
 
-    @Override
-    public int getCount(){
-        return getElementsCount(GET_ADDRESS_COUNT);
-    }
-
     public Address getAddressByStreetBuilding(String street, String building){
         Address address = null;
         try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ADDRESS_BY_STREET_BUILDING)){

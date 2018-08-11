@@ -131,10 +131,10 @@
         </div>
     </div>
 
-    <div class="col-9 float-left">
+    <c:set var="command" scope="session" value="get_cars"/>
+    <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
 
-        <c:set var="command" scope="session" value="get_cars"/>
-        <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
+    <div class="col-9 float-left">
 
         <c:forEach var="car" items="${carList}" varStatus="status">
             <div class="card col-auto my-3">
