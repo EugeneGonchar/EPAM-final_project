@@ -8,7 +8,7 @@ import service.AddressService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AddressServiceImpl implements AddressService {
+public class  AddressServiceImpl implements AddressService {
 
     private static final String SPACE = " ";
 

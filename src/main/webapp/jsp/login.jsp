@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<%@ include file = "/jsp/header.jsp" %>
+<jsp:include page="/jsp/header.jsp" />
 <jsp:include page="/jsp/admin/admin_menu.jsp" />
 
 <div class="padding-top">
