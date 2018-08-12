@@ -2,6 +2,7 @@ package dao.impl;
 
 import static dao.util.DBFieldName.*;
 
+import com.mysql.jdbc.StringUtils;
 import dao.AbstractDAO;
 import dao.util.DBFieldName;
 import dao.util.QueryBuilder;
@@ -18,7 +19,7 @@ public class UserDAO extends AbstractDAO{
 
     private static final String GET_USERS_COUNT = "SELECT COUNT(*) AS `count` FROM `user`";
 
-    private static final String FIND_USER_BY_LOGIN = "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id` FROM `user` WHERE `login`=?";
+    private static final String FIND_USER_BY_LOGIN = "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id`, `profile_image` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_LOGIN = "SELECT `user_id` FROM `user` WHERE `login`=?";
     private static final String FIND_USER_ID_BY_EMAIL = "SELECT `user_id` FROM `user` WHERE `email`=?";
     private static final String FIND_ALL_USERS_WITH_ROLES = "SELECT `user`.`user_id`, `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`login`, `user`.`email`, `user`.`role_id`, `role`.`name` AS `role`\n" +
@@ -34,6 +35,7 @@ public class UserDAO extends AbstractDAO{
     private static final String UPDATE_USER_PHONE_BY_LOGIN = "UPDATE `user` SET `phone`=? WHERE `login`=?";
     private static final String UPDATE_USER_EMAIL_BY_LOGIN = "UPDATE `user` SET `email`=? WHERE `login`=?";
     private static final String UPDATE_USER_PASSWORD_BY_LOGIN = "UPDATE `user` SET `password`=? WHERE `login`=?";
+    private static final String UPDATE_USER_IMAGE_BY_USER_ID = "UPDATE `user` SET `profile_image`=? WHERE `user_id` = ?";
 
     @Override
     public List<User> findAll(){
@@ -63,6 +65,7 @@ public class UserDAO extends AbstractDAO{
                 user.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
                 user.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));
                 user.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
+                user.setProfileImage(resultSet.getString(TABLE_USER_FIELD_PROFILE_IMAGE));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -208,6 +211,16 @@ public class UserDAO extends AbstractDAO{
             e.printStackTrace();
         }
         return userRoleDTOList;
+    }
+
+    public void updateImageByUserId(int id, String fileName){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_IMAGE_BY_USER_ID)){
+            preparedStatement.setString(1, fileName);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private UserRoleDTO createUserRoleDTO(ResultSet resultSet) throws SQLException{

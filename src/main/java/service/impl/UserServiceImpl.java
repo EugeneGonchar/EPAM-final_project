@@ -254,6 +254,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUserImg(User user, String fileName){
+        UserDAO userDAO = new UserDAO();
+
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(userDAO);
+
+        userDAO.updateImageByUserId(user.getId(), fileName);
+
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+    }
+
+    @Override
     public List<UserRoleDTO> getUserRoleList(PageDTO pageDTO){
         UserDAO userDAO = new UserDAO();
         List<UserRoleDTO> userRoleDTOList = null;

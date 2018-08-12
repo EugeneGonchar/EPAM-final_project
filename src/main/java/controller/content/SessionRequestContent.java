@@ -1,6 +1,12 @@
 package controller.content;
 
+import com.mysql.jdbc.StringUtils;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +95,6 @@ public class SessionRequestContent {
         } else {
             System.out.println("asdf");
         }
-
         return stringBuilder.toString();
     }
 
@@ -99,5 +104,13 @@ public class SessionRequestContent {
 
     public Object getSessionAttribute(String key){
         return sessionAttributes.get(key);
+    }
+
+    public Part getPart(String s) throws ServletException, IOException {
+        return request.getPart(s);
+    }
+
+    public String getRealPath(String s){
+        return request.getServletContext().getRealPath(s);
     }
 }

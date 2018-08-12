@@ -51,6 +51,7 @@ public class DBFieldName {
     public static final String TABLE_USER_FIELD_LAST_NAME = "last_name";
     public static final String TABLE_USER_FIELD_PASSWORD = "password";
     public static final String TABLE_USER_FIELD_ROLE_ID = "role_id";
+    public static final String TABLE_USER_FIELD_PROFILE_IMAGE = "profile_image";
 
     public static final String FIELD_ROLE = "role";
 

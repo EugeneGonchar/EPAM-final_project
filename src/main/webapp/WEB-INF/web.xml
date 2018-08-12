@@ -72,6 +72,11 @@
   <servlet>
     <servlet-name>Controller</servlet-name>
     <servlet-class>controller.Controller</servlet-class>
+    <multipart-config>
+      <max-file-size>2097152</max-file-size>
+      <max-request-size>10485760</max-request-size>
+      <file-size-threshold>5242880</file-size-threshold>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>

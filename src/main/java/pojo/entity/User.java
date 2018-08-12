@@ -9,6 +9,7 @@ public class User implements Entity{
     private String firstName;
     private String lastName;
     private int roleId;
+    private String profileImage;
 
     public int getId() {
         return id;
@@ -72,5 +73,13 @@ public class User implements Entity{
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

@@ -74,20 +74,27 @@
                 <h3 class="text-dark">${profile_message}</h3>
             </div>
 
+            <dl class="form-group edit-profile-avatar mt-3 pl-1 float-right col-4 text-center">
+                <dt><label>${profile_picture_message}</label></dt>
+                <dd class="avatar-upload-container clearfix">
+                    <img width="200" height="200" class="avatar rounded-2" alt="" src="../../img/uploads/user/${user.profileImage}">
+                    <div class="custom-file mt-3 col-12">
+                        <form action="${pageContext.request.contextPath}/controller" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="command" value="upload_user_img">
+                            <label class="custom-file btn btn-block btn-info">
+                                ${upload_picture_button}
+                                <input type="file" name="user_img" class="custom-file-input" style="display: none">
+                            </label>
+                            <button type="submit" class="btn btn-block btn-success">
+                                Save
+                            </button>
+                        </form>
+                    </div> <!-- /.avatar-upload -->
+                </dd>
+            </dl>
+
             <form id="changeNameOrSurnameForm" method="POST" action="${pageContext.request.contextPath}/controller">
                 <input type="hidden" name="command" value="change_name_surname"/>
-                <dl class="form-group edit-profile-avatar mt-3 pl-1 float-right col-4">
-                    <dt><label>${profile_picture_message}</label></dt>
-                    <dd class="avatar-upload-container clearfix">
-                        <img width="200" height="200" class="avatar rounded-2" alt="" src="https://avatars0.githubusercontent.com/u/32580446?s=400&amp;v=4">
-                        <div class="custom-file mt-3">
-                            <button class="btn btn-block btn-primary">
-                                ${upload_picture_button}
-                            </button>
-                        </div> <!-- /.avatar-upload -->
-                    </dd>
-                </dl>
-
                 <div class="col-7 mr-1 float-left px-0 py-2">
                     <div class="clearfix form-group mt-3 mx-3 px-3 py-0 border rounded">
                         <div>

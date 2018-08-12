@@ -41,4 +41,6 @@ public interface UserService {
 
     List<UserRoleDTO> getUserRoleList(PageDTO pageDTO);
 
+    void updateUserImg(User user, String fileName);
+
 }

@@ -108,6 +108,11 @@ public enum CommandEnum {
         {
             this.command = new GetOrdersTableCommand();
         }
+    },
+    UPLOAD_USER_IMG{
+        {
+            this.command = new UploadImageCommand();
+        }
     };
 
     ActionCommand command;
