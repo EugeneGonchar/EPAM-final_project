@@ -43,3 +43,72 @@ $(function () {
     });
 });
 
+$(function () {
+    $('#datetimepicker3').datetimepicker({
+
+    })
+});
+
+$(function () {
+   $('#select_status').change(function () {
+       if (this.value === 'accident'){
+            var accident = '<div class="container col-12 my-3 p-0">\n' +
+                '    <div class="mb-1 border-bottom border-muted ">\n' +
+                '        <div class="h5 text-dark text-muted">Accident</div>\n' +
+                '    </div>\n' +
+                '    <div>\n' +
+                '        Message\n' +
+                '    </div>\n' +
+                '    <div class="form-group my-2 col-4 p-0">\n' +
+                '        <div class="input-group date">\n' +
+                '            <div class="input-group-prepend">\n' +
+                '                                                                        <span class="input-group-text">\n' +
+                '                                                                            <i class="fa fa fa-calendar">\n' +
+                '                                                                            </i>\n' +
+                '                                                                        </span>\n' +
+                '            </div>\n' +
+                '            <input type=\'text\' id=\'datetimepicker3\' class="form-control" name="pickupDate"/>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '    <div class="input-group my-2">\n' +
+                '        <div class="input-group-prepend">\n' +
+                '            <span class="input-group-text">Description:</span>\n' +
+                '        </div>\n' +
+                '        <textarea class="form-control" aria-label="With textarea"></textarea>\n' +
+                '    </div>\n' +
+                '    <div class="row my-2 justify-content-end">\n' +
+                '        <div class="col-6">\n' +
+                '            <div class="input-group">\n' +
+                '                <div class="input-group-prepend">\n' +
+                '                    <span class="input-group-text">Material damage:</span>\n' +
+                '                </div>\n' +
+                '                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">\n' +
+                '                <div class="input-group-append">\n' +
+                '                    <span class="input-group-text">$</span>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>';
+            var div = document.getElementById("place_for_details");
+            div.innerHTML = accident;
+       } else if (this.value === 'dismissed') {
+            var description = '<div class="container col-12 my-3 p-0">\n' +
+                '    <div>\n' +
+                '        Message\n' +
+                '    </div>\n' +
+                '    <div class="input-group my-2">\n' +
+                '        <div class="input-group-prepend">\n' +
+                '            <span class="input-group-text">Description:</span>\n' +
+                '        </div>\n' +
+                '        <textarea class="form-control" aria-label="With textarea"></textarea>\n' +
+                '    </div>\n' +
+                '</div>';
+           var div = document.getElementById("place_for_details");
+           div.innerHTML = description;
+       } else {
+           var div = document.getElementById("place_for_details");
+           div.innerHTML = '';
+       }
+   }) 
+});
