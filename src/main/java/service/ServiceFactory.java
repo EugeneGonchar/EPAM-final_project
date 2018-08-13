@@ -9,6 +9,7 @@ public class ServiceFactory {
     private static final CarService carService = new CarServiceImpl();
     private static final OrderService orderService = new OrderServiceImpl();
     private static final RoleService roleService = new RoleServiceImpl();
+    private static final AccidentService accidentService = new AccidentServiceImpl();
 
     public static ServiceFactory getInstance() {
         return instance;
@@ -32,5 +33,9 @@ public class ServiceFactory {
 
     public RoleService getRoleService() {
         return roleService;
+    }
+
+    public AccidentService getAccidentService() {
+        return accidentService;
     }
 }

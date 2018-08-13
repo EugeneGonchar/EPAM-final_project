@@ -18,4 +18,7 @@ public interface OrderService {
 
     List<FullUserOrderDTO> getOrdersList(PageDTO pageDTO);
 
+    void updateOrderStatus(int orderId, String status);
+
+    void updateOrderStatus(int orderId, String status, String description);
 }

@@ -1,15 +1,14 @@
 package pojo.entity;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Accident implements Entity {
-    private static final String SECONDS = ":00";
-
     private int id;
     private String description;
     private BigDecimal materialDamage;
-    private Timestamp date;
+    private Date date;
     private int orderId;
 
     public int getId() {
@@ -36,16 +35,16 @@ public class Accident implements Entity {
         this.materialDamage = materialDamage;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public void setDate(String dateReceived) {
-        this.date = Timestamp.valueOf(dateReceived+SECONDS);
+    public void setDate(String date) {
+        this.date = Date.valueOf(date);
     }
 
     public int getOrderId() {

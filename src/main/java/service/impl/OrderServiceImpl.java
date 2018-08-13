@@ -2,12 +2,14 @@ package service.impl;
 
 import dao.Transaction;
 import dao.impl.OrderDAO;
+import dao.impl.OrderStatusDAO;
 import dao.impl.UserDAO;
 import pojo.dto.FullOrderDTO;
 import pojo.dto.FullUserOrderDTO;
 import pojo.dto.PageDTO;
 import pojo.entity.Car;
 import pojo.entity.Order;
+import pojo.entity.OrderStatus;
 import pojo.entity.User;
 import service.OrderService;
 import service.util.Hash;
@@ -108,6 +110,38 @@ public class OrderServiceImpl implements OrderService {
         registeredUser.setPassword(generatedPassword);
 
         return registeredUser;
+    }
+
+    public void updateOrderStatus(int orderId, String status){
+        OrderDAO orderDAO = new OrderDAO();
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(orderDAO);
+
+        orderDAO.updateOrder(orderId, status);
+
+        try{
+            transaction.commit();
+        } catch(SQLException e){
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+    }
+
+    public void updateOrderStatus(int orderId, String status, String description){
+        OrderDAO orderDAO = new OrderDAO();
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(orderDAO);
+
+        orderDAO.updateOrder(orderId, status, description);
+
+        try{
+            transaction.commit();
+        } catch(SQLException e){
+            transaction.rollback();
+        }
+        transaction.endTransaction();
     }
 
     public static BigDecimal getCalculatedTotalCost(Car car, int rentDays){

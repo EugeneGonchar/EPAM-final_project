@@ -27,7 +27,7 @@ public class GetCarsCommand implements ActionCommand {
         pageDTO.setElementsOnPage(Integer.parseInt(sessionRequestContent.getRequestParameter("elementsOnPage")));
         pageDTO.setCurrentPage(Integer.parseInt(sessionRequestContent.getRequestParameter("page")));
 
-        int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());
+        int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());/*WTF????? 500 Server error here*/
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 

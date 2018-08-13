@@ -65,6 +65,9 @@ public class OrderDAO extends AbstractDAO {
             "ON `order_status`.`status_id` = `order`.`status_id`\n" +
             "ORDER BY `date_received`, `return_date`";
 
+    private static final String UPDATE_ORDER_STATUS_WITH_DESCRIPTION = "UPDATE `order` SET `description` = ?, `status_id` = (SELECT `status_id` FROM `order_status` WHERE `status` = ?) WHERE `order_id` = ?";
+    private static final String UPDATE_ORDER_STATUS = "UPDATE `order` SET `status_id` = (SELECT `status_id` FROM `order_status` WHERE `status` = ?) WHERE `order_id` = ?";
+
     private static final String INSERT_ORDER = "INSERT INTO `order` (`user_id`, `car_id`, `date_received`, `return_date`, `pickup_address_id`, `dropoff_address_id`, `total_cost`)\n" +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -239,5 +242,26 @@ public class OrderDAO extends AbstractDAO {
         user.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
         user.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
         return user;
+    }
+
+    public void updateOrder(int orderId, String status){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_STATUS)){
+            preparedStatement.setString(1, status);
+            preparedStatement.setInt(2, orderId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOrder(int orderId, String status, String description){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_STATUS_WITH_DESCRIPTION)){
+            preparedStatement.setString(1, description);
+            preparedStatement.setString(2, status);
+            preparedStatement.setInt(3, orderId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e){
+          e.printStackTrace();
+        }
     }
 }

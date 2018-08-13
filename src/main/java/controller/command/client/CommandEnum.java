@@ -2,10 +2,7 @@ package controller.command.client;
 
 import controller.command.ActionCommand;
 import controller.command.command.*;
-import controller.command.command.admin.GetCarsTableCommand;
-import controller.command.command.admin.GetOrdersTableCommand;
-import controller.command.command.admin.GetUsersTableCommand;
-import controller.command.command.admin.UpdateStatusCommand;
+import controller.command.command.admin.*;
 import controller.command.command.order.*;
 import controller.command.command.user.*;
 
@@ -118,6 +115,11 @@ public enum CommandEnum {
     UPDATE_STATUS{
         {
             this.command = new UpdateStatusCommand();
+        }
+    },
+    ACCIDENTS_TABLE{
+        {
+            this.command = new GetAccidentsTableCommand();
         }
     };
 

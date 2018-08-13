@@ -37,6 +37,9 @@ public class SessionRequestContent {
 
     private void extractRequestParameters(){
         requestParameters = request.getParameterMap();
+        for(HashMap.Entry<String, String[]> pair : requestParameters.entrySet()){
+            System.out.println("Request key: " + pair.getKey());
+        }
     }
 
     private void extractSessionAttributes(){
@@ -93,7 +96,7 @@ public class SessionRequestContent {
                 stringBuilder.append(word);
             }
         } else {
-            System.out.println("asdf");
+            System.out.println("Empty request parameter: " + key);
         }
         return stringBuilder.toString();
     }

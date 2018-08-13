@@ -67,14 +67,14 @@ $(function () {
                 '                                                                            </i>\n' +
                 '                                                                        </span>\n' +
                 '            </div>\n' +
-                '            <input type=\'text\' id=\'datetimepicker3\' class="form-control" name="pickupDate"/>\n' +
+                '            <input type="text" id="datetimepicker3" class="form-control" name="accident_date"/>\n' +
                 '        </div>\n' +
                 '    </div>\n' +
                 '    <div class="input-group my-2">\n' +
                 '        <div class="input-group-prepend">\n' +
                 '            <span class="input-group-text">Description:</span>\n' +
                 '        </div>\n' +
-                '        <textarea class="form-control" aria-label="With textarea"></textarea>\n' +
+                '        <textarea class="form-control" aria-label="With textarea" name="accident_description"></textarea>\n' +
                 '    </div>\n' +
                 '    <div class="row my-2 justify-content-end">\n' +
                 '        <div class="col-6">\n' +
@@ -82,7 +82,7 @@ $(function () {
                 '                <div class="input-group-prepend">\n' +
                 '                    <span class="input-group-text">Material damage:</span>\n' +
                 '                </div>\n' +
-                '                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">\n' +
+                '                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="accident_material_damage">\n' +
                 '                <div class="input-group-append">\n' +
                 '                    <span class="input-group-text">$</span>\n' +
                 '                </div>\n' +
@@ -101,7 +101,7 @@ $(function () {
                 '        <div class="input-group-prepend">\n' +
                 '            <span class="input-group-text">Description:</span>\n' +
                 '        </div>\n' +
-                '        <textarea class="form-control" aria-label="With textarea"></textarea>\n' +
+                '        <textarea class="form-control" aria-label="With textarea" name="dismissed_description"></textarea>\n' +
                 '    </div>\n' +
                 '</div>';
            var div = document.getElementById("place_for_details");

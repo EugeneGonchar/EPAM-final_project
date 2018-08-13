@@ -31,7 +31,7 @@
                             <i class="fa fa-table"></i> ${tables_part} <i class="fa fa-caret-down"></i>
                         </a>
                         <div class="collapse list-group-submenu" id="demo2">
-                            <a href="${pageContext.request.contextPath}/admin/tables/accidents" class="list-group-item text-muted">${accidents_link}</a>
+                            <a href="${pageContext.request.contextPath}/controller?command=accidents_table&elementsOnPage=10&page=1" class="list-group-item text-muted">${accidents_link}</a>
                             <a href="${pageContext.request.contextPath}/controller?command=cars_table&elementsOnPage=10&page=1" class="list-group-item text-muted">${cars_link}</a>
                             <a href="${pageContext.request.contextPath}/controller?command=orders_table&elementsOnPage=10&page=1" class="list-group-item text-muted">${orders_link}</a>
                             <a href="${pageContext.request.contextPath}/controller?command=users_table&elementsOnPage=10&page=1" class="list-group-item text-muted">${users_link}</a>

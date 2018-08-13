@@ -4,6 +4,12 @@ public class DBFieldName {
 
     public static final String FIELD_COUNT = "count";
 
+    public static final String TABLE_ACCIDENT_FIELD_ID = "accident_id";
+    public static final String TABLE_ACCIDENT_FIELD_DESCRIPTION = "description";
+    public static final String TABLE_ACCIDENT_FIELD_MATERIAL_DAMAGE = "material_damage";
+    public static final String TABLE_ACCIDENT_FIELD_DATE = "date";
+    public static final String TABLE_ACCIDENT_FIELD_ORDER_ID = "order_id";
+
     public static final String TABLE_ADDRESS_FIELD_ID = "address_id";
     public static final String TABLE_ADDRESS_FIELD_STREET = "street";
     public static final String TABLE_ADDRESS_FIELD_BUILDING = "building";

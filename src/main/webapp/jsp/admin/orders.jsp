@@ -105,6 +105,7 @@
                                         </div>
                                         <form method="POST" action="${pageContext.request.contextPath}/controller">
                                             <input type="hidden" name="command" value="update_status"/>
+                                            <input type="hidden" name="order_id" value="${fullUserOrderDTO.order.id}"/>
                                             <div class="modal-body justify-content-center">
                                                 <div class="container-fluid">
                                                     <div id="modal_order" class="row mx-0 justify-content-between">
