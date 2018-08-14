@@ -4,8 +4,8 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import pojo.entity.User;
 import resource.ConfigurationManager;
+import service.CarService;
 import service.ServiceFactory;
 import service.UserService;
 
@@ -17,31 +17,28 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-public class UploadImageCommand implements ActionCommand {
+public class UploadCarImageCommand implements ActionCommand {
 
-    private static final String USER_IMG_DIRECTORY = "img\\uploads\\user";
+    private static final String CAR_IMG_DIRECTORY = "img\\uploads\\car";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) throws ServletException, IOException {
         ActionPageContainer actionPageContainer = null;
         String page = null;
 
-        UserService userService = ServiceFactory.getInstance().getUserService();
+        CarService carService = ServiceFactory.getInstance().getCarService();
 
-        User user = (User) sessionRequestContent.getSessionAttribute("user");
+        int carId = Integer.parseInt(sessionRequestContent.getRequestParameter("car_id"));
         Part filePart = sessionRequestContent.getPart("user_img");
 
         String appPath = sessionRequestContent.getRealPath("");
-        String savePath = appPath + File.separator + USER_IMG_DIRECTORY;
+        String savePath = appPath + File.separator + CAR_IMG_DIRECTORY;
 
         String filename = writeFile(filePart, savePath);
 
-        userService.updateUserImg(user, filename);
+        carService.updateCarImg(carId, filename);
 
-        user.setProfileImage(filename);
-
-        sessionRequestContent.add2SessionAttributes("user", user);
-        page = ConfigurationManager.getProperty("path.page.profile");
+        page = ConfigurationManager.getProperty("path.page.admin.get_cars");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         return actionPageContainer;
     }

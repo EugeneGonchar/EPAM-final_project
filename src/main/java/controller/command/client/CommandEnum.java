@@ -109,7 +109,12 @@ public enum CommandEnum {
     },
     UPLOAD_USER_IMG{
         {
-            this.command = new UploadImageCommand();
+            this.command = new UploadUserImageCommand();
+        }
+    },
+    UPLOAD_CAR_IMG{
+        {
+            this.command = new UploadCarImageCommand();
         }
     },
     UPDATE_STATUS{

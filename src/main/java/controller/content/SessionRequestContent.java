@@ -37,9 +37,9 @@ public class SessionRequestContent {
 
     private void extractRequestParameters(){
         requestParameters = request.getParameterMap();
-        for(HashMap.Entry<String, String[]> pair : requestParameters.entrySet()){
+        /*for(HashMap.Entry<String, String[]> pair : requestParameters.entrySet()){
             System.out.println("Request key: " + pair.getKey());
-        }
+        }*/
     }
 
     private void extractSessionAttributes(){

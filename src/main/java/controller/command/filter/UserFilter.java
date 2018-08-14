@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*@WebFilter(urlPatterns = { "/user/*" })*/
 public class UserFilter implements Filter {
     private FilterConfig filterConfig = null;
 
@@ -33,6 +32,7 @@ public class UserFilter implements Filter {
                     if (role.getName().equals("Admin")) {
                         filterChain.doFilter(request, response);
                     } else {
+                        System.out.println("Redirect main from filter admin");
                         response.sendRedirect(ConfigurationManager.getProperty("path.page.main"));
                     }
                     break;

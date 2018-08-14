@@ -27,7 +27,7 @@ public class CarDAO extends AbstractDAO {
             "(`date_received` BETWEEN DATE_SUB(?, INTERVAL 2 HOUR) AND DATE_ADD(?, INTERVAL 2 HOUR))\n" +
             "GROUP BY `car_id`)";
 
-    private static final String FIND_ALL_CARS = "SELECT `car`.car_id ,`brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
+    private static final String FIND_ALL_CARS = "SELECT `car`.car_id, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car` \n" +
             "JOIN `model`\n" +
             "ON `car`.model_id = `model`.model_id\n" +
@@ -39,7 +39,7 @@ public class CarDAO extends AbstractDAO {
             "ON `engine`.`engine_id` = `car`.`engine_id`" +
             "ORDER BY `brand`, `model`";
 
-    private static final String FIND_FREE_CARS = "SELECT `car`.`car_id` ,`brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
+    private static final String FIND_FREE_CARS = "SELECT `car`.`car_id`, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car`\n" +
             "JOIN `model`\n" +
             "ON `car`.`model_id` = `model`.`model_id`\n" +
@@ -58,7 +58,7 @@ public class CarDAO extends AbstractDAO {
             "GROUP BY `car_id`)\n" +
             "ORDER BY `rental_value_for_day`";
 
-    private static final String FIND_CAR_BY_ID = "SELECT `car`.`car_id` ,`brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
+    private static final String FIND_CAR_BY_ID = "SELECT `car`.`car_id`, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car`\n" +
             "JOIN `model`\n" +
             "ON `car`.`model_id` = `model`.`model_id`\n" +
@@ -69,6 +69,8 @@ public class CarDAO extends AbstractDAO {
             "JOIN `engine`\n"+
             "ON `engine`.`engine_id` = `car`.`engine_id`\n"+
             "WHERE `car_id` = ?";
+
+    private static final String UPDATE_CAR_IMAGE_BY_CAR_ID = "UPDATE `car` SET `image` = ? WHERE `car_id` = ?";
 
     public int getCarsCount(){
         int count = 0;
@@ -168,6 +170,16 @@ public class CarDAO extends AbstractDAO {
         return car;
     }
 
+    public void updateImageByCarId(int id, String fileName){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CAR_IMAGE_BY_CAR_ID)){
+            preparedStatement.setString(1, fileName);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Car createCar(ResultSet resultSet) throws SQLException{
         Car car = null;
 
@@ -185,6 +197,7 @@ public class CarDAO extends AbstractDAO {
         car.setEngineType(resultSet.getString(TABLE_CAR_FIELD_ENGINE_TYPE));
         car.setColor(resultSet.getString(TABLE_CAR_FIELD_COLOR));
         car.setYearOfIssue(resultSet.getShort(TABLE_CAR_FIELD_YEAR_OF_ISSUE));
+        car.setImage(resultSet.getString(TABLE_CAR_FIELD_IMAGE));
         return car;
     }
 }

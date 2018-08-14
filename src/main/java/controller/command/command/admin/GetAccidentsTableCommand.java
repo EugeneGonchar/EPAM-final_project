@@ -31,7 +31,7 @@ public class GetAccidentsTableCommand implements ActionCommand {
 
         sessionRequestContent.add2SessionAttributes("pageDTO", pageDTO);
         sessionRequestContent.add2RequestAttributes("accidentList", accidentList);
-        page = ConfigurationManager.getProperty("path.page.admin.accidents");
+        page = ConfigurationManager.getProperty("path.page.admin.get_accidents");
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;

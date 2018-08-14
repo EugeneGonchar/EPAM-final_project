@@ -29,7 +29,7 @@ public class GetUsersTableCommand implements ActionCommand {
 
         sessionRequestContent.add2SessionAttributes("pageDTO", pageDTO);
         sessionRequestContent.add2RequestAttributes("userRoleDTOList", userRoleDTOList);
-        page = ConfigurationManager.getProperty("path.page.admin.users");
+        page = ConfigurationManager.getProperty("path.page.admin.get_users");
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 
         return actionPageContainer;

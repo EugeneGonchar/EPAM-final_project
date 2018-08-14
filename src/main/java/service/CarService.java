@@ -15,4 +15,6 @@ public interface CarService {
 
     Car getCar(CarDTO carDTO);
 
+    void updateCarImg(int carId, String fileName);
+
 }

@@ -76,4 +76,22 @@ public class CarServiceImpl implements CarService {
 
         return car;
     }
+
+    @Override
+    public void updateCarImg(int carId, String fileName){
+        CarDAO carDAO = new CarDAO();
+
+        Transaction transaction = new Transaction();
+
+        transaction.beginTransaction(carDAO);
+
+        carDAO.updateImageByCarId(carId, fileName);
+
+        try {
+            transaction.commit();
+        } catch (SQLException e) {
+            transaction.rollback();
+        }
+        transaction.endTransaction();
+    }
 }

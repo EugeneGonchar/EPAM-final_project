@@ -23,7 +23,7 @@ public class OrderDAO extends AbstractDAO {
     private static final String GET_ORDERS_COUNT_BY_USER_ID = "SELECT COUNT(*) AS `count`\n" +
             "FROM (SELECT * FROM `order` WHERE `user_id` = ?) AS `user_orders`\n";
 
-    private static final String FIND_FULL_ORDERS_BY_USER_ID = "SELECT `user_orders`.`order_id`, `user_orders`.`user_id`, `user_orders`.`car_id`, `user_orders`.`date_received`, `user_orders`.`return_date`, `user_orders`.`pickup_address_id`, `user_orders`.`dropoff_address_id`, `user_orders`.`total_cost`, `car`.`seats`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `user_orders`.`status_id`\n" +
+    private static final String FIND_FULL_ORDERS_BY_USER_ID = "SELECT `user_orders`.`order_id`, `user_orders`.`user_id`, `user_orders`.`car_id`, `user_orders`.`date_received`, `user_orders`.`return_date`, `user_orders`.`pickup_address_id`, `user_orders`.`dropoff_address_id`, `user_orders`.`total_cost`, `car`.`seats`, `car`.`image`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `user_orders`.`status_id`\n" +
             "FROM (SELECT * FROM `order` WHERE `user_id` = ?) AS `user_orders`\n" +
             "JOIN `car`\n" +
             "ON `user_orders`.`car_id` = `car`.`car_id`\n" +
@@ -43,7 +43,7 @@ public class OrderDAO extends AbstractDAO {
             "ON `order_status`.`status_id` = `user_orders`.`status_id`\n" +
             "ORDER BY `date_received`, `return_date`";
 
-    private static final String FIND_FULL_ORDERS_WITH_USERS = "SELECT `order`.`order_id`, `order`.`user_id`, `order`.`car_id`, `order`.`date_received`, `order`.`return_date`, `order`.`pickup_address_id`, `order`.`dropoff_address_id`, `order`.`total_cost`, `car`.`seats`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `order`.`status_id`, `user`.`user_id`, `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`login`, `user`.`email`, `user`.`role_id`\n" +
+    private static final String FIND_FULL_ORDERS_WITH_USERS = "SELECT `order`.`order_id`, `order`.`user_id`, `order`.`car_id`, `order`.`date_received`, `order`.`return_date`, `order`.`pickup_address_id`, `order`.`dropoff_address_id`, `order`.`total_cost`, `car`.`seats`, `car`.`image`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `order`.`status_id`, `user`.`user_id`, `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`login`, `user`.`email`, `user`.`role_id`\n" +
             "FROM `order`\n" +
             "JOIN `user`\n" +
             "ON `order`.`user_id` = `user`.`user_id`" +
@@ -202,6 +202,7 @@ public class OrderDAO extends AbstractDAO {
         car.setEngineType(resultSet.getString(TABLE_CAR_FIELD_ENGINE_TYPE));
         car.setColor(resultSet.getString(TABLE_CAR_FIELD_COLOR));
         car.setYearOfIssue(resultSet.getShort(TABLE_CAR_FIELD_YEAR_OF_ISSUE));
+        car.setImage(resultSet.getString(TABLE_CAR_FIELD_IMAGE));
         return car;
     }
 

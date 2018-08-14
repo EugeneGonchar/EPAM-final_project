@@ -16,6 +16,7 @@ public class Car implements Entity {
     private double fuelConsumption;
     private String carClass;
     private String engineType;
+    private String image;
 
     public int getId() {
         return id;
@@ -119,5 +120,13 @@ public class Car implements Entity {
 
     public void setEngineType(String engineType) {
         this.engineType = engineType;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

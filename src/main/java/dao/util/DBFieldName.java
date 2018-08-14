@@ -27,6 +27,7 @@ public class DBFieldName {
     public static final String TABLE_CAR_FIELD_ENGINE_TYPE = "engine_type";
     public static final String TABLE_CAR_FIELD_COLOR = "color";
     public static final String TABLE_CAR_FIELD_YEAR_OF_ISSUE = "year_of_issue";
+    public static final String TABLE_CAR_FIELD_IMAGE = "image";
 
     public static final String TABLE_ORDER_FIELD_ID = "order_id";
     public static final String TABLE_ORDER_FIELD_USER_ID = "user_id";

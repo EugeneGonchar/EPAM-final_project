@@ -91,7 +91,14 @@
                                                 <div class="row justify-content-between">
                                                     <div class="col-5 align-self-center">
                                                         <div class="text-center">
-                                                            <img width="285" height="195" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
+                                                            <c:choose>
+                                                                <c:when test="${empty car.image}">
+                                                                    <img width="285" height="195" class="rounded d-block" alt="" src="../../img/uploads/car/default.png">
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <img width="285" height="195" class="rounded d-block" alt="" src="../../img/uploads/car/${orderElement.car.image}">
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </div>
                                                     </div>
                                                     <div class="col-7">

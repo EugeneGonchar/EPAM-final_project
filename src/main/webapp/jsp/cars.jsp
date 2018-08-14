@@ -141,7 +141,14 @@
                 <div class="row border-bottom">
                     <div class="col-4 align-self-center">
                         <div class="text-center">
-                            <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
+                            <c:choose>
+                                <c:when test="${empty car.image}">
+                                    <img width="190" height="130" class="rounded d-block" alt="" src="../img/uploads/car/default.png">
+                                </c:when>
+                                <c:otherwise>
+                                    <img width="190" height="130" class="rounded d-block" alt="" src="../img/uploads/car/${car.image}">
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
 
