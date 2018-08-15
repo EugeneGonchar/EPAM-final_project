@@ -6,15 +6,6 @@
 <fmt:setBundle basename="local" var="loc"/>
 
 <fmt:message bundle="${loc}" key="local.signup.registration_message" var="registration_message" />
-<fmt:message bundle="${loc}" key="local.signup.login_message" var="login_message" />
-<fmt:message bundle="${loc}" key="local.signup.passport_message" var="passport_message" />
-<fmt:message bundle="${loc}" key="local.signup.name_message" var="name_message" />
-<fmt:message bundle="${loc}" key="local.signup.surname_message" var="surname_message" />
-<fmt:message bundle="${loc}" key="local.signup.contact_info_message" var="contact_info_message" />
-<fmt:message bundle="${loc}" key="local.signup.email_message" var="email_message" />
-<fmt:message bundle="${loc}" key="local.signup.enter_password_message" var="enter_password_message" />
-<fmt:message bundle="${loc}" key="local.signup.confirm_password_message" var="confirm_password_message" />
-<fmt:message bundle="${loc}" key="local.signup.submit_button" var="submit_button" />
 
 <!doctype html>
 <head>
@@ -25,9 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 
-    <title>Sign up</title>
+    <title>New car</title>
 </head>
 
 <body>
@@ -38,7 +29,7 @@
 <div class="padding-top-registration">
     <div  class="card container col-lg-3">
         <article class="card-body">
-            <h4 class="card-title text-center mb-4 mt-1">${registration_message}</h4>
+            <h4 class="card-title text-center mb-4 mt-1">New car</h4>
             <hr>
 
             <div>
@@ -57,101 +48,147 @@
             </div>
 
             <form id="signUpForm" method="POST" action="${pageContext.request.contextPath}/controller">
-                <input type="hidden" name="command" value="signup"/>
-                <p class="text-left">${login_message}:</p>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-user">
+                <input type="hidden" name="command" value="addcar"/>
 
-                                </i>
-                            </span>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="form-group col">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Brand
+                                    </span>
+                                    </div>
+                                    <input name="login" class="form-control" placeholder="login" type="text">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
                         </div>
-                        <input name="login" class="form-control" placeholder="login" type="text">
-                    </div> <!-- input-group.// -->
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Model
+                                    </span>
+                                </div>
+                                <input name="first_name" class="form-control" placeholder="IVAN" type="text">
+                            </div> <!-- input-group.// -->
+                        </div> <!-- form-group// -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Seats
+                            </span>
+                                </div>
+                                <select class="form-control" name="seats_select">
+                                    <c:forEach var="i" begin="1" end="15">
+                                        <option>${i}</option>
+                                    </c:forEach>
+                                </select>
+                            </div> <!-- input-group.// -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Doors
+                            </span>
+                                </div>
+                                <select class="form-control" name="doors_select">
+                                    <c:forEach var="i" begin="1" end="6">
+                                        <option>${i}</option>
+                                    </c:forEach>
+                                </select>
+                            </div> <!-- input-group.// -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-check col">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                            Air conditioning
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input">
+                        Automatic gearbox
+                    </label>
                 </div> <!-- form-group// -->
 
-                <p class="text-left">${passport_message}:</p>
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
-                                ${name_message}*
-                            </span>
-                        </div>
-                        <input name="first_name" class="form-control" placeholder="IVAN" type="text">
-                    </div> <!-- input-group.// -->
-                </div> <!-- form-group// -->
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                ${surname_message}*
-                            </span>
-                        </div>
-                        <input name="last_name" class="form-control" placeholder="IVANOV" type="text">
-                    </div> <!-- input-group.// -->
-                </div> <!-- form-group// -->
-
-                <p class="text-left">${contact_info_message}:</p>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                ${email_message}*
-                            </span>
-                        </div>
-                        <input name="email" class="form-control" placeholder="email@example.com" type="email">
-                    </div> <!-- input-group.// -->
-
-                </div> <!-- form-group// -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-mobile-phone">
-
-                                </i>
-                            </span>
-                        </div>
-                        <input name="phone" class="form-control" placeholder="+375(29)111-11-11" type="tel">
-                    </div> <!-- input-group.// -->
-
-                </div> <!-- form-group// -->
-                <p class="text-left">${enter_password_message}*</p>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-lock">
-                                    1
-                                </i>
-                            </span>
-                        </div>
-                        <input name="password" class="form-control" placeholder="******" type="password" value="">
-                    </div> <!-- input-group.// -->
-                </div> <!-- form-group// -->
-
-                <p class="text-left">${confirm_password_message}*</p>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-lock">
-                                    2
-                                </i>
+                                Rent cost
                             </span>
                         </div>
                         <input name="password2" class="form-control" placeholder="******" type="password" value="">
                     </div> <!-- input-group.// -->
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div> <!-- form-group// -->
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Color
+                            </span>
+                        </div>
+                        <input name="password2" class="form-control" placeholder="******" type="password" value="">
+                    </div> <!-- input-group.// -->
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Fuel consumption
+                            </span>
+                        </div>
+                        <input name="password2" class="form-control" placeholder="******" type="password" value="">
+                    </div> <!-- input-group.// -->
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Car class
+                            </span>
+                        </div>
+                        <input name="password2" class="form-control" placeholder="******" type="password" value="">
+                    </div> <!-- input-group.// -->
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                Engine
+                            </span>
+                        </div>
+                        <input name="password2" class="form-control" placeholder="******" type="password" value="">
+                    </div> <!-- input-group.// -->
+                </div>
 
                 <br/>
                 <div class="form-group d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">${submit_button}</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div> <!-- form-group// -->
             </form>
         </article>

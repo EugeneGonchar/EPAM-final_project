@@ -33,9 +33,9 @@ public class GetCarsCommand implements ActionCommand {
 
         carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
 
+        sessionRequestContent.add2RequestAttributes("carList", carList);
         sessionRequestContent.add2SessionAttributes("pageDTO", pageDTO);
         sessionRequestContent.add2SessionAttributes("rentDays", rentDays);
-        sessionRequestContent.add2RequestAttributes("carList", carList);
         page = ConfigurationManager.getProperty("path.page.cars");
 
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);

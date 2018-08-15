@@ -91,12 +91,13 @@ public class SessionRequestContent {
     public String getRequestParameter(String key){
         StringBuilder stringBuilder = new StringBuilder();
 
-        if(!requestParameters.isEmpty()){
+        if(!requestParameters.isEmpty() && requestParameters.containsKey(key)){
             for(String word : requestParameters.get(key)){
                 stringBuilder.append(word);
             }
         } else {
             System.out.println("Empty request parameter: " + key);
+            return null;
         }
         return stringBuilder.toString();
     }

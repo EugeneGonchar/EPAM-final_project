@@ -44,7 +44,22 @@
             <h5 class="card-header mb-2">${car_message}</h5>
 
             <c:set var="command" scope="session" value="cars_table"/>
-            <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
+
+
+            <div class="container">
+                <div class="row justify-content-between">
+                    <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
+                    <div class="col-6">
+                        <div class="row justify-content-end">
+                            <div class="col-3">
+                                <a class="btn btn-block btn-success text-white" href="${pageContext.request.contextPath}/admin/new_car">
+                                    Add new
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <table class="table col-8">
                 <thead class="thead-light">

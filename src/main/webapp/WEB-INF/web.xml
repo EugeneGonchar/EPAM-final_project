@@ -281,6 +281,15 @@
     <url-pattern>/admin/statistics/users_visits</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>NewCarPage</servlet-name>
+    <jsp-file>/jsp/admin/new_car.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewCarPage</servlet-name>
+    <url-pattern>/admin/new_car</url-pattern>
+  </servlet-mapping>
+
   <error-page>
     <error-code>404</error-code>
     <location>/jsp/error.jsp</location>
