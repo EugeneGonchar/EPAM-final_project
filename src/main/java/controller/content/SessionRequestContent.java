@@ -37,9 +37,10 @@ public class SessionRequestContent {
 
     private void extractRequestParameters(){
         requestParameters = request.getParameterMap();
-        /*for(HashMap.Entry<String, String[]> pair : requestParameters.entrySet()){
+        for(HashMap.Entry<String, String[]> pair : requestParameters.entrySet()){
             System.out.println("Request key: " + pair.getKey());
-        }*/
+            System.out.println("Request value: " + pair.getValue());
+        }
     }
 
     private void extractSessionAttributes(){
@@ -47,11 +48,15 @@ public class SessionRequestContent {
         while(keys.hasMoreElements()){
             String key = keys.nextElement();
             Object value = request.getSession().getAttribute(key);
+            System.out.println("Session key = " + key);
+            System.out.println("Session value = " + value);
             sessionAttributes.put(key, value);
         }
     }
 
     public void extractValues(){
+        System.out.println("-----------------");
+        System.out.println("Extracting : ...");
         extractRequestParameters();
         extractSessionAttributes();
     }

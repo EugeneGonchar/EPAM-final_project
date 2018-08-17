@@ -152,7 +152,7 @@ public class CarDAOImpl extends CarDAO{
 
     @Override
     public Car getCarById(CarDTO carDTO){
-        Car car = null;
+        Car car = new Car();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CAR_BY_ID)){
             preparedStatement.setInt(1, carDTO.getId());
             ResultSet resultSet = preparedStatement.executeQuery();

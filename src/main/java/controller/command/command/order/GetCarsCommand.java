@@ -28,15 +28,12 @@ public class GetCarsCommand implements ActionCommand {
         pageDTO.setElementsOnPage(Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.ELEMENTS_ON_PAGE)));
         pageDTO.setCurrentPage(Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.PAGE)));
 
-        int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());/*WTF????? 500 Server error here*/
-
         CarService carService = ServiceFactory.getInstance().getCarService();
 
         carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
 
         sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
-        sessionRequestContent.add2SessionAttributes(Constant.RENT_DAYS, rentDays);
         page = ConfigurationManager.getProperty("path.page.cars");
 
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);

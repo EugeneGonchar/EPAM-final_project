@@ -44,7 +44,7 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
         order.setPickupAddressId(pickupAddress.getId());
         order.setDropoffAddressId(dropoffAddress.getId());
 
-        int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());
+        Integer rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 
