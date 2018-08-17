@@ -30,8 +30,8 @@ public class GetOrdersTableCommand implements ActionCommand {
 
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
         sessionRequestContent.add2RequestAttributes(Constant.FULL_USER_ORDER_DTO_LIST, fullUserOrderDTOList);
-        page = ConfigurationManager.getProperty("path.page.admin.get_orders");
-        actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+        page = ConfigurationManager.getProperty("path.page.admin.orders");
+        actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         return actionPageContainer;
     }
 }

@@ -1,6 +1,5 @@
 package dao.impl;
 
-import dao.AbstractDAO;
 import dao.AccidentDAO;
 import dao.util.DBFieldName;
 import dao.util.QueryBuilder;
@@ -17,7 +16,7 @@ public class AccidentDAOImpl extends AccidentDAO {
 
     private static final String SELECT_ACCIDENTS_COUNT = "SELECT COUNT(*) AS `count` FROM `accident`";
 
-    private static final String SELECT_ALL_ACCIDENTS = "SELECT `accident_id`, `description`, `material_damage`, `date`, `order_id`\n" +
+    private static final String SELECT_ACCIDENTS = "SELECT `accident_id`, `description`, `material_damage`, `date`, `order_id`\n" +
             "FROM `accident`";
 
     @Override
@@ -31,10 +30,10 @@ public class AccidentDAOImpl extends AccidentDAO {
     }
 
     @Override
-    public List getAll(PageDTO pageDTO) {
+    public List<Accident> getAll(PageDTO pageDTO) {
         List<Accident> accidentList = new LinkedList<>();
         Accident accident = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_ALL_ACCIDENTS, pageDTO))){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_ACCIDENTS, pageDTO))){
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){

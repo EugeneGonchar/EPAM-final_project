@@ -92,7 +92,7 @@
                                                     <div class="col-5 align-self-center">
                                                         <div class="text-center">
                                                             <c:choose>
-                                                                <c:when test="${empty car.image}">
+                                                                <c:when test="${empty orderElement.car.image}">
                                                                     <img width="285" height="195" class="rounded d-block" alt="" src="../../img/uploads/car/default.png">
                                                                 </c:when>
                                                                 <c:otherwise>

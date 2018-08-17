@@ -97,6 +97,11 @@ public enum CommandEnum {
             this.command = new GetUsersTableCommand();
         }
     },
+    ACCIDENTS_TABLE{
+        {
+            this.command = new GetAccidentsTableCommand();
+        }
+    },
     CARS_TABLE{
         {
             this.command = new GetCarsTableCommand();
@@ -120,11 +125,6 @@ public enum CommandEnum {
     UPDATE_STATUS{
         {
             this.command = new UpdateStatusCommand();
-        }
-    },
-    ACCIDENTS_TABLE{
-        {
-            this.command = new GetAccidentsTableCommand();
         }
     };
 

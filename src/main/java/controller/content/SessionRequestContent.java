@@ -41,6 +41,7 @@ public class SessionRequestContent {
             System.out.println("Request key: " + pair.getKey());
             System.out.println("Request value: " + pair.getValue());
         }
+        System.out.println("End request extracting");
     }
 
     private void extractSessionAttributes(){
@@ -52,6 +53,7 @@ public class SessionRequestContent {
             System.out.println("Session value = " + value);
             sessionAttributes.put(key, value);
         }
+        System.out.println("End session extracting");
     }
 
     public void extractValues(){

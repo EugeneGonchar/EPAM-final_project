@@ -20,17 +20,17 @@
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <div id="MainMenu">
                     <div class="list-group panel ">
-                        <a href="#demo1" class="list-group-item font-weight-bold text-muted" data-toggle="collapse" data-parent="#MainMenu">
+                        <a href="#statistics" class="list-group-item font-weight-bold text-muted" data-toggle="collapse" data-parent="#MainMenu">
                             <i class="fa fa-area-chart"></i> ${statistics_part} <i class="fa fa-caret-down"></i>
                         </a>
-                        <div class="collapse list-group-submenu" id="demo1">
+                        <div class="collapse list-group-submenu" id="statistics">
                             <a href="${pageContext.request.contextPath}/admin/statistics/income_expenses" class="list-group-item text-muted">${income_expenses_link}</a>
                             <a href="${pageContext.request.contextPath}/admin/statistics/users_visits" class="list-group-item text-muted">${users_link}</a>
                         </div>
-                        <a href="#demo2" class="list-group-item font-weight-bold text-muted" data-toggle="collapse" data-parent="#MainMenu">
+                        <a href="#tables" class="list-group-item font-weight-bold text-muted" data-toggle="collapse" data-parent="#MainMenu">
                             <i class="fa fa-table"></i> ${tables_part} <i class="fa fa-caret-down"></i>
                         </a>
-                        <div class="collapse list-group-submenu" id="demo2">
+                        <div class="collapse list-group-submenu" id="tables">
                             <a href="${pageContext.request.contextPath}/controller?command=accidents_table&elementsOnPage=10&page=1" class="list-group-item text-muted">${accidents_link}</a>
                             <a href="${pageContext.request.contextPath}/controller?command=cars_table&elementsOnPage=10&page=1" class="list-group-item text-muted">${cars_link}</a>
                             <a href="${pageContext.request.contextPath}/controller?command=orders_table&elementsOnPage=10&page=1" class="list-group-item text-muted">${orders_link}</a>

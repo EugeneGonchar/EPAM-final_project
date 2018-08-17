@@ -39,7 +39,7 @@
         <div class="card border rounded-0">
             <h5 class="card-header mb-2">${users_message}</h5>
 
-            <c:set var="command" scope="session" value="users_table"/>
+            <c:set var="command" scope="request" value="users_table"/>
             <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
 
             <table class="table col-8">

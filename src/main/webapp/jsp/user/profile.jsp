@@ -77,7 +77,15 @@
             <dl class="form-group edit-profile-avatar mt-3 pl-1 float-right col-4 text-center">
                 <dt><label>${profile_picture_message}</label></dt>
                 <dd class="avatar-upload-container clearfix">
-                    <img width="200" height="200" class="avatar rounded-2" alt="" src="../../img/uploads/user/${user.profileImage}">
+
+                    <c:choose>
+                        <c:when test="${empty user.profileImage}">
+                            <img width="200" height="200" class="avatar rounded-2" alt="" src="../../img/uploads/user/profiledefault.png">
+                        </c:when>
+                        <c:otherwise>
+                            <img width="200" height="200" class="avatar rounded-2" alt="" src="../../img/uploads/user/${user.profileImage}">
+                        </c:otherwise>
+                    </c:choose>
                     <div class="custom-file mt-3 col-12">
                         <form action="${pageContext.request.contextPath}/controller" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="command" value="upload_userImg">

@@ -32,7 +32,7 @@
                     <c:otherwise>
                         <c:choose>
                             <c:when test="${pageDTO.currentPage le 3}">
-                                <c:forEach var="i" begin="1" end="3">
+                                <c:forEach var="i" begin="1" end="4">
                                     <c:choose>
                                         <c:when test="${i eq pageDTO.currentPage}">
                                             <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=${command}&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
@@ -48,7 +48,7 @@
                             <c:when test="${pageDTO.currentPage ge pageDTO.pagesCount - 2}">
                                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=${command}&elementsOnPage=${pageDTO.elementsOnPage}&page=1">1</a></li>
                                 <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                                <c:forEach var="i" begin="${pageDTO.pagesCount - 2}" end="${pageDTO.pagesCount}">
+                                <c:forEach var="i" begin="${pageDTO.pagesCount - 3}" end="${pageDTO.pagesCount}">
                                     <c:choose>
                                         <c:when test="${i eq pageDTO.currentPage}">
                                             <li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/controller?command=${command}&elementsOnPage=${pageDTO.elementsOnPage}&page=${i}">${i}</a></li>
