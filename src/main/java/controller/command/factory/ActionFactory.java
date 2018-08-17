@@ -6,23 +6,28 @@ import controller.command.client.CommandEnum;
 import controller.content.SessionRequestContent;
 import resource.MessageManager;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class ActionFactory {
 
     private static final String INPUT_NAME = "command";
 
-    public ActionCommand defineCommand(SessionRequestContent sessionRequestContent){
+    public ActionFactory(){
+
+    }
+
+    public ActionCommand defineCommand(HttpServletRequest request){
         ActionCommand current = new EmptyCommand();
-        String action = sessionRequestContent.getRequestParameter(INPUT_NAME);
+        String action = request.getParameter(INPUT_NAME);
 
         try{
+            System.out.println("currentEnum = " + CommandEnum.valueOf(action.toUpperCase()));
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
-            System.out.println("currentEnum = " + currentEnum.name());
             current = currentEnum.getCurrentCommand();
         } catch (IllegalArgumentException e){
             System.out.println("no command");
-            sessionRequestContent.add2RequestAttributes("wrongAction", action +
+            request.setAttribute("wrongAction", action +
                     MessageManager.getProperty("message.wrongaction"));
-            sessionRequestContent.insertRequestAttributes();
         }
         return current;
     }

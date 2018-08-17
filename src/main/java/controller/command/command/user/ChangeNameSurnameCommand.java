@@ -1,6 +1,7 @@
 package controller.command.command.user;
 
 import controller.command.ActionCommand;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
@@ -8,14 +9,11 @@ import pojo.dto.UserDTO;
 import pojo.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class ChangeNameSurnameCommand implements ActionCommand {
-
-    private static final String PARAM_NAME_FIRST_NAME = "first_name";
-    private static final String PARAM_NAME_LAST_NAME = "last_name";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -24,7 +22,7 @@ public class ChangeNameSurnameCommand implements ActionCommand {
 
         UserDTO userDTO = createUser(sessionRequestContent);
 
-        User user = (User) sessionRequestContent.getSessionAttribute("user");
+        User user = (User) sessionRequestContent.getSessionAttribute(Constant.USER);
 
         UserService userService = ServiceFactory.getInstance().getUserService();
 
@@ -34,11 +32,11 @@ public class ChangeNameSurnameCommand implements ActionCommand {
             user.setFirstName(userDTO.getFirstName());
             user.setLastName(userDTO.getLastName());
 
-            sessionRequestContent.add2SessionAttributes("user", user);
+            sessionRequestContent.add2SessionAttributes(Constant.USER, user);
             page = ConfigurationManager.getProperty("path.page.profile");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
-            sessionRequestContent.add2RequestAttributes("updateNameSurnameError",
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_NAME_SURNAME_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
         }
 
@@ -53,9 +51,9 @@ public class ChangeNameSurnameCommand implements ActionCommand {
     private UserDTO createUser(SessionRequestContent sessionRequestContent){
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setLogin(((User) sessionRequestContent.getSessionAttribute("user")).getLogin());
-        userDTO.setFirstName(sessionRequestContent.getRequestParameter(PARAM_NAME_FIRST_NAME));
-        userDTO.setLastName(sessionRequestContent.getRequestParameter(PARAM_NAME_LAST_NAME));
+        userDTO.setLogin(((User) sessionRequestContent.getSessionAttribute(Constant.USER)).getLogin());
+        userDTO.setFirstName(sessionRequestContent.getRequestParameter(Constant.FIRST_NAME));
+        userDTO.setLastName(sessionRequestContent.getRequestParameter(Constant.LAST_NAME));
 
         return userDTO;
     }

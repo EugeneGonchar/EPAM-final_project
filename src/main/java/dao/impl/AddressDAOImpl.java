@@ -3,6 +3,7 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
+import dao.AddressDAO;
 import pojo.entity.Address;
 
 import java.sql.PreparedStatement;
@@ -11,18 +12,17 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AddressDAO extends AbstractDAO {
+public class AddressDAOImpl extends AddressDAO {
 
-    private static final String GET_ADDRESS_COUNT = "SELECT COUNT(*) AS `count` FROM `address`";
-
-    private static final String FIND_ALL_ADDRESSES = "SELECT `address_id`, `street`, `building` FROM `address`";
-    private static final String FIND_ADDRESS_BY_STREET_BUILDING = "SELECT `address_id`, `street`, `building` FROM `address` WHERE street=? AND `building`=?";
+    private static final String SELECT_ADDRESS_COUNT = "SELECT COUNT(*) AS `count` FROM `address`";
+    private static final String SELECT_ADDRESSES = "SELECT `address_id`, `street`, `building` FROM `address`";
+    private static final String SELECT_ADDRESS_BY_STREET_BUILDING = "SELECT `address_id`, `street`, `building` FROM `address` WHERE street=? AND `building`=?";
 
     @Override
-    public List<Address> findAll(){
+    public List<Address> getAll(){
         List<Address> addressList = new LinkedList<>();
         Address address = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_ADDRESSES)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ADDRESSES)){
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
@@ -38,9 +38,10 @@ public class AddressDAO extends AbstractDAO {
         return addressList;
     }
 
+    @Override
     public Address getAddressByStreetBuilding(String street, String building){
         Address address = null;
-        try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ADDRESS_BY_STREET_BUILDING)){
+        try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ADDRESS_BY_STREET_BUILDING)){
             preparedStatement.setString(1, street);
             preparedStatement.setString(2, building);
 

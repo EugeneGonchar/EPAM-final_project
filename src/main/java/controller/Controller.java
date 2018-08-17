@@ -31,10 +31,10 @@ public class Controller extends HttpServlet {
 
         ActionFactory client = new ActionFactory();
 
+        ActionCommand command = client.defineCommand(request);
+
         SessionRequestContent sessionRequestContent = new SessionRequestContent(request);
         sessionRequestContent.extractValues();
-
-        ActionCommand command = client.defineCommand(sessionRequestContent);
 
         ActionPageContainer actionPageContainer = null;
         actionPageContainer = command.execute(sessionRequestContent);

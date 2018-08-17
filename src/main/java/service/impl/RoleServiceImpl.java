@@ -1,7 +1,8 @@
 package service.impl;
 
+import dao.RoleDAO;
 import dao.Transaction;
-import dao.impl.RoleDAO;
+import dao.factory.DAOFactory;
 import pojo.entity.Role;
 import pojo.entity.User;
 import service.RoleService;
@@ -15,7 +16,7 @@ public class RoleServiceImpl implements RoleService {
         Role role = null;
 
         Transaction transaction = new Transaction();
-        RoleDAO roleDAO = new RoleDAO();
+        RoleDAO roleDAO = DAOFactory.getInstance().getRoleDAO();
 
         transaction.beginTransaction(roleDAO);
 

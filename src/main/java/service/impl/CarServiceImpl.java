@@ -1,7 +1,8 @@
 package service.impl;
 
+import dao.CarDAO;
 import dao.Transaction;
-import dao.impl.CarDAO;
+import dao.factory.DAOFactory;
 import pojo.dto.CarDTO;
 import pojo.dto.OrderDTO;
 import pojo.dto.PageDTO;
@@ -15,7 +16,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getCarList(PageDTO pageDTO){
-        CarDAO carDAO = new CarDAO();
+        CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
         Transaction transaction = new Transaction();
         List<Car> carList = null;
 
@@ -37,7 +38,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getFreeCarList(OrderDTO orderDTO, PageDTO pageDTO){
-        CarDAO carDAO = new CarDAO();
+        CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
         Transaction transaction = new Transaction();
         List<Car> carList = null;
 
@@ -45,7 +46,7 @@ public class CarServiceImpl implements CarService {
 
         pageDTO.setElementsCount(carDAO.getFreeCarsCount(orderDTO.getDateReceived(), orderDTO.getReturnDate()));
         pageDTO.calculatePagesCount();
-        carList = carDAO.findFreeCars(orderDTO.getDateReceived(), orderDTO.getReturnDate(), pageDTO);
+        carList = carDAO.getFreeCars(orderDTO.getDateReceived(), orderDTO.getReturnDate(), pageDTO);
 
         try {
             transaction.commit();
@@ -59,7 +60,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car getCar(CarDTO carDTO){
-        CarDAO carDAO = new CarDAO();
+        CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
         Car car = null;
         Transaction transaction = new Transaction();
 
@@ -79,7 +80,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void updateCarImg(int carId, String fileName){
-        CarDAO carDAO = new CarDAO();
+        CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
 
         Transaction transaction = new Transaction();
 

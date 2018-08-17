@@ -141,7 +141,14 @@
             <div class="row border-bottom">
                 <div class="col-4 align-self-center">
                     <div>
-                        <img width="190" height="130" class="rounded d-block" alt="" src="../img/sport_lrg.jpg">
+                        <c:choose>
+                            <c:when test="${empty car.image}">
+                                <img width="190" height="130" class="rounded d-block" alt="" src="../img/uploads/car/default.png">
+                            </c:when>
+                            <c:otherwise>
+                                <img width="190" height="130" class="rounded d-block" alt="" src="../img/uploads/car/${car.image}">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 
@@ -240,7 +247,7 @@
                                 ${name_message}*
                             </span>
                                     </div>
-                                    <input name="first_name" class="form-control" placeholder="IVAN" type="text">
+                                    <input name="firstName" class="form-control" placeholder="IVAN" type="text">
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 
@@ -251,7 +258,7 @@
                                 ${surname_message}*
                             </span>
                                     </div>
-                                    <input name="last_name" class="form-control" placeholder="IVANOV" type="text">
+                                    <input name="lastName" class="form-control" placeholder="IVANOV" type="text">
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 
@@ -313,7 +320,7 @@
                                 ${name_message}*
                             </span>
                                     </div>
-                                    <input name="first_name" class="form-control" placeholder="${user.firstName}" type="text" disabled>
+                                    <input name="firstName" class="form-control" placeholder="${user.firstName}" type="text" disabled>
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 
@@ -324,7 +331,7 @@
                                             ${surname_message}*
                                         </span>
                                     </div>
-                                    <input name="last_name" class="form-control" placeholder="${user.lastName}" type="text" disabled>
+                                    <input name="lastName" class="form-control" placeholder="${user.lastName}" type="text" disabled>
                                 </div> <!-- input-group.// -->
                             </div> <!-- form-group// -->
 

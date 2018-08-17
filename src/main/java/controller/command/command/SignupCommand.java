@@ -1,5 +1,6 @@
 package controller.command.command;
 
+import controller.command.util.Constant;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import service.exception.EmailExistException;
@@ -9,21 +10,13 @@ import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import resource.ConfigurationManager;
 import resource.MessageManager;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 import service.exception.PasswordShorter6SymbolsException;
 import service.exception.PasswordsUnequalException;
 
 public class SignupCommand implements ActionCommand {
-
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_EMAIL = "email";
-    private static final String PARAM_NAME_PHONE = "phone";
-    private static final String PARAM_NAME_FIRST_NAME = "first_name";
-    private static final String PARAM_NAME_LAST_NAME = "last_name";
-    private static final String PARAM_NAME_PASSWORD = "password";
-    private static final String PARAM_NAME_PASSWORD2 = "password2";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -39,19 +32,19 @@ public class SignupCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.successfullsignup");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2RequestAttributes("registrationError",
+            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
         } catch (PasswordShorter6SymbolsException e){
-            sessionRequestContent.add2RequestAttributes("registrationError",
+            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.shortpassword"));
         } catch(PasswordsUnequalException e){
-            sessionRequestContent.add2RequestAttributes("registrationError",
+            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.unequalpasswords"));
         } catch (LoginExistException e){
-            sessionRequestContent.add2RequestAttributes("registrationError",
+            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.loginexist"));
         } catch (EmailExistException e){
-            sessionRequestContent.add2RequestAttributes("registrationError",
+            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.emailexist"));
         }
 
@@ -67,13 +60,13 @@ public class SignupCommand implements ActionCommand {
     private UserDTO createUser(SessionRequestContent sessionRequestContent){
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setLogin(sessionRequestContent.getRequestParameter(PARAM_NAME_LOGIN));
-        userDTO.setFirstName(sessionRequestContent.getRequestParameter(PARAM_NAME_FIRST_NAME));
-        userDTO.setLastName(sessionRequestContent.getRequestParameter(PARAM_NAME_LAST_NAME));
-        userDTO.setEmail(sessionRequestContent.getRequestParameter(PARAM_NAME_EMAIL));
-        userDTO.setPhone(sessionRequestContent.getRequestParameter(PARAM_NAME_PHONE));
-        userDTO.setPassword(sessionRequestContent.getRequestParameter(PARAM_NAME_PASSWORD));
-        userDTO.setPassword2(sessionRequestContent.getRequestParameter(PARAM_NAME_PASSWORD2));
+        userDTO.setLogin(sessionRequestContent.getRequestParameter(Constant.LOGIN));
+        userDTO.setFirstName(sessionRequestContent.getRequestParameter(Constant.FIRST_NAME));
+        userDTO.setLastName(sessionRequestContent.getRequestParameter(Constant.LAST_NAME));
+        userDTO.setEmail(sessionRequestContent.getRequestParameter(Constant.EMAIL));
+        userDTO.setPhone(sessionRequestContent.getRequestParameter(Constant.PHONE));
+        userDTO.setPassword(sessionRequestContent.getRequestParameter(Constant.PASSWORD));
+        userDTO.setPassword2(sessionRequestContent.getRequestParameter(Constant.PASSWORD2));
 
         return userDTO;
     }

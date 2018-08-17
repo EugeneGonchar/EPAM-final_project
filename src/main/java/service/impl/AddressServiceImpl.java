@@ -1,7 +1,8 @@
 package service.impl;
 
+import dao.AddressDAO;
 import dao.Transaction;
-import dao.impl.AddressDAO;
+import dao.factory.DAOFactory;
 import pojo.entity.Address;
 import service.AddressService;
 
@@ -14,13 +15,13 @@ public class  AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> getAddressList(){
-        AddressDAO addressDAO = new AddressDAO();
+        AddressDAO addressDAO = DAOFactory.getInstance().getAddressDAO();
         Transaction transaction = new Transaction();
         List<Address> addressList = null;
 
         transaction.beginTransaction(addressDAO);
 
-        addressList = addressDAO.findAll();
+        addressList = addressDAO.getAll();
 
         try {
             transaction.commit();
@@ -35,7 +36,7 @@ public class  AddressServiceImpl implements AddressService {
     public Address formingAddressFromString(String stringAddress){
         Address address = null;
 
-        AddressDAO addressDAO = new AddressDAO();
+        AddressDAO addressDAO = DAOFactory.getInstance().getAddressDAO();
         Transaction transaction = new Transaction();
 
         String[] stringAddressData = stringAddress.split(SPACE);

@@ -80,10 +80,10 @@
                     <img width="200" height="200" class="avatar rounded-2" alt="" src="../../img/uploads/user/${user.profileImage}">
                     <div class="custom-file mt-3 col-12">
                         <form action="${pageContext.request.contextPath}/controller" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="command" value="upload_user_img">
+                            <input type="hidden" name="command" value="upload_userImg">
                             <label class="custom-file btn btn-block btn-info">
                                 ${upload_picture_button}
-                                <input type="file" name="user_img" class="custom-file-input" style="display: none">
+                                <input type="file" name="userImg" class="custom-file-input" style="display: none">
                             </label>
                             <button type="submit" class="btn btn-block btn-success">
                                 Save
@@ -128,11 +128,11 @@
 
                     <div class="form-group mt-3">
                         <label class="font-weight-bold">${new_name_message}:</label>
-                        <input name="first_name" placeholder="Ivan" type="text" class="form-control">
+                        <input name="firstName" placeholder="Ivan" type="text" class="form-control">
                     </div>
                     <div class="form-group mt-3">
                         <label class="font-weight-bold">${new_surname_message}:</label>
-                        <input name="last_name" placeholder="Ivanov" type="text" class="form-control">
+                        <input name="lastName" placeholder="Ivanov" type="text" class="form-control">
                     </div>
                     <div>
                         <p class="text-small">

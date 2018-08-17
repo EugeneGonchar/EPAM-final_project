@@ -79,7 +79,7 @@
                         <td class="align-middle text-center">
                             <c:choose>
                                 <c:when test="${fullUserOrderDTO.orderStatus.status eq 'is processed'}">
-                                    <span class="badge badge-pill badge-warning">${orderElement.orderStatus.status}</span>
+                                    <span class="badge badge-pill badge-warning">${fullUserOrderDTO.orderStatus.status}</span>
                                 </c:when>
                                 <c:when test="${(fullUserOrderDTO.orderStatus.status eq 'confirmed') or (fullUserOrderDTO.orderStatus.status eq 'completed')}">
                                     <span class="badge badge-pill badge-success">${fullUserOrderDTO.orderStatus.status}</span>
@@ -105,7 +105,7 @@
                                         </div>
                                         <form method="POST" action="${pageContext.request.contextPath}/controller">
                                             <input type="hidden" name="command" value="update_status"/>
-                                            <input type="hidden" name="order_id" value="${fullUserOrderDTO.order.id}"/>
+                                            <input type="hidden" name="orderId" value="${fullUserOrderDTO.order.id}"/>
                                             <div class="modal-body justify-content-center">
                                                 <div class="container-fluid">
                                                     <div id="modal_order" class="row mx-0 justify-content-between">
@@ -161,7 +161,7 @@
                                                                 <span class="h6">
                                                                     <c:choose>
                                                                         <c:when test="${fullUserOrderDTO.orderStatus.status eq 'is processed'}">
-                                                                            <span class="badge badge-pill badge-warning">${orderElement.orderStatus.status}</span>
+                                                                            <span class="badge badge-pill badge-warning">${fullUserOrderDTO.orderStatus.status}</span>
                                                                         </c:when>
                                                                         <c:when test="${(fullUserOrderDTO.orderStatus.status eq 'confirmed') or (fullUserOrderDTO.orderStatus.status eq 'completed')}">
                                                                             <span class="badge badge-pill badge-success">${fullUserOrderDTO.orderStatus.status}</span>
@@ -183,7 +183,7 @@
                                                                     Change status:
                                                                 </span>
                                                             </div>
-                                                            <select id="select_status" class="form-control" name="select_status">
+                                                            <select id="selectStatus" class="form-control" name="selectStatus">
                                                                 <option>accident</option>
                                                                 <option selected>confirmed</option>
                                                                 <option>dismissed</option>

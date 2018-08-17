@@ -3,6 +3,7 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.AbstractDAO;
+import dao.CarDAO;
 import dao.util.DBFieldName;
 import dao.util.QueryBuilder;
 import pojo.dto.CarDTO;
@@ -13,11 +14,11 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CarDAO extends AbstractDAO {
+public class CarDAOImpl extends CarDAO{
 
-    private static final String GET_CARS_COUNT = "SELECT COUNT(*) AS `count` FROM `car`";
+    private static final String SELECT_CARS_COUNT = "SELECT COUNT(*) AS `count` FROM `car`";
 
-    private static final String GET_FREE_CARS_COUNT = "SELECT COUNT(*) AS `count`\n" +
+    private static final String SELECT_FREE_CARS_COUNT = "SELECT COUNT(*) AS `count`\n" +
             "FROM `car`\n" +
             "WHERE `car_id` NOT IN(SELECT `car`.`car_id`\n" +
             "FROM `car` \n" +
@@ -27,7 +28,7 @@ public class CarDAO extends AbstractDAO {
             "(`date_received` BETWEEN DATE_SUB(?, INTERVAL 2 HOUR) AND DATE_ADD(?, INTERVAL 2 HOUR))\n" +
             "GROUP BY `car_id`)";
 
-    private static final String FIND_ALL_CARS = "SELECT `car`.car_id, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
+    private static final String SELECT_CARS = "SELECT `car`.car_id, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car` \n" +
             "JOIN `model`\n" +
             "ON `car`.model_id = `model`.model_id\n" +
@@ -39,7 +40,7 @@ public class CarDAO extends AbstractDAO {
             "ON `engine`.`engine_id` = `car`.`engine_id`" +
             "ORDER BY `brand`, `model`";
 
-    private static final String FIND_FREE_CARS = "SELECT `car`.`car_id`, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
+    private static final String SELECT_FREE_CARS = "SELECT `car`.`car_id`, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car`\n" +
             "JOIN `model`\n" +
             "ON `car`.`model_id` = `model`.`model_id`\n" +
@@ -58,7 +59,7 @@ public class CarDAO extends AbstractDAO {
             "GROUP BY `car_id`)\n" +
             "ORDER BY `rental_value_for_day`";
 
-    private static final String FIND_CAR_BY_ID = "SELECT `car`.`car_id`, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
+    private static final String SELECT_CAR_BY_ID = "SELECT `car`.`car_id`, `car`.`image`, `brand`.`name` AS `brand`, `model`.`name` AS `model`, `car_class`.`name` AS `car_class`, `seats`, `doors`, `air_conditioning`, `automatic_gearbox`, `rental_value_for_day`, `fuel_consumption`, `color`, `year_of_issue`, `type` AS `engine_type`\n" +
             "FROM `car`\n" +
             "JOIN `model`\n" +
             "ON `car`.`model_id` = `model`.`model_id`\n" +
@@ -72,10 +73,54 @@ public class CarDAO extends AbstractDAO {
 
     private static final String UPDATE_CAR_IMAGE_BY_CAR_ID = "UPDATE `car` SET `image` = ? WHERE `car_id` = ?";
 
-    public int getCarsCount(){
-        int count = 0;
-        try(PreparedStatement preparedStatement = connection.prepareStatement(GET_CARS_COUNT)){
+    @Override
+    public List<Car> getAll() {
+        List<Car> carList = new LinkedList<>();
+        Car car = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CARS)){
             ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                car = createCar(resultSet);
+                carList.add(car);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carList;
+    }
+
+    @Override
+    public int getCarsCount(){
+        return getElementsCount(SELECT_CARS_COUNT);
+    }
+
+    @Override
+    public List<Car> findAll(PageDTO pageDTO) {
+        List<Car> carList = new LinkedList<>();
+        Car car = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_CARS, pageDTO))){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                car = createCar(resultSet);
+                carList.add(car);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carList;
+    }
+
+    @Override
+    public int getFreeCarsCount(Timestamp dateReceived, Timestamp returnDate){
+        int count = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_FREE_CARS_COUNT)){
+            preparedStatement.setTimestamp(1, dateReceived);
+            preparedStatement.setTimestamp(2, dateReceived);
+            preparedStatement.setTimestamp(3, returnDate);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             if (resultSet.next()){
                 count = resultSet.getInt(DBFieldName.FIELD_COUNT);
             }
@@ -86,59 +131,10 @@ public class CarDAO extends AbstractDAO {
     }
 
     @Override
-    public List<Car> findAll() {
+    public List<Car> getFreeCars(Timestamp dateReceived, Timestamp returnDate, PageDTO pageDTO){
         List<Car> carList = new LinkedList<>();
         Car car = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_CARS)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()){
-                car = createCar(resultSet);
-                carList.add(car);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return carList;
-    }
-
-    public List<Car> findAll(PageDTO pageDTO) {
-        List<Car> carList = new LinkedList<>();
-        Car car = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(FIND_ALL_CARS, pageDTO))){
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()){
-                car = createCar(resultSet);
-                carList.add(car);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return carList;
-    }
-
-    public int getFreeCarsCount(Timestamp dateReceived, Timestamp returnDate){
-        int count = 0;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_FREE_CARS_COUNT)){
-            preparedStatement.setTimestamp(1, dateReceived);
-            preparedStatement.setTimestamp(2, dateReceived);
-            preparedStatement.setTimestamp(3, returnDate);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()){
-                count = resultSet.getInt(DBFieldName.FIELD_COUNT);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
-
-    public List<Car> findFreeCars(Timestamp dateReceived, Timestamp returnDate, PageDTO pageDTO){
-        List<Car> carList = new LinkedList<>();
-        Car car = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(FIND_FREE_CARS, pageDTO))){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_FREE_CARS, pageDTO))){
             preparedStatement.setTimestamp(1, dateReceived);
             preparedStatement.setTimestamp(2, dateReceived);
             preparedStatement.setTimestamp(3, returnDate);
@@ -154,9 +150,10 @@ public class CarDAO extends AbstractDAO {
         return carList;
     }
 
+    @Override
     public Car getCarById(CarDTO carDTO){
         Car car = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_CAR_BY_ID)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CAR_BY_ID)){
             preparedStatement.setInt(1, carDTO.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -170,14 +167,9 @@ public class CarDAO extends AbstractDAO {
         return car;
     }
 
+    @Override
     public void updateImageByCarId(int id, String fileName){
-        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CAR_IMAGE_BY_CAR_ID)){
-            preparedStatement.setString(1, fileName);
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        updateImageNameById(UPDATE_CAR_IMAGE_BY_CAR_ID, fileName, id);
     }
 
     private Car createCar(ResultSet resultSet) throws SQLException{

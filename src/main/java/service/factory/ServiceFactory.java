@@ -1,5 +1,6 @@
-package service;
+package service.factory;
 
+import service.*;
 import service.impl.*;
 
 public class ServiceFactory {

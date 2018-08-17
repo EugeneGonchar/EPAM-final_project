@@ -1,6 +1,7 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
+import controller.command.util.Constant;
 import controller.command.util.DateHelper;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
@@ -11,7 +12,7 @@ import pojo.entity.Car;
 import pojo.entity.Order;
 import resource.ConfigurationManager;
 import service.CarService;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class GetCarsCommand implements ActionCommand {
         ActionPageContainer actionPageContainer = null;
         String page = null;
         List<Car> carList = null;
-        Order order = (Order) sessionRequestContent.getSessionAttribute("order");
+        Order order = (Order) sessionRequestContent.getSessionAttribute(Constant.ORDER);
         PageDTO pageDTO = new PageDTO();
-        pageDTO.setElementsOnPage(Integer.parseInt(sessionRequestContent.getRequestParameter("elementsOnPage")));
-        pageDTO.setCurrentPage(Integer.parseInt(sessionRequestContent.getRequestParameter("page")));
+        pageDTO.setElementsOnPage(Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.ELEMENTS_ON_PAGE)));
+        pageDTO.setCurrentPage(Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.PAGE)));
 
         int rentDays = DateHelper.getCeilDaysOfDateDifference(order.getReturnDate(), order.getDateReceived());/*WTF????? 500 Server error here*/
 
@@ -33,9 +34,9 @@ public class GetCarsCommand implements ActionCommand {
 
         carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
 
-        sessionRequestContent.add2RequestAttributes("carList", carList);
-        sessionRequestContent.add2SessionAttributes("pageDTO", pageDTO);
-        sessionRequestContent.add2SessionAttributes("rentDays", rentDays);
+        sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);
+        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
+        sessionRequestContent.add2SessionAttributes(Constant.RENT_DAYS, rentDays);
         page = ConfigurationManager.getProperty("path.page.cars");
 
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);

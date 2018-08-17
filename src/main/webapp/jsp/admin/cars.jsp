@@ -113,10 +113,10 @@
                                                     </div>
                                                     <form action="${pageContext.request.contextPath}/controller" method="POST" enctype="multipart/form-data">
                                                         <input type="hidden" name="command" value="upload_car_img">
-                                                        <input type="hidden" name="car_id" value="${car.id}"/>
+                                                        <input type="hidden" name="carId" value="${car.id}"/>
                                                         <label class="custom-file btn btn-block btn-info">
                                                             Upload
-                                                            <input type="file" name="user_img" class="custom-file-input" style="display: none">
+                                                            <input type="file" name="carImg" class="custom-file-input" style="display: none">
                                                         </label>
                                                         <button type="submit" class="btn btn-block btn-success">
                                                             Save

@@ -1,23 +1,18 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
-import controller.command.util.OrderProcessStatusConstant;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import pojo.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.*;
 
 public class DriverDetailsCommand implements ActionCommand {
-
-    private static final String PARAM_NAME_EMAIL = "email";
-    private static final String PARAM_NAME_PHONE = "phone";
-    private static final String PARAM_NAME_FIRST_NAME = "first_name";
-    private static final String PARAM_NAME_LAST_NAME = "last_name";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -31,15 +26,15 @@ public class DriverDetailsCommand implements ActionCommand {
         try{
             userService.checkDriverDetails(user);
 
-            sessionRequestContent.add2SessionAttributes("orderProcessStatus", OrderProcessStatusConstant.STATUS_READY_DRIVER_DETAILS);
-            sessionRequestContent.add2SessionAttributes("guestUser", user);
+            sessionRequestContent.add2SessionAttributes(Constant.ORDER_PROCESS_STATUS, Constant.STATUS_READY_DRIVER_DETAILS);
+            sessionRequestContent.add2SessionAttributes(Constant.GUEST_USER, user);
             page = ConfigurationManager.getProperty("path.page.payment");
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2RequestAttributes("driverDetailsError",
+            sessionRequestContent.add2RequestAttributes(Constant.DRIVER_DETAILS_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
         } catch (EmailExistException e){
-            sessionRequestContent.add2RequestAttributes("driverDetailsError",
+            sessionRequestContent.add2RequestAttributes(Constant.DRIVER_DETAILS_ERROR,
                     MessageManager.getProperty("message.emailexist"));
         }
 
@@ -54,10 +49,10 @@ public class DriverDetailsCommand implements ActionCommand {
     private User createUser(SessionRequestContent sessionRequestContent){
         User user = new User();
 
-        user.setFirstName(sessionRequestContent.getRequestParameter(PARAM_NAME_FIRST_NAME));
-        user.setLastName(sessionRequestContent.getRequestParameter(PARAM_NAME_LAST_NAME));
-        user.setEmail(sessionRequestContent.getRequestParameter(PARAM_NAME_EMAIL));
-        user.setPhone(sessionRequestContent.getRequestParameter(PARAM_NAME_PHONE));
+        user.setFirstName(sessionRequestContent.getRequestParameter(Constant.FIRST_NAME));
+        user.setLastName(sessionRequestContent.getRequestParameter(Constant.LAST_NAME));
+        user.setEmail(sessionRequestContent.getRequestParameter(Constant.EMAIL));
+        user.setPhone(sessionRequestContent.getRequestParameter(Constant.PHONE));
 
         return user;
     }

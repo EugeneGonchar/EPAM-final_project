@@ -1,6 +1,7 @@
 package controller.command.command;
 
 import controller.command.ActionCommand;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
@@ -10,14 +11,11 @@ import pojo.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.RoleService;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class LoginCommand implements ActionCommand {
-
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -56,20 +54,19 @@ public class LoginCommand implements ActionCommand {
 
         try{
             user = userService.logIn(userDTO);
+            if(user == null){
+                sessionRequestContent.add2RequestAttributes(Constant.LOGIN_ERROR,
+                        MessageManager.getProperty("message.loginpassworderror"));
+            } else {
+                role = roleService.getRoleOfUser(user);
+                sessionRequestContent.add2SessionAttributes(Constant.USER, user);
+                sessionRequestContent.add2SessionAttributes(Constant.ROLE, role);
+                page = ConfigurationManager.getProperty("path.page.main");
+                actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
+            }
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2RequestAttributes("loginError",
+            sessionRequestContent.add2RequestAttributes(Constant.LOGIN_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
-        }
-
-        if(user == null){
-            sessionRequestContent.add2RequestAttributes("loginError",
-                    MessageManager.getProperty("message.loginpassworderror"));
-        } else{
-            role = roleService.getRoleOfUser(user);
-            sessionRequestContent.add2SessionAttributes("user", user);
-            sessionRequestContent.add2SessionAttributes("role", role);
-            page = ConfigurationManager.getProperty("path.page.main");
-            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         }
 
         if(page == null){
@@ -83,8 +80,8 @@ public class LoginCommand implements ActionCommand {
     private UserDTO createUserDTO(SessionRequestContent sessionRequestContent){
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setLogin(sessionRequestContent.getRequestParameter(PARAM_NAME_LOGIN));
-        userDTO.setPassword(sessionRequestContent.getRequestParameter(PARAM_NAME_PASSWORD));
+        userDTO.setLogin(sessionRequestContent.getRequestParameter(Constant.LOGIN));
+        userDTO.setPassword(sessionRequestContent.getRequestParameter(Constant.PASSWORD));
 
         return userDTO;
     }

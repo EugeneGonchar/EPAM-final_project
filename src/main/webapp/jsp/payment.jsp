@@ -293,7 +293,7 @@
                                 Name *
                             </span>
                             </div>
-                            <input name="first_name" class="form-control" placeholder="IVAN" type="text">
+                            <input name="firstName" class="form-control" placeholder="IVAN" type="text">
                         </div> <!-- input-group.// -->
                     </div> <!-- form-group// -->
 
@@ -304,7 +304,7 @@
                                 Surname *
                             </span>
                             </div>
-                            <input name="last_name" class="form-control" placeholder="IVANOV" type="text">
+                            <input name="lastName" class="form-control" placeholder="IVANOV" type="text">
                         </div> <!-- input-group.// -->
                     </div> <!-- form-group// -->
 

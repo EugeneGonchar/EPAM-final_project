@@ -1,6 +1,7 @@
 package controller.command.command;
 
 import controller.command.ActionCommand;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
@@ -12,8 +13,8 @@ public class LogoutCommand implements ActionCommand {
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent){
         String page = ConfigurationManager.getProperty("path.page.main");
 
-        sessionRequestContent.removeSessionAttribute("role");
-        sessionRequestContent.removeSessionAttribute("user");
+        sessionRequestContent.removeSessionAttribute(Constant.ROLE);
+        sessionRequestContent.removeSessionAttribute(Constant.USER);
         return new ActionPageContainer(page, URLAction.REDIRECT);
     }
 

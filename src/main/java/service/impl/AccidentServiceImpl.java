@@ -1,7 +1,8 @@
 package service.impl;
 
+import dao.AccidentDAO;
 import dao.Transaction;
-import dao.impl.AccidentDAO;
+import dao.factory.DAOFactory;
 import pojo.dto.PageDTO;
 import pojo.entity.Accident;
 import service.AccidentService;
@@ -13,7 +14,7 @@ public class AccidentServiceImpl implements AccidentService {
 
     @Override
     public List<Accident> getAccidentList(PageDTO pageDTO){
-        AccidentDAO accidentDAO = new AccidentDAO();
+        AccidentDAO accidentDAO = DAOFactory.getInstance().getAccidentDAO();
         Transaction transaction = new Transaction();
         List<Accident> accidentList = null;
 
@@ -21,7 +22,7 @@ public class AccidentServiceImpl implements AccidentService {
 
         pageDTO.setElementsCount(accidentDAO.getAccidentsCount());
         pageDTO.calculatePagesCount();
-        accidentList = accidentDAO.findAll(pageDTO);
+        accidentList = accidentDAO.getAll(pageDTO);
 
         try {
             transaction.commit();

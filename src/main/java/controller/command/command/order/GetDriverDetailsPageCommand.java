@@ -1,7 +1,7 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
-import controller.command.util.OrderProcessStatusConstant;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
@@ -11,15 +11,10 @@ import pojo.entity.Car;
 import pojo.entity.Order;
 import resource.ConfigurationManager;
 import service.CarService;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 import service.impl.OrderServiceImpl;
 
 public class GetDriverDetailsPageCommand implements ActionCommand {
-
-    private static final String PARAM_NAME_PICKUP_LOCATION = "pickupAddress";
-    private static final String PARAM_NAME_DROPOFF_LOCATION = "dropoffAddress";
-    private static final String PARAM_NAME_ORDER = "order";
-    private static final String PARAM_NAME_CAR_ID = "id";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -28,10 +23,10 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
         CarDTO carDTO = null;
         Car car = null;
 
-        Address pickupAddress = (Address)sessionRequestContent.getSessionAttribute(PARAM_NAME_PICKUP_LOCATION);
-        Address dropoffAddress = (Address)sessionRequestContent.getSessionAttribute(PARAM_NAME_DROPOFF_LOCATION);
-        Order order = (Order)sessionRequestContent.getSessionAttribute(PARAM_NAME_ORDER);
-        int rentDays = (int)sessionRequestContent.getSessionAttribute("rentDays");
+        Address pickupAddress = (Address)sessionRequestContent.getSessionAttribute(Constant.PICKUP_ADDRESS);
+        Address dropoffAddress = (Address)sessionRequestContent.getSessionAttribute(Constant.DROPOFF_ADDRESS);
+        Order order = (Order)sessionRequestContent.getSessionAttribute(Constant.ORDER);
+        Integer rentDays = (Integer) sessionRequestContent.getSessionAttribute(Constant.RENT_DAYS);
 
         carDTO = createCarDTO(sessionRequestContent);
 
@@ -42,10 +37,10 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
         order.setCarId(car.getId());
         order.setTotalCost(OrderServiceImpl.getCalculatedTotalCost(car, rentDays));
 
-        sessionRequestContent.removeSessionAttribute("carList");
+        sessionRequestContent.removeSessionAttribute(Constant.CAR_LIST);
 
-        sessionRequestContent.add2SessionAttributes("orderProcessStatus", OrderProcessStatusConstant.STATUS_READY_CAR);
-        sessionRequestContent.add2SessionAttributes("car", car);
+        sessionRequestContent.add2SessionAttributes(Constant.ORDER_PROCESS_STATUS, Constant.STATUS_READY_CAR);
+        sessionRequestContent.add2SessionAttributes(Constant.CAR, car);
 
         page = ConfigurationManager.getProperty("path.page.driverdetails");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
@@ -56,7 +51,7 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
     private CarDTO createCarDTO(SessionRequestContent sessionRequestContent){
         CarDTO carDTO = new CarDTO();
 
-        int id = Integer.parseInt(sessionRequestContent.getRequestParameter(PARAM_NAME_CAR_ID));
+        int id = Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.CAR_ID));
         carDTO.setId(id);
         return carDTO;
     }

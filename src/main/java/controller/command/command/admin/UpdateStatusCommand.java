@@ -1,12 +1,13 @@
 package controller.command.command.admin;
 
 import controller.command.ActionCommand;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import resource.ConfigurationManager;
 import service.OrderService;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 
 public class UpdateStatusCommand implements ActionCommand {
 
@@ -15,7 +16,7 @@ public class UpdateStatusCommand implements ActionCommand {
         ActionPageContainer actionPageContainer = null;
         String page = null;
 
-        String newStatus = sessionRequestContent.getRequestParameter("select_status");
+        String newStatus = sessionRequestContent.getRequestParameter(Constant.SELECT_STATUS);
 
         updateStatus(sessionRequestContent, newStatus);
 
@@ -25,7 +26,7 @@ public class UpdateStatusCommand implements ActionCommand {
     }
 
     private void updateStatus(SessionRequestContent sessionRequestContent, String newStatus){
-        int orderId = Integer.parseInt(sessionRequestContent.getRequestParameter("order_id"));
+        int orderId = Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.ORDER_ID));
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
         switch (newStatus){
             case "accident":
@@ -34,7 +35,7 @@ public class UpdateStatusCommand implements ActionCommand {
                 orderService.updateOrderStatus(orderId, newStatus);
                 break;
             case "dismissed":
-                String description = sessionRequestContent.getRequestParameter("dismissed_description");
+                String description = sessionRequestContent.getRequestParameter(Constant.DISMISSED_DESCRIPTION);
                 orderService.updateOrderStatus(orderId, newStatus, description);
                 break;
         }

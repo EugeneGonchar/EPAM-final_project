@@ -13,11 +13,11 @@ public abstract class AbstractDAO <T extends Entity> {
 
     protected Connection connection;
 
-    public abstract List<T> findAll();
+    public abstract List<T> getAll();
 
     /*public abstract int getCount();*/
 
-    /*protected int getElementsCount(String query){
+    protected int getElementsCount(String query){
         int count = 0;
         try(PreparedStatement preparedStatement = connection.prepareStatement(query)){
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -28,7 +28,17 @@ public abstract class AbstractDAO <T extends Entity> {
             e.printStackTrace();
         }
         return count;
-    }*/
+    }
+
+    protected void updateImageNameById(String query, String fileName, int id){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, fileName);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     void setConnection(Connection connection){
         this.connection = connection;

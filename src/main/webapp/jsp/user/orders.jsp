@@ -56,7 +56,7 @@
     </div>
 
     <div class="col-12 float-left">
-        <c:set var="command" scope="session" value="get_orders"/>
+        <c:set var="command" scope="request" value="get_orders"/>
         <%@ include file = "/jsp/pagination/items_on_page.jsp" %>
 
         <table class="table table-hover">

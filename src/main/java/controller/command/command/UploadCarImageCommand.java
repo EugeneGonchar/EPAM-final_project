@@ -1,13 +1,13 @@
 package controller.command.command;
 
 import controller.command.ActionCommand;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import resource.ConfigurationManager;
 import service.CarService;
-import service.ServiceFactory;
-import service.UserService;
+import service.factory.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
@@ -28,8 +28,8 @@ public class UploadCarImageCommand implements ActionCommand {
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 
-        int carId = Integer.parseInt(sessionRequestContent.getRequestParameter("car_id"));
-        Part filePart = sessionRequestContent.getPart("user_img");
+        int carId = Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.CAR_ID));
+        Part filePart = sessionRequestContent.getPart(Constant.CAR_IMG);
 
         String appPath = sessionRequestContent.getRealPath("");
         String savePath = appPath + File.separator + CAR_IMG_DIRECTORY;
@@ -60,7 +60,6 @@ public class UploadCarImageCommand implements ActionCommand {
 
     private String getFileFormat(Part filePart) {
         String filename = getFileName(filePart);
-        System.out.println("filename = " + filename);
         if (filename == null) {
             //exception
         }

@@ -1,12 +1,13 @@
 package controller.command.command;
 
 import controller.command.ActionCommand;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import pojo.entity.User;
 import resource.ConfigurationManager;
-import service.ServiceFactory;
+import service.factory.ServiceFactory;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -28,8 +29,8 @@ public class UploadUserImageCommand implements ActionCommand {
 
         UserService userService = ServiceFactory.getInstance().getUserService();
 
-        User user = (User) sessionRequestContent.getSessionAttribute("user");
-        Part filePart = sessionRequestContent.getPart("user_img");
+        User user = (User) sessionRequestContent.getSessionAttribute(Constant.USER);
+        Part filePart = sessionRequestContent.getPart(Constant.USER_IMG);
 
         String appPath = sessionRequestContent.getRealPath("");
         String savePath = appPath + File.separator + USER_IMG_DIRECTORY;
@@ -40,7 +41,7 @@ public class UploadUserImageCommand implements ActionCommand {
 
         user.setProfileImage(filename);
 
-        sessionRequestContent.add2SessionAttributes("user", user);
+        sessionRequestContent.add2SessionAttributes(Constant.USER, user);
         page = ConfigurationManager.getProperty("path.page.profile");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         return actionPageContainer;

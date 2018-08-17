@@ -1,7 +1,7 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
-import controller.command.util.OrderProcessStatusConstant;
+import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
@@ -14,7 +14,7 @@ public class PaymentCommand implements ActionCommand {
         ActionPageContainer actionPageContainer = null;
         String page = null;
 
-        sessionRequestContent.add2SessionAttributes("orderProcessStatus", OrderProcessStatusConstant.STATUS_READY_PAYMENT);
+        sessionRequestContent.add2SessionAttributes(Constant.ORDER_PROCESS_STATUS, Constant.STATUS_READY_PAYMENT);
         page = ConfigurationManager.getProperty("path.page.confirmation");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
 

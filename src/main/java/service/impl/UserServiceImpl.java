@@ -1,12 +1,13 @@
 package service.impl;
 
 import dao.Transaction;
+import dao.UserDAO;
+import dao.factory.DAOFactory;
 import pojo.dto.PageDTO;
 import pojo.dto.UserRoleDTO;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
 import service.exception.WrongPasswordException;
-import dao.impl.UserDAO;
 import pojo.dto.UserDTO;
 import pojo.entity.User;
 import resource.MessageManager;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
         User user = null;
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsUnequalException(MessageManager.getProperty("message.unequalpasswords"));
         }
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -108,7 +109,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -129,7 +130,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -153,7 +154,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -174,7 +175,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -207,14 +208,15 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsUnequalException(MessageManager.getProperty("message.unequalpasswords"));
         }
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
         String dbHashedPassword = userDAO.getUserByLogin(userDTO.getLogin()).getPassword();
         String hashedPassword = Hash.getCryptoSha256(userDTO.getPassword());
-        if(Hash.isHashesEqual(dbHashedPassword, hashedPassword)){
-            throw new WrongPasswordException();
+
+        if(!Hash.isHashesEqual(dbHashedPassword, hashedPassword)){
+            throw new WrongPasswordException(MessageManager.getProperty("message.passworderror"));
         }
         userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword2()));
         userDAO.updatePassword(userDTO);
@@ -236,7 +238,7 @@ public class UserServiceImpl implements UserService {
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
@@ -255,7 +257,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserImg(User user, String fileName){
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
 
         Transaction transaction = new Transaction();
 
@@ -273,7 +275,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserRoleDTO> getUserRoleList(PageDTO pageDTO){
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         List<UserRoleDTO> userRoleDTOList = null;
         Transaction transaction = new Transaction();
 

@@ -1,15 +1,14 @@
 package service.impl;
 
+import dao.OrderDAO;
 import dao.Transaction;
-import dao.impl.OrderDAO;
-import dao.impl.OrderStatusDAO;
-import dao.impl.UserDAO;
+import dao.UserDAO;
+import dao.factory.DAOFactory;
 import pojo.dto.FullOrderDTO;
 import pojo.dto.FullUserOrderDTO;
 import pojo.dto.PageDTO;
 import pojo.entity.Car;
 import pojo.entity.Order;
-import pojo.entity.OrderStatus;
 import pojo.entity.User;
 import service.OrderService;
 import service.util.Hash;
@@ -23,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<FullOrderDTO> getFullUserOrders(User user, PageDTO pageDTO){
-        OrderDAO orderDAO = new OrderDAO();
+        OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
         Transaction transaction = new Transaction();
         List<FullOrderDTO> fullOrderDTOList = null;
 
@@ -45,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<FullUserOrderDTO> getOrdersList(PageDTO pageDTO){
-        OrderDAO orderDAO = new OrderDAO();
+        OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
         Transaction transaction = new Transaction();
         List<FullUserOrderDTO> fullUserOrderDTOList = null;
 
@@ -67,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void insertOrder(Order order){
-        OrderDAO orderDAO = new OrderDAO();
+        OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(orderDAO);
@@ -84,8 +83,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public User insertOrder(Order order, User user){
-        OrderDAO orderDAO = new OrderDAO();
-        UserDAO userDAO = new UserDAO();
+        OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         Transaction transaction = new Transaction();
         User registeredUser = null;
 
@@ -113,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void updateOrderStatus(int orderId, String status){
-        OrderDAO orderDAO = new OrderDAO();
+        OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(orderDAO);
@@ -129,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void updateOrderStatus(int orderId, String status, String description){
-        OrderDAO orderDAO = new OrderDAO();
+        OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(orderDAO);

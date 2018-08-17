@@ -139,17 +139,17 @@
 
                 <div class="form-group mt-1">
                     <label for="pass" class="font-weight-bold">${old_password_message}:</label>
-                    <input name="old_password" placeholder="******" type="password" class="form-control" id="pass">
+                    <input name="oldPassword" placeholder="******" type="password" class="form-control" id="pass">
                 </div>
 
                 <div class="form-group mt-1">
                     <label for="pass1" class="font-weight-bold">${new_password_message}:</label>
-                    <input name="new_password" placeholder="******" type="password" class="form-control" id="pass1">
+                    <input name="newPassword" placeholder="******" type="password" class="form-control" id="pass1">
                 </div>
 
                 <div class="form-group mt-1">
                     <label for="pass2" class="font-weight-bold">${confirm_password_message}:</label>
-                    <input name="new_password2" placeholder="******" type="password" class="form-control" id="pass2">
+                    <input name="newPassword2" placeholder="******" type="password" class="form-control" id="pass2">
                 </div>
 
                 <div class="form-group mt-1">

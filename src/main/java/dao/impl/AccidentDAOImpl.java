@@ -1,6 +1,7 @@
 package dao.impl;
 
 import dao.AbstractDAO;
+import dao.AccidentDAO;
 import dao.util.DBFieldName;
 import dao.util.QueryBuilder;
 import pojo.dto.PageDTO;
@@ -12,30 +13,28 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AccidentDAO extends AbstractDAO {
+public class AccidentDAOImpl extends AccidentDAO {
 
-    private static final String GET_ACCIDENTS_COUNT = "SELECT COUNT(*) AS `count` FROM `accident`";
+    private static final String SELECT_ACCIDENTS_COUNT = "SELECT COUNT(*) AS `count` FROM `accident`";
 
-    private static final String FIND_ALL_ACCIDENTS = "SELECT `accident_id`, `description`, `material_damage`, `date`, `order_id`\n" +
+    private static final String SELECT_ALL_ACCIDENTS = "SELECT `accident_id`, `description`, `material_damage`, `date`, `order_id`\n" +
             "FROM `accident`";
 
-    public int getAccidentsCount(){
-        int count = 0;
-        try(PreparedStatement preparedStatement = connection.prepareStatement(GET_ACCIDENTS_COUNT)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                count = resultSet.getInt(DBFieldName.FIELD_COUNT);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return count;
+    @Override
+    public List getAll() {
+        return null;
     }
 
-    public List findAll(PageDTO pageDTO) {
+    @Override
+    public int getAccidentsCount(){
+        return getElementsCount(SELECT_ACCIDENTS_COUNT);
+    }
+
+    @Override
+    public List getAll(PageDTO pageDTO) {
         List<Accident> accidentList = new LinkedList<>();
         Accident accident = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(FIND_ALL_ACCIDENTS, pageDTO))){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_ALL_ACCIDENTS, pageDTO))){
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
@@ -49,11 +48,7 @@ public class AccidentDAO extends AbstractDAO {
     }
 
     @Override
-    public List findAll() {
-        return null;
-    }
-
-    private Accident createAccident(ResultSet resultSet) throws SQLException{
+    public Accident createAccident(ResultSet resultSet) throws SQLException{
         Accident accident = null;
 
         accident = new Accident();

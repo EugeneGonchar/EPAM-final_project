@@ -50,7 +50,7 @@ $(function () {
 });
 
 $(function () {
-   $('#select_status').change(function () {
+   $('#selectStatus').change(function () {
        if (this.value === 'accident'){
             var accident = '<div class="container col-12 my-3 p-0">\n' +
                 '    <div class="mb-1 border-bottom border-muted ">\n' +
@@ -101,7 +101,7 @@ $(function () {
                 '        <div class="input-group-prepend">\n' +
                 '            <span class="input-group-text">Description:</span>\n' +
                 '        </div>\n' +
-                '        <textarea class="form-control" aria-label="With textarea" name="dismissed_description"></textarea>\n' +
+                '        <textarea class="form-control" aria-label="With textarea" name="dismissedDescription"></textarea>\n' +
                 '    </div>\n' +
                 '</div>';
            var div = document.getElementById("place_for_details");

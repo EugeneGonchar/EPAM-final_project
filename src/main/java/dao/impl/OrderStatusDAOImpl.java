@@ -1,13 +1,14 @@
 package dao.impl;
 
 import dao.AbstractDAO;
+import dao.OrderStatusDAO;
 
 import java.util.List;
 
-public class OrderStatusDAO extends AbstractDAO {
+public class OrderStatusDAOImpl extends OrderStatusDAO {
 
     @Override
-    public List findAll() {
+    public List getAll() {
         return null;
     }
 }
