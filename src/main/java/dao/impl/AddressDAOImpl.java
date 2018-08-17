@@ -2,9 +2,9 @@ package dao.impl;
 
 import static dao.util.DBFieldName.*;
 
-import dao.AbstractDAO;
 import dao.AddressDAO;
-import pojo.entity.Address;
+import dao.util.DomainCreator;
+import domain.entity.Address;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,9 +26,7 @@ public class AddressDAOImpl extends AddressDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                address = new Address();
-                address.setStreet(resultSet.getString(TABLE_ADDRESS_FIELD_STREET));
-                address.setBuilding(resultSet.getString(TABLE_ADDRESS_FIELD_BUILDING));
+                address = DomainCreator.createAddress(resultSet);
                 addressList.add(address);
             }
         } catch (SQLException e) {
@@ -48,10 +46,7 @@ public class AddressDAOImpl extends AddressDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()){
-                address = new Address();
-                address.setId(resultSet.getInt(TABLE_ADDRESS_FIELD_ID));
-                address.setStreet(resultSet.getString(TABLE_ADDRESS_FIELD_STREET));
-                address.setBuilding(resultSet.getString(TABLE_ADDRESS_FIELD_BUILDING));
+                address = DomainCreator.createAddress(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -5,8 +5,8 @@ import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import pojo.dto.PageDTO;
-import pojo.entity.Accident;
+import domain.dto.PageDTO;
+import domain.entity.Accident;
 import resource.ConfigurationManager;
 import service.AccidentService;
 import service.factory.ServiceFactory;
@@ -30,8 +30,9 @@ public class GetAccidentsTableCommand implements ActionCommand {
 
         accidentList = accidentService.getAccidentList(pageDTO);
 
-        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
         sessionRequestContent.add2RequestAttributes(Constant.ACCIDENT_LIST, accidentList);
+        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
+
         page = ConfigurationManager.getProperty("path.page.admin.accidents");
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 

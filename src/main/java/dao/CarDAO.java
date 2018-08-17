@@ -1,8 +1,7 @@
 package dao;
 
-import pojo.dto.CarDTO;
-import pojo.dto.PageDTO;
-import pojo.entity.Car;
+import domain.dto.PageDTO;
+import domain.entity.Car;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,7 +15,7 @@ public abstract class CarDAO extends AbstractDAO {
 
     public abstract List<Car> getFreeCars(Timestamp dateReceived, Timestamp returnDate, PageDTO pageDTO);
 
-    public abstract Car getCarById(CarDTO carDTO);
+    public abstract Car getCarById(int id);
 
     public abstract void updateImageByCarId(int id, String fileName);
 }

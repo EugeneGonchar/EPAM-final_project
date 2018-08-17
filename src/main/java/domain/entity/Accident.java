@@ -1,8 +1,7 @@
-package pojo.entity;
+package domain.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 public class Accident implements Entity {
     private int id;

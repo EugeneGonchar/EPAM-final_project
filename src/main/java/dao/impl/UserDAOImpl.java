@@ -2,13 +2,13 @@ package dao.impl;
 
 import static dao.util.DBFieldName.*;
 
-import dao.AbstractDAO;
 import dao.UserDAO;
+import dao.util.DomainCreator;
 import dao.util.QueryBuilder;
-import pojo.dto.PageDTO;
-import pojo.dto.UserDTO;
-import pojo.dto.UserRoleDTO;
-import pojo.entity.User;
+import domain.dto.PageDTO;
+import domain.dto.UserDTO;
+import domain.dto.UserRoleDTO;
+import domain.entity.User;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -87,16 +87,7 @@ public class UserDAOImpl extends UserDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()){
-                user = new User();
-                user.setId(resultSet.getInt(TABLE_USER_FIELD_ID));
-                user.setLogin(resultSet.getString(TABLE_USER_FIELD_LOGIN));
-                user.setPassword(resultSet.getString(TABLE_USER_FIELD_PASSWORD));
-                user.setEmail(resultSet.getString(TABLE_USER_FIELD_EMAIL));
-                user.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
-                user.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
-                user.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));
-                user.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
-                user.setProfileImage(resultSet.getString(TABLE_USER_FIELD_PROFILE_IMAGE));
+                user = DomainCreator.createFullUser(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,7 +135,7 @@ public class UserDAOImpl extends UserDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                userRoleDTO = createUserRoleDTO(resultSet);
+                userRoleDTO = DomainCreator.createUserRoleDTO(resultSet);
                 userRoleDTOList.add(userRoleDTO);
             }
         } catch (SQLException e) {
@@ -217,19 +208,5 @@ public class UserDAOImpl extends UserDAO {
     @Override
     public void updateImageByUserId(int id, String fileName){
         updateImageNameById(UPDATE_USER_IMAGE_BY_USER_ID, fileName, id);
-    }
-
-    private UserRoleDTO createUserRoleDTO(ResultSet resultSet) throws SQLException{
-        UserRoleDTO userRoleDTO = new UserRoleDTO();
-
-        userRoleDTO.setId(resultSet.getInt(TABLE_USER_FIELD_ID));
-        userRoleDTO.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
-        userRoleDTO.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));
-        userRoleDTO.setLogin(resultSet.getString(TABLE_USER_FIELD_LOGIN));
-        userRoleDTO.setEmail(resultSet.getString(TABLE_USER_FIELD_EMAIL));
-        userRoleDTO.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
-        userRoleDTO.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
-        userRoleDTO.setRole(resultSet.getString(FIELD_ROLE));
-        return userRoleDTO;
     }
 }

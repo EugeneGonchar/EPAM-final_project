@@ -1,7 +1,7 @@
 package service;
 
-import pojo.dto.PageDTO;
-import pojo.entity.Accident;
+import domain.dto.PageDTO;
+import domain.entity.Accident;
 
 import java.util.List;
 

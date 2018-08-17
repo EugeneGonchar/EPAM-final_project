@@ -2,14 +2,14 @@ package dao.impl;
 
 import static dao.util.DBFieldName.*;
 
-import dao.AbstractDAO;
 import dao.OrderDAO;
 import dao.util.DBFieldName;
+import dao.util.DomainCreator;
 import dao.util.QueryBuilder;
-import pojo.dto.FullOrderDTO;
-import pojo.dto.FullUserOrderDTO;
-import pojo.dto.PageDTO;
-import pojo.entity.*;
+import domain.dto.FullOrderDTO;
+import domain.dto.FullUserOrderDTO;
+import domain.dto.PageDTO;
+import domain.entity.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,10 +99,10 @@ public class OrderDAOImpl extends OrderDAO {
     }*/
 
     @Override
-    public int getFullOrdersCountByUser(User user){
+    public int getFullOrdersCountByUserId(int id){
         int count = 0;
         try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDERS_COUNT_BY_USER_ID)){
-            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
                 count = resultSet.getInt(DBFieldName.FIELD_COUNT);
@@ -114,20 +114,15 @@ public class OrderDAOImpl extends OrderDAO {
     }
 
     @Override
-    public List<FullOrderDTO> getFullOrdersByUser(User user, PageDTO pageDTO){
+    public List<FullOrderDTO> getFullOrdersByUser(int id, PageDTO pageDTO){
         List<FullOrderDTO> fullOrderDTOList = new LinkedList<>();
         FullOrderDTO fullOrderDTO = null;
         try(PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_FULL_ORDERS_BY_USER_ID, pageDTO))){
-            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                fullOrderDTO = new FullOrderDTO();
-                fullOrderDTO.setOrder(createOrder(resultSet));
-                fullOrderDTO.setCar(createCar(resultSet));
-                fullOrderDTO.setPickupAddress(createPickupAddress(resultSet));
-                fullOrderDTO.setDropoffAddress(createDropoffAddress(resultSet));
-                fullOrderDTO.setOrderStatus(createOrderStatus(resultSet));
+                fullOrderDTO = DomainCreator.createFullOrderDTO(resultSet);
                 fullOrderDTOList.add(fullOrderDTO);
             }
 
@@ -151,13 +146,7 @@ public class OrderDAOImpl extends OrderDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                fullUserOrderDTO = new FullUserOrderDTO();
-                fullUserOrderDTO.setOrder(createOrder(resultSet));
-                fullUserOrderDTO.setCar(createCar(resultSet));
-                fullUserOrderDTO.setPickupAddress(createPickupAddress(resultSet));
-                fullUserOrderDTO.setDropoffAddress(createDropoffAddress(resultSet));
-                fullUserOrderDTO.setOrderStatus(createOrderStatus(resultSet));
-                fullUserOrderDTO.setUser(createUser(resultSet));
+                fullUserOrderDTO = DomainCreator.createFullUserOrderDTO(resultSet);
                 fullUserOrderDTOList.add(fullUserOrderDTO);
             }
 
@@ -189,79 +178,5 @@ public class OrderDAOImpl extends OrderDAO {
         } catch (SQLException e){
             e.printStackTrace();
         }
-    }
-
-    private Order createOrder(ResultSet resultSet) throws SQLException{
-        Order order = new Order();
-
-        order.setId(resultSet.getInt(TABLE_ORDER_FIELD_ID));
-        order.setUserId(resultSet.getInt(TABLE_ORDER_FIELD_USER_ID));
-        order.setCarId(resultSet.getInt(TABLE_ORDER_FIELD_CAR_ID));
-        order.setDateReceived(resultSet.getTimestamp(TABLE_ORDER_FIELD_DATE_RECEIVED));
-        order.setReturnDate(resultSet.getTimestamp(TABLE_ORDER_FIELD_RETURN_DATE));
-        order.setPickupAddressId(resultSet.getInt(TABLE_ORDER_FIELD_PICKUP_ADDRESS_ID));
-        order.setDropoffAddressId(resultSet.getInt(TABLE_ORDER_FIELD_DROPOFF_ADDRESS_ID));
-        order.setTotalCost(resultSet.getBigDecimal(TABLE_ORDER_FIELD_TOTAL_COST));
-        order.setStatusId(resultSet.getInt(TABLE_ORDER_FIELD_STATUS_ID));
-        return order;
-    }
-
-    private Car createCar(ResultSet resultSet) throws SQLException{
-        Car car = new Car();
-
-        car.setId(resultSet.getInt(TABLE_CAR_FIELD_ID));
-        car.setBrand(resultSet.getString(TABLE_CAR_FIELD_BRAND));
-        car.setModel(resultSet.getString(TABLE_CAR_FIELD_MODEL));
-        car.setCarClass(resultSet.getString(TABLE_CAR_FIELD_CAR_CLASS));
-        car.setSeats(resultSet.getByte(TABLE_CAR_FIELD_SEATS));
-        car.setDoors(resultSet.getByte(TABLE_CAR_FIELD_DOORS));
-        car.setAirConditioning(resultSet.getBoolean(TABLE_CAR_FIELD_AIR_CONDITIONING));
-        car.setAutomaticGearbox(resultSet.getBoolean(TABLE_CAR_FIELD_AUTOMATIC_GEARBOX));
-        car.setRental4Day(resultSet.getBigDecimal(TABLE_CAR_FIELD_RENTAL_4_DAY));
-        car.setFuelConsumption(resultSet.getDouble(TABLE_CAR_FIELD_FUEL_CONSUMPTION));
-        car.setEngineType(resultSet.getString(TABLE_CAR_FIELD_ENGINE_TYPE));
-        car.setColor(resultSet.getString(TABLE_CAR_FIELD_COLOR));
-        car.setYearOfIssue(resultSet.getShort(TABLE_CAR_FIELD_YEAR_OF_ISSUE));
-        car.setImage(resultSet.getString(TABLE_CAR_FIELD_IMAGE));
-        return car;
-    }
-
-    private Address createPickupAddress(ResultSet resultSet) throws SQLException{
-        Address address = new Address();
-
-        address.setId(resultSet.getInt(DBFieldName.TABLE_ORDER_FIELD_PICKUP_ADDRESS_ID));
-        address.setStreet(resultSet.getString(DBFieldName.FIELD_PICKUP_ADDRESS_STREET));
-        address.setBuilding(resultSet.getString(DBFieldName.FIELD_PICKUP_ADDRESS_BUILDING));
-        return address;
-    }
-
-    private Address createDropoffAddress(ResultSet resultSet) throws SQLException{
-        Address address = new Address();
-
-        address.setId(resultSet.getInt(DBFieldName.TABLE_ORDER_FIELD_DROPOFF_ADDRESS_ID));
-        address.setStreet(resultSet.getString(DBFieldName.FIELD_DROPOFF_ADDRESS_STREET));
-        address.setBuilding(resultSet.getString(DBFieldName.FIELD_DROPOFF_ADDRESS_BUILDING));
-        return address;
-    }
-
-    private OrderStatus createOrderStatus(ResultSet resultSet) throws SQLException{
-        OrderStatus orderStatus = new OrderStatus();
-
-        orderStatus.setId(resultSet.getInt(DBFieldName.TABLE_ORDER_STATUS_FIELD_ID));
-        orderStatus.setStatus(resultSet.getString(DBFieldName.TABLE_ORDER_STATUS_FIELD_STATUS));
-        return orderStatus;
-    }
-
-    private User createUser(ResultSet resultSet) throws SQLException{
-        User user = new User();
-
-        user.setId(resultSet.getInt(TABLE_USER_FIELD_ID));
-        user.setLogin(resultSet.getString(TABLE_USER_FIELD_LOGIN));
-        user.setFirstName(resultSet.getString(TABLE_USER_FIELD_FIRST_NAME));
-        user.setLastName(resultSet.getString(TABLE_USER_FIELD_LAST_NAME));
-        user.setEmail(resultSet.getString(TABLE_USER_FIELD_EMAIL));
-        user.setPhone(resultSet.getString(TABLE_USER_FIELD_PHONE));
-        user.setRoleId(resultSet.getInt(TABLE_USER_FIELD_ROLE_ID));
-        return user;
     }
 }

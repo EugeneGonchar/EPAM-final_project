@@ -3,10 +3,10 @@ package service.impl;
 import dao.CarDAO;
 import dao.Transaction;
 import dao.factory.DAOFactory;
-import pojo.dto.CarDTO;
-import pojo.dto.OrderDTO;
-import pojo.dto.PageDTO;
-import pojo.entity.Car;
+import domain.dto.CarDTO;
+import domain.dto.OrderDTO;
+import domain.dto.PageDTO;
+import domain.entity.Car;
 import service.CarService;
 
 import java.sql.SQLException;
@@ -66,7 +66,7 @@ public class CarServiceImpl implements CarService {
 
         transaction.beginTransaction(carDAO);
 
-        car = carDAO.getCarById(carDTO);
+        car = carDAO.getCarById(carDTO.getId());
 
         try {
             transaction.commit();

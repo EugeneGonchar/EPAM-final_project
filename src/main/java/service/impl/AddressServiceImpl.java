@@ -3,7 +3,7 @@ package service.impl;
 import dao.AddressDAO;
 import dao.Transaction;
 import dao.factory.DAOFactory;
-import pojo.entity.Address;
+import domain.entity.Address;
 import service.AddressService;
 
 import java.sql.SQLException;

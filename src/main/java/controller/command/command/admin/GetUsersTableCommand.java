@@ -5,8 +5,8 @@ import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import pojo.dto.PageDTO;
-import pojo.dto.UserRoleDTO;
+import domain.dto.PageDTO;
+import domain.dto.UserRoleDTO;
 import resource.ConfigurationManager;
 import service.factory.ServiceFactory;
 import service.UserService;
@@ -28,8 +28,9 @@ public class GetUsersTableCommand implements ActionCommand {
 
         userRoleDTOList = userService.getUserRoleList(pageDTO);
 
-        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
         sessionRequestContent.add2RequestAttributes(Constant.USER_ROLE_DTO_LIST, userRoleDTOList);
+        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
+
         page = ConfigurationManager.getProperty("path.page.admin.users");
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 

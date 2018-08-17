@@ -1,8 +1,7 @@
 package dao;
 
-import pojo.entity.Role;
-import pojo.entity.User;
+import domain.entity.Role;
 
 public abstract class RoleDAO extends AbstractDAO {
-    public abstract Role getRoleByUser(User user);
+    public abstract Role getRoleById(int id);
 }

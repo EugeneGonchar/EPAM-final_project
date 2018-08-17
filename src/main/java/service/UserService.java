@@ -1,12 +1,12 @@
 package service;
 
-import pojo.dto.PageDTO;
-import pojo.dto.UserRoleDTO;
+import domain.dto.PageDTO;
+import domain.dto.UserRoleDTO;
 import service.exception.EmailExistException;
 import service.exception.LoginExistException;
 import service.exception.WrongPasswordException;
-import pojo.dto.UserDTO;
-import pojo.entity.User;
+import domain.dto.UserDTO;
+import domain.entity.User;
 import service.exception.ExistEmptyFieldException;
 import service.exception.PasswordShorter6SymbolsException;
 import service.exception.PasswordsUnequalException;

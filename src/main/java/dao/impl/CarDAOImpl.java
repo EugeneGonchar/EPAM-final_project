@@ -2,13 +2,12 @@ package dao.impl;
 
 import static dao.util.DBFieldName.*;
 
-import dao.AbstractDAO;
 import dao.CarDAO;
 import dao.util.DBFieldName;
+import dao.util.DomainCreator;
 import dao.util.QueryBuilder;
-import pojo.dto.CarDTO;
-import pojo.dto.PageDTO;
-import pojo.entity.Car;
+import domain.dto.PageDTO;
+import domain.entity.Car;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -81,7 +80,7 @@ public class CarDAOImpl extends CarDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                car = createCar(resultSet);
+                car = DomainCreator.createCar(resultSet);
                 carList.add(car);
             }
         } catch (SQLException e) {
@@ -103,7 +102,7 @@ public class CarDAOImpl extends CarDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                car = createCar(resultSet);
+                car = DomainCreator.createCar(resultSet);
                 carList.add(car);
             }
         } catch (SQLException e) {
@@ -141,7 +140,7 @@ public class CarDAOImpl extends CarDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                car = createCar(resultSet);
+                car = DomainCreator.createCar(resultSet);
                 carList.add(car);
             }
         } catch (SQLException e) {
@@ -151,14 +150,14 @@ public class CarDAOImpl extends CarDAO{
     }
 
     @Override
-    public Car getCarById(CarDTO carDTO){
+    public Car getCarById(int id){
         Car car = new Car();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CAR_BY_ID)){
-            preparedStatement.setInt(1, carDTO.getId());
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
-                car = createCar(resultSet);
+                car = DomainCreator.createCar(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,26 +169,5 @@ public class CarDAOImpl extends CarDAO{
     @Override
     public void updateImageByCarId(int id, String fileName){
         updateImageNameById(UPDATE_CAR_IMAGE_BY_CAR_ID, fileName, id);
-    }
-
-    private Car createCar(ResultSet resultSet) throws SQLException{
-        Car car = null;
-
-        car = new Car();
-        car.setId(resultSet.getInt(TABLE_CAR_FIELD_ID));
-        car.setBrand(resultSet.getString(TABLE_CAR_FIELD_BRAND));
-        car.setModel(resultSet.getString(TABLE_CAR_FIELD_MODEL));
-        car.setCarClass(resultSet.getString(TABLE_CAR_FIELD_CAR_CLASS));
-        car.setSeats(resultSet.getByte(TABLE_CAR_FIELD_SEATS));
-        car.setDoors(resultSet.getByte(TABLE_CAR_FIELD_DOORS));
-        car.setAirConditioning(resultSet.getBoolean(TABLE_CAR_FIELD_AIR_CONDITIONING));
-        car.setAutomaticGearbox(resultSet.getBoolean(TABLE_CAR_FIELD_AUTOMATIC_GEARBOX));
-        car.setRental4Day(resultSet.getBigDecimal(TABLE_CAR_FIELD_RENTAL_4_DAY));
-        car.setFuelConsumption(resultSet.getDouble(TABLE_CAR_FIELD_FUEL_CONSUMPTION));
-        car.setEngineType(resultSet.getString(TABLE_CAR_FIELD_ENGINE_TYPE));
-        car.setColor(resultSet.getString(TABLE_CAR_FIELD_COLOR));
-        car.setYearOfIssue(resultSet.getShort(TABLE_CAR_FIELD_YEAR_OF_ISSUE));
-        car.setImage(resultSet.getString(TABLE_CAR_FIELD_IMAGE));
-        return car;
     }
 }

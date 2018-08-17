@@ -1,23 +1,14 @@
-package pojo.entity;
+package domain.dto;
 
-public class User implements Entity{
-    private int id;
+public class UserDTO {
     private String login;
     private String password;
+    private String password2;
+    private String password3;
     private String email;
     private String phone;
     private String firstName;
     private String lastName;
-    private int roleId;
-    private String profileImage;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
-    }
 
     public String getLogin() {
         return login;
@@ -33,6 +24,22 @@ public class User implements Entity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    public String getPassword3() {
+        return password3;
+    }
+
+    public void setPassword3(String password3) {
+        this.password3 = password3;
     }
 
     public String getEmail() {
@@ -65,21 +72,5 @@ public class User implements Entity{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
     }
 }

@@ -3,8 +3,8 @@ package service.impl;
 import dao.AccidentDAO;
 import dao.Transaction;
 import dao.factory.DAOFactory;
-import pojo.dto.PageDTO;
-import pojo.entity.Accident;
+import domain.dto.PageDTO;
+import domain.entity.Accident;
 import service.AccidentService;
 
 import java.sql.SQLException;

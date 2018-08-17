@@ -5,8 +5,8 @@ import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import pojo.dto.FullUserOrderDTO;
-import pojo.dto.PageDTO;
+import domain.dto.FullUserOrderDTO;
+import domain.dto.PageDTO;
 import resource.ConfigurationManager;
 import service.OrderService;
 import service.factory.ServiceFactory;
@@ -28,8 +28,9 @@ public class GetOrdersTableCommand implements ActionCommand {
 
         fullUserOrderDTOList = orderService.getOrdersList(pageDTO);
 
-        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
         sessionRequestContent.add2RequestAttributes(Constant.FULL_USER_ORDER_DTO_LIST, fullUserOrderDTOList);
+        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
+
         page = ConfigurationManager.getProperty("path.page.admin.orders");
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         return actionPageContainer;

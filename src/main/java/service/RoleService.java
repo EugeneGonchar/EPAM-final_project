@@ -1,7 +1,7 @@
 package service;
 
-import pojo.entity.Role;
-import pojo.entity.User;
+import domain.entity.Role;
+import domain.entity.User;
 
 public interface RoleService {
 

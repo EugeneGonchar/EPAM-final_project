@@ -1,4 +1,4 @@
-package pojo.dto;
+package domain.dto;
 
 public class CarDTO {
     private int id;

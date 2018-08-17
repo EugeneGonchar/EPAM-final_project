@@ -1,6 +1,6 @@
 package dao.util;
 
-import pojo.dto.PageDTO;
+import domain.dto.PageDTO;
 
 public class QueryBuilder {
 

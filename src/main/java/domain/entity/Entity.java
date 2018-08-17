@@ -1,4 +1,4 @@
-package pojo.entity;
+package domain.entity;
 
 public interface Entity {
 }

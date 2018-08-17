@@ -1,7 +1,7 @@
 package dao;
 
-import pojo.dto.PageDTO;
-import pojo.entity.Accident;
+import domain.dto.PageDTO;
+import domain.entity.Accident;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +11,4 @@ public abstract class AccidentDAO extends AbstractDAO{
     public abstract int getAccidentsCount();
 
     public abstract List<Accident> getAll(PageDTO pageDTO);
-
-    public abstract Accident createAccident(ResultSet resultSet) throws SQLException;
 }

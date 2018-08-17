@@ -5,8 +5,8 @@ import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import pojo.dto.PageDTO;
-import pojo.entity.Car;
+import domain.dto.PageDTO;
+import domain.entity.Car;
 import resource.ConfigurationManager;
 import service.CarService;
 import service.factory.ServiceFactory;
@@ -28,8 +28,9 @@ public class GetCarsTableCommand implements ActionCommand {
 
         carList = carService.getCarList(pageDTO);
 
-        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
         sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);
+        sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
+
         page = ConfigurationManager.getProperty("path.page.admin.cars");
         actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
 

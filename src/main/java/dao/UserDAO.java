@@ -1,9 +1,9 @@
 package dao;
 
-import pojo.dto.PageDTO;
-import pojo.dto.UserDTO;
-import pojo.dto.UserRoleDTO;
-import pojo.entity.User;
+import domain.dto.PageDTO;
+import domain.dto.UserDTO;
+import domain.dto.UserRoleDTO;
+import domain.entity.User;
 
 import java.util.List;
 

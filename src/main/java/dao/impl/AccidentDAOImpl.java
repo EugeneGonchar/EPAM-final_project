@@ -2,9 +2,10 @@ package dao.impl;
 
 import dao.AccidentDAO;
 import dao.util.DBFieldName;
+import dao.util.DomainCreator;
 import dao.util.QueryBuilder;
-import pojo.dto.PageDTO;
-import pojo.entity.Accident;
+import domain.dto.PageDTO;
+import domain.entity.Accident;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,25 +38,12 @@ public class AccidentDAOImpl extends AccidentDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                accident = createAccident(resultSet);
+                accident = DomainCreator.createAccident(resultSet);
                 accidentList.add(accident);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return accidentList;
-    }
-
-    @Override
-    public Accident createAccident(ResultSet resultSet) throws SQLException{
-        Accident accident = null;
-
-        accident = new Accident();
-        accident.setId(resultSet.getInt(DBFieldName.TABLE_ACCIDENT_FIELD_ID));
-        accident.setDate(resultSet.getDate(DBFieldName.TABLE_ACCIDENT_FIELD_DATE));
-        accident.setDescription(resultSet.getString(DBFieldName.TABLE_ACCIDENT_FIELD_DESCRIPTION));
-        accident.setMaterialDamage(resultSet.getBigDecimal(DBFieldName.TABLE_ACCIDENT_FIELD_MATERIAL_DAMAGE));
-        accident.setOrderId(resultSet.getInt(DBFieldName.TABLE_ACCIDENT_FIELD_ORDER_ID));
-        return accident;
     }
 }

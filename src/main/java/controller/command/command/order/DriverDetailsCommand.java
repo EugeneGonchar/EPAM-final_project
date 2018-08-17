@@ -5,7 +5,7 @@ import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import pojo.entity.User;
+import domain.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.factory.ServiceFactory;

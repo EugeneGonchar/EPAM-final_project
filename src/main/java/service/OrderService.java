@@ -1,10 +1,10 @@
 package service;
 
-import pojo.dto.FullOrderDTO;
-import pojo.dto.FullUserOrderDTO;
-import pojo.dto.PageDTO;
-import pojo.entity.Order;
-import pojo.entity.User;
+import domain.dto.FullOrderDTO;
+import domain.dto.FullUserOrderDTO;
+import domain.dto.PageDTO;
+import domain.entity.Order;
+import domain.entity.User;
 
 import java.util.List;
 

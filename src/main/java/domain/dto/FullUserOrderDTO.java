@@ -1,6 +1,6 @@
-package pojo.dto;
+package domain.dto;
 
-import pojo.entity.*;
+import domain.entity.*;
 
 public class FullUserOrderDTO {
     private Order order;

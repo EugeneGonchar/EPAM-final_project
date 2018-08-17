@@ -4,12 +4,12 @@ import dao.OrderDAO;
 import dao.Transaction;
 import dao.UserDAO;
 import dao.factory.DAOFactory;
-import pojo.dto.FullOrderDTO;
-import pojo.dto.FullUserOrderDTO;
-import pojo.dto.PageDTO;
-import pojo.entity.Car;
-import pojo.entity.Order;
-import pojo.entity.User;
+import domain.dto.FullOrderDTO;
+import domain.dto.FullUserOrderDTO;
+import domain.dto.PageDTO;
+import domain.entity.Car;
+import domain.entity.Order;
+import domain.entity.User;
 import service.OrderService;
 import service.util.Hash;
 import service.util.PasswordCreator;
@@ -28,9 +28,9 @@ public class OrderServiceImpl implements OrderService {
 
         transaction.beginTransaction(orderDAO);
 
-        pageDTO.setElementsCount(orderDAO.getFullOrdersCountByUser(user));
+        pageDTO.setElementsCount(orderDAO.getFullOrdersCountByUserId(user.getId()));
         pageDTO.calculatePagesCount();
-        fullOrderDTOList = orderDAO.getFullOrdersByUser(user, pageDTO);
+        fullOrderDTOList = orderDAO.getFullOrdersByUser(user.getId(), pageDTO);
 
         try{
             transaction.commit();

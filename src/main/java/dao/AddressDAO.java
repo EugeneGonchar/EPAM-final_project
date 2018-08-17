@@ -1,6 +1,6 @@
 package dao;
 
-import pojo.entity.Address;
+import domain.entity.Address;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package dao;
 
 import dao.util.DBFieldName;
-import pojo.entity.Entity;
+import domain.entity.Entity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

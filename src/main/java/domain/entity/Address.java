@@ -1,4 +1,4 @@
-package pojo.entity;
+package domain.entity;
 
 public class Address implements Entity {
     private int id;

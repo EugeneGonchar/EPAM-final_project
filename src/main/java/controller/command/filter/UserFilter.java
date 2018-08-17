@@ -1,6 +1,6 @@
 package controller.command.filter;
 
-import pojo.entity.Role;
+import domain.entity.Role;
 import resource.ConfigurationManager;
 
 import javax.servlet.*;

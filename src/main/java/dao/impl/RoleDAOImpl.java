@@ -2,10 +2,9 @@ package dao.impl;
 
 import static dao.util.DBFieldName.*;
 
-import dao.AbstractDAO;
 import dao.RoleDAO;
-import pojo.entity.Role;
-import pojo.entity.User;
+import dao.util.DomainCreator;
+import domain.entity.Role;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,16 +22,14 @@ public class RoleDAOImpl extends RoleDAO {
     }
 
     @Override
-    public Role getRoleByUser(User user){
+    public Role getRoleById(int id){
         Role role = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROLE_BY_ID)){
-            preparedStatement.setInt(1, user.getRoleId());
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()){
-                role = new Role();
-                role.setId(resultSet.getInt(TABLE_ROLE_FIELD_ROLE_ID));
-                role.setName(resultSet.getString(TABLE_ROLE_FIELD_NAME));
+                role = DomainCreator.createRole(resultSet);
             }
 
         } catch (SQLException e) {

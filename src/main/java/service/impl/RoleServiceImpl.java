@@ -3,8 +3,8 @@ package service.impl;
 import dao.RoleDAO;
 import dao.Transaction;
 import dao.factory.DAOFactory;
-import pojo.entity.Role;
-import pojo.entity.User;
+import domain.entity.Role;
+import domain.entity.User;
 import service.RoleService;
 
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
 
         transaction.beginTransaction(roleDAO);
 
-        role = roleDAO.getRoleByUser(user);
+        role = roleDAO.getRoleById(user.getRoleId());
 
         try{
             transaction.commit();

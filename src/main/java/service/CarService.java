@@ -1,9 +1,9 @@
 package service;
 
-import pojo.dto.CarDTO;
-import pojo.dto.OrderDTO;
-import pojo.dto.PageDTO;
-import pojo.entity.Car;
+import domain.dto.CarDTO;
+import domain.dto.OrderDTO;
+import domain.dto.PageDTO;
+import domain.entity.Car;
 
 import java.util.List;
 
