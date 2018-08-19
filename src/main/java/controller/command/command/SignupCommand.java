@@ -3,8 +3,7 @@ package controller.command.command;
 import controller.command.util.Constant;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import service.exception.EmailExistException;
-import service.exception.LoginExistException;
+import service.exception.*;
 import domain.dto.UserDTO;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
@@ -12,9 +11,6 @@ import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.factory.ServiceFactory;
 import service.UserService;
-import service.exception.ExistEmptyFieldException;
-import service.exception.PasswordShorter6SymbolsException;
-import service.exception.PasswordsUnequalException;
 
 public class SignupCommand implements ActionCommand {
 
@@ -46,6 +42,8 @@ public class SignupCommand implements ActionCommand {
         } catch (EmailExistException e){
             sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.emailexist"));
+        } catch (ServiceException e){
+            e.printStackTrace();
         }
 
         if(page == null){

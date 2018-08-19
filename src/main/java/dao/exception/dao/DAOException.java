@@ -1,4 +1,4 @@
-package dao.exception.user;
+package dao.exception.dao;
 
 public class DAOException extends Exception{
     public DAOException() {

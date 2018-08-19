@@ -11,6 +11,7 @@ import domain.entity.Car;
 import domain.entity.Order;
 import resource.ConfigurationManager;
 import service.CarService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.impl.OrderServiceImpl;
 
@@ -32,7 +33,11 @@ public class GetDriverDetailsPageCommand implements ActionCommand {
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 
-        car = carService.getCar(carDTO);
+        try {
+            car = carService.getCar(carDTO);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         order.setCarId(car.getId());
         order.setTotalCost(OrderServiceImpl.getCalculatedTotalCost(car, rentDays));

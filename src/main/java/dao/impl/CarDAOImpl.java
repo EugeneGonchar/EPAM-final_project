@@ -3,6 +3,7 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.CarDAO;
+import dao.exception.dao.DAOException;
 import dao.util.DBFieldName;
 import dao.util.DomainCreator;
 import dao.util.QueryBuilder;
@@ -73,7 +74,7 @@ public class CarDAOImpl extends CarDAO{
     private static final String UPDATE_CAR_IMAGE_BY_CAR_ID = "UPDATE `car` SET `image` = ? WHERE `car_id` = ?";
 
     @Override
-    public List<Car> getAll() {
+    public List<Car> getAll() throws DAOException{
         List<Car> carList = new LinkedList<>();
         Car car = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CARS)){
@@ -84,18 +85,18 @@ public class CarDAOImpl extends CarDAO{
                 carList.add(car);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving list of cars", e);
         }
         return carList;
     }
 
     @Override
-    public int getCarsCount(){
+    public int getCarsCount() throws DAOException{
         return getElementsCount(SELECT_CARS_COUNT);
     }
 
     @Override
-    public List<Car> findAll(PageDTO pageDTO) {
+    public List<Car> findAll(PageDTO pageDTO) throws DAOException {
         List<Car> carList = new LinkedList<>();
         Car car = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_CARS, pageDTO))){
@@ -106,13 +107,13 @@ public class CarDAOImpl extends CarDAO{
                 carList.add(car);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving list of cars", e);
         }
         return carList;
     }
 
     @Override
-    public int getFreeCarsCount(Timestamp dateReceived, Timestamp returnDate){
+    public int getFreeCarsCount(Timestamp dateReceived, Timestamp returnDate) throws DAOException{
         int count = 0;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_FREE_CARS_COUNT)){
             preparedStatement.setTimestamp(1, dateReceived);
@@ -124,13 +125,13 @@ public class CarDAOImpl extends CarDAO{
                 count = resultSet.getInt(DBFieldName.FIELD_COUNT);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving count of free cars", e);
         }
         return count;
     }
 
     @Override
-    public List<Car> getFreeCars(Timestamp dateReceived, Timestamp returnDate, PageDTO pageDTO){
+    public List<Car> getFreeCars(Timestamp dateReceived, Timestamp returnDate, PageDTO pageDTO) throws DAOException{
         List<Car> carList = new LinkedList<>();
         Car car = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_FREE_CARS, pageDTO))){
@@ -144,13 +145,13 @@ public class CarDAOImpl extends CarDAO{
                 carList.add(car);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving list of free cars", e);
         }
         return carList;
     }
 
     @Override
-    public Car getCarById(int id){
+    public Car getCarById(int id) throws DAOException{
         Car car = new Car();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CAR_BY_ID)){
             preparedStatement.setInt(1, id);
@@ -160,14 +161,14 @@ public class CarDAOImpl extends CarDAO{
                 car = DomainCreator.createCar(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving car by id", e);
         }
 
         return car;
     }
 
     @Override
-    public void updateImageByCarId(int id, String fileName){
+    public void updateImageByCarId(int id, String fileName) throws DAOException{
         updateImageNameById(UPDATE_CAR_IMAGE_BY_CAR_ID, fileName, id);
     }
 }

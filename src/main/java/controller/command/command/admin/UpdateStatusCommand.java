@@ -7,6 +7,7 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import resource.ConfigurationManager;
 import service.OrderService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 public class UpdateStatusCommand implements ActionCommand {
@@ -18,14 +19,18 @@ public class UpdateStatusCommand implements ActionCommand {
 
         String newStatus = sessionRequestContent.getRequestParameter(Constant.SELECT_STATUS);
 
-        updateStatus(sessionRequestContent, newStatus);
+        try {
+            updateStatus(sessionRequestContent, newStatus);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         page = ConfigurationManager.getProperty("path.page.admin.get_orders");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         return actionPageContainer;
     }
 
-    private void updateStatus(SessionRequestContent sessionRequestContent, String newStatus){
+    private void updateStatus(SessionRequestContent sessionRequestContent, String newStatus) throws ServiceException {
         int orderId = Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.ORDER_ID));
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
         switch (newStatus){

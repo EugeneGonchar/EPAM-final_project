@@ -5,16 +5,13 @@ import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
-import service.exception.WrongPasswordException;
+import service.exception.*;
 import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.factory.ServiceFactory;
 import service.UserService;
-import service.exception.ExistEmptyFieldException;
-import service.exception.PasswordShorter6SymbolsException;
-import service.exception.PasswordsUnequalException;
 
 public class ChangePasswordCommand implements ActionCommand {
 
@@ -51,6 +48,8 @@ public class ChangePasswordCommand implements ActionCommand {
         } catch (WrongPasswordException e){
             sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR,
                     MessageManager.getProperty("message.passworderror"));
+        } catch (ServiceException e){
+            e.printStackTrace();
         }
 
         if(page == null){

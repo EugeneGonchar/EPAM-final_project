@@ -9,6 +9,7 @@ import domain.entity.Order;
 import domain.entity.User;
 import resource.ConfigurationManager;
 import service.OrderService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 public class AddOrderCommand implements ActionCommand {
@@ -25,11 +26,15 @@ public class AddOrderCommand implements ActionCommand {
 
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
 
-        if(user != null){
-            order.setUserId(user.getId());
-            orderService.insertOrder(order);
-        } else{
-            registeredUser = orderService.insertOrder(order, guestUser);
+        try{
+            if(user != null){
+                order.setUserId(user.getId());
+                orderService.insertOrder(order);
+            } else{
+                registeredUser = orderService.insertOrder(order, guestUser);
+            }
+        } catch (ServiceException e){
+            e.printStackTrace();
         }
 
         sessionRequestContent.removeSessionAttribute(Constant.ORDER);

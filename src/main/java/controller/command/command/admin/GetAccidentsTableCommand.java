@@ -9,6 +9,7 @@ import domain.dto.PageDTO;
 import domain.entity.Accident;
 import resource.ConfigurationManager;
 import service.AccidentService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 import javax.servlet.ServletException;
@@ -28,7 +29,11 @@ public class GetAccidentsTableCommand implements ActionCommand {
 
         AccidentService accidentService = ServiceFactory.getInstance().getAccidentService();
 
-        accidentList = accidentService.getAccidentList(pageDTO);
+        try {
+            accidentList = accidentService.getAccidentList(pageDTO);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         sessionRequestContent.add2RequestAttributes(Constant.ACCIDENT_LIST, accidentList);
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);

@@ -36,6 +36,8 @@ public class DriverDetailsCommand implements ActionCommand {
         } catch (EmailExistException e){
             sessionRequestContent.add2RequestAttributes(Constant.DRIVER_DETAILS_ERROR,
                     MessageManager.getProperty("message.emailexist"));
+        } catch (ServiceException e) {
+            e.printStackTrace();
         }
 
         if(page == null){

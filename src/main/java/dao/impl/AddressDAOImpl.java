@@ -1,8 +1,7 @@
 package dao.impl;
 
-import static dao.util.DBFieldName.*;
-
 import dao.AddressDAO;
+import dao.exception.dao.DAOException;
 import dao.util.DomainCreator;
 import domain.entity.Address;
 
@@ -19,7 +18,7 @@ public class AddressDAOImpl extends AddressDAO {
     private static final String SELECT_ADDRESS_BY_STREET_BUILDING = "SELECT `address_id`, `street`, `building` FROM `address` WHERE street=? AND `building`=?";
 
     @Override
-    public List<Address> getAll(){
+    public List<Address> getAll() throws DAOException{
         List<Address> addressList = new LinkedList<>();
         Address address = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ADDRESSES)){
@@ -30,14 +29,14 @@ public class AddressDAOImpl extends AddressDAO {
                 addressList.add(address);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving address list", e);
         }
 
         return addressList;
     }
 
     @Override
-    public Address getAddressByStreetBuilding(String street, String building){
+    public Address getAddressByStreetBuilding(String street, String building) throws DAOException{
         Address address = null;
         try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ADDRESS_BY_STREET_BUILDING)){
             preparedStatement.setString(1, street);
@@ -49,7 +48,7 @@ public class AddressDAOImpl extends AddressDAO {
                 address = DomainCreator.createAddress(resultSet);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving address by street and building", e);
         }
         return address;
     }

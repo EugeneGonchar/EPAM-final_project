@@ -2,45 +2,36 @@ package service;
 
 import domain.dto.PageDTO;
 import domain.dto.UserRoleDTO;
-import service.exception.EmailExistException;
-import service.exception.LoginExistException;
-import service.exception.WrongPasswordException;
+import service.exception.*;
 import domain.dto.UserDTO;
 import domain.entity.User;
-import service.exception.ExistEmptyFieldException;
-import service.exception.PasswordShorter6SymbolsException;
-import service.exception.PasswordsUnequalException;
 
 import java.util.List;
 
 public interface UserService {
 
-    User logIn(UserDTO userDTO) throws ExistEmptyFieldException;
+    User logIn(UserDTO userDTO) throws ServiceException;
 
-    void signUp(UserDTO userDTO) throws ExistEmptyFieldException,
-            PasswordShorter6SymbolsException,
-            PasswordsUnequalException,
+    void signUp(UserDTO userDTO) throws
             EmailExistException,
-            LoginExistException;
+            LoginExistException, ServiceException;
 
-    void changeNameSurname(UserDTO userDTO) throws ExistEmptyFieldException;
+    void changeNameSurname(UserDTO userDTO) throws ServiceException;
 
-    void changeLogin(UserDTO userDTO) throws ExistEmptyFieldException,
-            LoginExistException;
+    void changeLogin(UserDTO userDTO) throws
+            LoginExistException, ServiceException;
 
-    void changePhone(UserDTO userDTO) throws ExistEmptyFieldException;
+    void changePhone(UserDTO userDTO) throws ServiceException;
 
-    void changeEmail(UserDTO userDTO) throws ExistEmptyFieldException, EmailExistException;
+    void changeEmail(UserDTO userDTO) throws EmailExistException, ServiceException;
 
-    void changePassword(UserDTO userDTO) throws ExistEmptyFieldException,
-            PasswordShorter6SymbolsException,
-            PasswordsUnequalException,
-            WrongPasswordException;
+    void changePassword(UserDTO userDTO) throws
+            WrongPasswordException, ServiceException;
 
-    void checkDriverDetails(User user) throws ExistEmptyFieldException, EmailExistException;
+    void checkDriverDetails(User user) throws EmailExistException, ServiceException;
 
-    List<UserRoleDTO> getUserRoleList(PageDTO pageDTO);
+    List<UserRoleDTO> getUserRoleList(PageDTO pageDTO) throws ServiceException;
 
-    void updateUserImg(User user, String fileName);
+    void updateUserImg(User user, String fileName) throws ServiceException;
 
 }

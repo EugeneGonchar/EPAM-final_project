@@ -14,7 +14,7 @@ public class Constant {
     public static final String ORDER_ID = "orderId";
     public static final String DISMISSED_DESCRIPTION = "dismissedDescription";
     public static final String ORDER = "order";
-    public static final String USER = "user";
+    public static final String USER = "dao";
     public static final String GUEST_USER = "guestUser";
     public static final String PICKUP_ADDRESS_OF_ORDER = "pickupAddressOfOrder";
     public static final String DROPOFF_ADDRESS_OF_ORDER = "dropoffAddressOfOrder";

@@ -7,6 +7,7 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.entity.User;
 import resource.ConfigurationManager;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
 
@@ -20,7 +21,7 @@ import java.nio.file.StandardCopyOption;
 
 public class UploadUserImageCommand implements ActionCommand {
 
-    private static final String USER_IMG_DIRECTORY = "img\\uploads\\user";
+    private static final String USER_IMG_DIRECTORY = "img\\uploads\\dao";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) throws ServletException, IOException {
@@ -37,7 +38,11 @@ public class UploadUserImageCommand implements ActionCommand {
 
         String filename = writeFile(filePart, savePath);
 
-        userService.updateUserImg(user, filename);
+        try {
+            userService.updateUserImg(user, filename);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         user.setProfileImage(filename);
 

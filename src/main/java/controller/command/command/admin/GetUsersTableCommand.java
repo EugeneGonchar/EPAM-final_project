@@ -8,6 +8,7 @@ import controller.util.URLAction;
 import domain.dto.PageDTO;
 import domain.dto.UserRoleDTO;
 import resource.ConfigurationManager;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
 
@@ -26,7 +27,11 @@ public class GetUsersTableCommand implements ActionCommand {
 
         UserService userService = ServiceFactory.getInstance().getUserService();
 
-        userRoleDTOList = userService.getUserRoleList(pageDTO);
+        try {
+            userRoleDTOList = userService.getUserRoleList(pageDTO);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         sessionRequestContent.add2RequestAttributes(Constant.USER_ROLE_DTO_LIST, userRoleDTOList);
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);

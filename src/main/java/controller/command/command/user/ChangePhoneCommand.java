@@ -9,6 +9,7 @@ import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
@@ -37,6 +38,8 @@ public class ChangePhoneCommand implements ActionCommand {
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PHONE_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
+        } catch (ServiceException e){
+            e.printStackTrace();
         }
 
         if(page == null){

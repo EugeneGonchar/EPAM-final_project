@@ -2,19 +2,15 @@ package service.impl;
 
 import dao.Transaction;
 import dao.UserDAO;
+import dao.exception.dao.DAOException;
 import dao.factory.DAOFactory;
 import domain.dto.PageDTO;
 import domain.dto.UserRoleDTO;
-import service.exception.EmailExistException;
-import service.exception.LoginExistException;
-import service.exception.WrongPasswordException;
+import service.exception.*;
 import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.MessageManager;
 import service.UserService;
-import service.exception.ExistEmptyFieldException;
-import service.exception.PasswordShorter6SymbolsException;
-import service.exception.PasswordsUnequalException;
 import service.util.Hash;
 import service.validation.Validator;
 
@@ -26,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private final static int INVALID_ID = 0;
 
     @Override
-    public User logIn(UserDTO userDTO) throws ExistEmptyFieldException{
+    public User logIn(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException{
         if(Validator.isFieldsEmpty(userDTO.getLogin(), userDTO.getPassword())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
@@ -38,14 +34,18 @@ public class UserServiceImpl implements UserService {
 
         transaction.beginTransaction(userDAO);
 
-        user = userDAO.getUserByLogin(userDTO.getLogin());
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            user = userDAO.getUserByLogin(userDTO.getLogin());
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during retrieving user by login", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
 
         if(user != null){
             String passwordHash = Hash.getCryptoSha256(userDTO.getPassword());
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public void signUp(UserDTO userDTO) throws ExistEmptyFieldException,
+    public void signUp(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException,
             PasswordShorter6SymbolsException,
             PasswordsUnequalException,
             EmailExistException,
@@ -85,26 +85,30 @@ public class UserServiceImpl implements UserService {
 
         transaction.beginTransaction(userDAO);
 
-        if(userDAO.getUserIdByLogin(userDTO.getLogin()) != INVALID_ID){
-            throw new LoginExistException();
-        }
-        if(userDAO.getUserIdByEmail(userDTO.getEmail()) != INVALID_ID){
-            throw new EmailExistException();
-        }
-
-        userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword()));
-        userDAO.insertUser(userDTO);
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            if(userDAO.getUserIdByLogin(userDTO.getLogin()) != INVALID_ID){
+                throw new LoginExistException();
+            }
+            if(userDAO.getUserIdByEmail(userDTO.getEmail()) != INVALID_ID){
+                throw new EmailExistException();
+            }
+
+            userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword()));
+            userDAO.insertUser(userDTO);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during retrieving user", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public void changeNameSurname(UserDTO userDTO) throws ExistEmptyFieldException{
+    public void changeNameSurname(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException{
         if(Validator.isFieldsEmpty(userDTO.getFirstName(), userDTO.getLastName())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
@@ -114,18 +118,24 @@ public class UserServiceImpl implements UserService {
 
         transaction.beginTransaction(userDAO);
 
-        userDAO.updateNameSurname(userDTO);
+
 
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            userDAO.updateNameSurname(userDTO);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during updating user", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public void changeLogin(UserDTO userDTO) throws ExistEmptyFieldException, LoginExistException{
+    public void changeLogin(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException, LoginExistException{
         if(Validator.isFieldsEmpty(userDTO.getLogin())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
@@ -135,21 +145,25 @@ public class UserServiceImpl implements UserService {
 
         transaction.beginTransaction(userDAO);
 
-        if(userDAO.getUserIdByLogin(userDTO.getLogin()) != INVALID_ID){
-            throw new LoginExistException();
-        }
-        userDAO.updateLogin(userDTO);
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            if(userDAO.getUserIdByLogin(userDTO.getLogin()) != INVALID_ID){
+                throw new LoginExistException();
+            }
+            userDAO.updateLogin(userDTO);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during updating user's login", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public void changePhone(UserDTO userDTO) throws ExistEmptyFieldException{
+    public void changePhone(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException{
         if(Validator.isFieldsEmpty(userDTO.getPhone())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
@@ -159,18 +173,22 @@ public class UserServiceImpl implements UserService {
 
         transaction.beginTransaction(userDAO);
 
-        userDAO.updatePhone(userDTO);
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            userDAO.updatePhone(userDTO);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during updating user's phone", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public void changeEmail(UserDTO userDTO) throws ExistEmptyFieldException, EmailExistException{
+    public void changeEmail(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException, EmailExistException{
         if(Validator.isFieldsEmpty(userDTO.getEmail())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
@@ -180,21 +198,25 @@ public class UserServiceImpl implements UserService {
 
         transaction.beginTransaction(userDAO);
 
-        if(userDAO.getUserIdByEmail(userDTO.getEmail()) != INVALID_ID){
-            throw new EmailExistException();
-        }
-        userDAO.updateEmail(userDTO);
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            if(userDAO.getUserIdByEmail(userDTO.getEmail()) != INVALID_ID){
+                throw new EmailExistException();
+            }
+            userDAO.updateEmail(userDTO);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during updating user's email", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public void changePassword(UserDTO userDTO) throws ExistEmptyFieldException,
+    public void changePassword(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException,
             PasswordShorter6SymbolsException,
             PasswordsUnequalException,
             WrongPasswordException {
@@ -212,25 +234,30 @@ public class UserServiceImpl implements UserService {
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
-        String dbHashedPassword = userDAO.getUserByLogin(userDTO.getLogin()).getPassword();
-        String hashedPassword = Hash.getCryptoSha256(userDTO.getPassword());
-
-        if(!Hash.isHashesEqual(dbHashedPassword, hashedPassword)){
-            throw new WrongPasswordException(MessageManager.getProperty("message.passworderror"));
-        }
-        userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword2()));
-        userDAO.updatePassword(userDTO);
 
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            String dbHashedPassword = userDAO.getUserByLogin(userDTO.getLogin()).getPassword();
+            String hashedPassword = Hash.getCryptoSha256(userDTO.getPassword());
+
+            if(!Hash.isHashesEqual(dbHashedPassword, hashedPassword)){
+                throw new WrongPasswordException(MessageManager.getProperty("message.passworderror"));
+            }
+            userDTO.setPassword(Hash.getCryptoSha256(userDTO.getPassword2()));
+            userDAO.updatePassword(userDTO);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during updating user's password", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public void checkDriverDetails(User user) throws ExistEmptyFieldException, EmailExistException{
+    public void checkDriverDetails(User user) throws ServiceException, ExistEmptyFieldException, EmailExistException{
         if(Validator.isFieldsEmpty(user.getEmail(),
                 user.getPhone(),
                 user.getFirstName(),
@@ -243,54 +270,66 @@ public class UserServiceImpl implements UserService {
 
         transaction.beginTransaction(userDAO);
 
-        if(userDAO.getUserIdByEmail(user.getEmail()) != INVALID_ID){
-            throw new EmailExistException();
-        }
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            if(userDAO.getUserIdByEmail(user.getEmail()) != INVALID_ID){
+                throw new EmailExistException();
+            }
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during retrieving user's id by email", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public void updateUserImg(User user, String fileName){
+    public void updateUserImg(User user, String fileName) throws ServiceException{
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
 
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
 
-        userDAO.updateImageByUserId(user.getId(), fileName);
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            userDAO.updateImageByUserId(user.getId(), fileName);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during updating user's image", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
     }
 
     @Override
-    public List<UserRoleDTO> getUserRoleList(PageDTO pageDTO){
+    public List<UserRoleDTO> getUserRoleList(PageDTO pageDTO) throws ServiceException{
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         List<UserRoleDTO> userRoleDTOList = null;
         Transaction transaction = new Transaction();
 
         transaction.beginTransaction(userDAO);
 
-        pageDTO.setElementsCount(userDAO.getUsersWithRolesCount());
-        pageDTO.calculatePagesCount();
-        userRoleDTOList = userDAO.getUsersWithRoles(pageDTO);
-
         try {
-            transaction.commit();
-        } catch (SQLException e) {
-            transaction.rollback();
+            pageDTO.setElementsCount(userDAO.getUsersWithRolesCount());
+            pageDTO.calculatePagesCount();
+            userRoleDTOList = userDAO.getUsersWithRoles(pageDTO);
+            try {
+                transaction.commit();
+            } catch (SQLException e) {
+                transaction.rollback();
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Exception throws on service layer during retrieving list of user with their roles", e);
+        } finally {
+            transaction.endTransaction();
         }
-        transaction.endTransaction();
 
         return userRoleDTOList;
     }

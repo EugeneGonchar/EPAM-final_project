@@ -5,20 +5,21 @@ import domain.dto.FullUserOrderDTO;
 import domain.dto.PageDTO;
 import domain.entity.Order;
 import domain.entity.User;
+import service.exception.ServiceException;
 
 import java.util.List;
 
 public interface OrderService {
 
-    List<FullOrderDTO> getFullUserOrders(User user, PageDTO pageDTO);
+    List<FullOrderDTO> getFullUserOrders(User user, PageDTO pageDTO) throws ServiceException;
 
-    void insertOrder(Order order);
+    void insertOrder(Order order) throws ServiceException;
 
-    User insertOrder(Order order, User user);
+    User insertOrder(Order order, User user) throws ServiceException;
 
-    List<FullUserOrderDTO> getOrdersList(PageDTO pageDTO);
+    List<FullUserOrderDTO> getOrdersList(PageDTO pageDTO) throws ServiceException;
 
-    void updateOrderStatus(int orderId, String status);
+    void updateOrderStatus(int orderId, String status) throws ServiceException;
 
-    void updateOrderStatus(int orderId, String status, String description);
+    void updateOrderStatus(int orderId, String status, String description) throws ServiceException;
 }

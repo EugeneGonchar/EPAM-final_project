@@ -14,6 +14,7 @@ import domain.entity.Order;
 import resource.ConfigurationManager;
 import service.AddressService;
 import service.CarService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 import java.util.List;
@@ -37,8 +38,13 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
         stringPickupAddress = sessionRequestContent.getRequestParameter(Constant.PICKUP_ADDRESS);
         stringDropoffAddress = sessionRequestContent.getRequestParameter(Constant.DROPOFF_ADDRESS);
 
-        pickupAddress = addressService.formingAddressFromString(stringPickupAddress);
-        dropoffAddress = addressService.formingAddressFromString(stringDropoffAddress);
+        try {
+            pickupAddress = addressService.formingAddressFromString(stringPickupAddress);
+            dropoffAddress = addressService.formingAddressFromString(stringDropoffAddress);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
         order = createOrder(sessionRequestContent);
 
         order.setPickupAddressId(pickupAddress.getId());
@@ -56,7 +62,11 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
             pageDTO.setElementsOnPage(Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.ELEMENTS_ON_PAGE)));
             pageDTO.setCurrentPage(Integer.parseInt(sessionRequestContent.getRequestParameter(Constant.PAGE)));
         }
-        carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
+        try {
+            carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         sessionRequestContent.add2SessionAttributes(Constant.CAR_LIST, carList);
         sessionRequestContent.add2SessionAttributes(Constant.RENT_DAYS, rentDays);

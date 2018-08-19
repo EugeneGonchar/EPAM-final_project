@@ -8,6 +8,7 @@ import controller.util.URLAction;
 import domain.entity.Address;
 import resource.ConfigurationManager;
 import service.AddressService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 import java.util.List;
@@ -22,7 +23,11 @@ public class GetLocationsCommand implements ActionCommand {
 
         AddressService addressService = ServiceFactory.getInstance().getAddressService();
 
-        addressList = addressService.getAddressList();
+        try {
+            addressList = addressService.getAddressList();
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         sessionRequestContent.add2RequestAttributes(Constant.ADDRESS_LIST, addressList);
         page = ConfigurationManager.getProperty("path.page.rent");

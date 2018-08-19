@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.AccidentDAO;
-import dao.util.DBFieldName;
+import dao.exception.dao.DAOException;
 import dao.util.DomainCreator;
 import dao.util.QueryBuilder;
 import domain.dto.PageDTO;
@@ -31,7 +31,7 @@ public class AccidentDAOImpl extends AccidentDAO {
     }
 
     @Override
-    public List<Accident> getAll(PageDTO pageDTO) {
+    public List<Accident> getAll(PageDTO pageDTO) throws DAOException{
         List<Accident> accidentList = new LinkedList<>();
         Accident accident = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(QueryBuilder.setQueryLimit(SELECT_ACCIDENTS, pageDTO))){
@@ -42,7 +42,7 @@ public class AccidentDAOImpl extends AccidentDAO {
                 accidentList.add(accident);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving pageDto list", e);
         }
         return accidentList;
     }

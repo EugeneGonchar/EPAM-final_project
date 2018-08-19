@@ -3,6 +3,7 @@ package dao.impl;
 import static dao.util.DBFieldName.*;
 
 import dao.RoleDAO;
+import dao.exception.dao.DAOException;
 import dao.util.DomainCreator;
 import domain.entity.Role;
 
@@ -22,7 +23,7 @@ public class RoleDAOImpl extends RoleDAO {
     }
 
     @Override
-    public Role getRoleById(int id){
+    public Role getRoleById(int id) throws DAOException {
         Role role = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROLE_BY_ID)){
             preparedStatement.setInt(1, id);
@@ -33,7 +34,7 @@ public class RoleDAOImpl extends RoleDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Exception throws during retrieving role by id", e);
         }
 
         return role;

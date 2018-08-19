@@ -1,5 +1,6 @@
 package dao;
 
+import dao.exception.dao.DAOException;
 import dao.util.DBFieldName;
 import domain.entity.Entity;
 
@@ -13,7 +14,7 @@ public abstract class AbstractDAO <T extends Entity> {
 
     protected Connection connection;
 
-    public abstract List<T> getAll();
+    public abstract List<T> getAll() throws DAOException;
 
     /*public abstract int getCount();*/
 

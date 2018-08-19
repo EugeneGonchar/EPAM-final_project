@@ -9,6 +9,7 @@ import domain.dto.PageDTO;
 import domain.entity.Car;
 import resource.ConfigurationManager;
 import service.CarService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 import java.util.List;
@@ -26,7 +27,11 @@ public class GetCarsTableCommand implements ActionCommand {
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 
-        carList = carService.getCarList(pageDTO);
+        try {
+            carList = carService.getCarList(pageDTO);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);

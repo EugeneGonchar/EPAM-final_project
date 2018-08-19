@@ -10,7 +10,7 @@ import java.util.Properties;
 public class ConnectionSetter {
     private static DBResourceManager dbResourceManager = DBResourceManager.getInstance();
 
-    private static final String USER = "user";
+    private static final String USER = "dao";
     private static final String PASSWORD = "password";
     private static final String AUTO_RECONNECT = "autoReconnect";
     private static final String CHARACTER_ENCODING = "characterEncoding";

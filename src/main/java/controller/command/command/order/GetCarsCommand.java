@@ -11,6 +11,7 @@ import domain.entity.Car;
 import domain.entity.Order;
 import resource.ConfigurationManager;
 import service.CarService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 import java.util.List;
@@ -29,7 +30,11 @@ public class GetCarsCommand implements ActionCommand {
 
         CarService carService = ServiceFactory.getInstance().getCarService();
 
-        carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
+        try {
+            carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);

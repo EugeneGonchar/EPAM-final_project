@@ -10,6 +10,7 @@ import domain.dto.PageDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
 import service.OrderService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 import java.util.List;
@@ -28,7 +29,11 @@ public class GetOrdersCommand implements ActionCommand {
 
         OrderService orderService = ServiceFactory.getInstance().getOrderService();
 
-        orderList = orderService.getFullUserOrders(user, pageDTO);
+        try {
+            orderList = orderService.getFullUserOrders(user, pageDTO);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
         sessionRequestContent.add2SessionAttributes(Constant.ORDER_LIST, orderList);

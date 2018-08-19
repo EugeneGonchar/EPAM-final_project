@@ -10,6 +10,7 @@ import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
@@ -41,6 +42,8 @@ public class ChangeEmailCommand implements ActionCommand {
         } catch (EmailExistException e){
             sessionRequestContent.add2RequestAttributes(Constant.UPDATE_EMAIL_ERROR,
                     MessageManager.getProperty("message.emailexist"));
+        } catch (ServiceException e){
+            e.printStackTrace();
         }
 
         if(page == null){
