@@ -7,6 +7,7 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import resource.ConfigurationManager;
 import service.CarService;
+import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 import javax.servlet.ServletException;
@@ -36,7 +37,11 @@ public class UploadCarImageCommand implements ActionCommand {
 
         String filename = writeFile(filePart, savePath);
 
-        carService.updateCarImg(carId, filename);
+        try {
+            carService.updateCarImg(carId, filename);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
         page = ConfigurationManager.getProperty("path.page.admin.get_cars");
         actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserService {
 
-    User logIn(UserDTO userDTO) throws ServiceException;
+    User logIn(UserDTO userDTO) throws ServiceException, ExistFieldLonger50Symbols;
 
     void signUp(UserDTO userDTO) throws
             EmailExistException,

@@ -19,22 +19,22 @@ public class UserDAOImpl extends UserDAO {
 
     private static final String INSERT_USER = "INSERT INTO `user`(`login`, `password`, `email`, `phone`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?, ?)";
 
-    private static final String SELECT_USERS_COUNT = "SELECT COUNT(*) AS `count` FROM `dao`";
+    private static final String SELECT_USERS_COUNT = "SELECT COUNT(*) AS `count` FROM `user`";
     private static final String SELECT_USER_BY_LOGIN = "SELECT `user_id`, `login`, `password`, `email`, `phone`, `first_name`, `last_name`, `role_id`, `profile_image` FROM `user` WHERE `login`=?";
-    private static final String SELECT_USER_ID_BY_LOGIN = "SELECT `user_id` FROM `dao` WHERE `login`=?";
-    private static final String SELECT_USER_ID_BY_EMAIL = "SELECT `user_id` FROM `dao` WHERE `email`=?";
-    private static final String SELECT_USERS_WITH_ROLES = "SELECT `dao`.`user_id`, `dao`.`first_name`, `dao`.`last_name`, `dao`.`phone`, `dao`.`login`, `dao`.`email`, `dao`.`role_id`, `role`.`name` AS `role`\n" +
-            "FROM `dao`\n" +
+    private static final String SELECT_USER_ID_BY_LOGIN = "SELECT `user_id` FROM `user` WHERE `login`=?";
+    private static final String SELECT_USER_ID_BY_EMAIL = "SELECT `user_id` FROM `user` WHERE `email`=?";
+    private static final String SELECT_USERS_WITH_ROLES = "SELECT `user`.`user_id`, `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`login`, `user`.`email`, `user`.`role_id`, `role`.`name` AS `role`\n" +
+            "FROM `user`\n" +
             "JOIN `role`\n" +
-            "ON `role`.`role_id` = `dao`.`role_id`\n" +
-            "ORDER BY `dao`.`first_name`, `dao`.`last_name`";
+            "ON `role`.`role_id` = `user`.`role_id`\n" +
+            "ORDER BY `user`.`first_name`, `user`.`last_name`";
 
     private static final String UPDATE_USER_FIRST_NAME_LAST_NAME_BY_LOGIN = "UPDATE `user` SET `first_name`=?, `last_name`=? WHERE `login`=?";
     private static final String UPDATE_USER_LOGIN_BY_EMAIL = "UPDATE `user` SET `login`=? WHERE `email`=?";
     private static final String UPDATE_USER_PHONE_BY_LOGIN = "UPDATE `user` SET `phone`=? WHERE `login`=?";
     private static final String UPDATE_USER_EMAIL_BY_LOGIN = "UPDATE `user` SET `email`=? WHERE `login`=?";
     private static final String UPDATE_USER_PASSWORD_BY_LOGIN = "UPDATE `user` SET `password`=? WHERE `login`=?";
-    private static final String UPDATE_USER_IMAGE_BY_USER_ID = "UPDATE `dao` SET `profile_image`=? WHERE `user_id` = ?";
+    private static final String UPDATE_USER_IMAGE_BY_USER_ID = "UPDATE `user` SET `profile_image`=? WHERE `user_id` = ?";
 
     @Override
     public void insertUser(UserDTO userDTO) throws DAOException{

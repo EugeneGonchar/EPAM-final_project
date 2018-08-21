@@ -11,6 +11,7 @@ import domain.entity.User;
 import resource.ConfigurationManager;
 import resource.MessageManager;
 import service.RoleService;
+import service.exception.ExistFieldLonger50Symbols;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
@@ -68,6 +69,9 @@ public class LoginCommand implements ActionCommand {
         } catch (ExistEmptyFieldException e){
             sessionRequestContent.add2RequestAttributes(Constant.LOGIN_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
+        } catch (ExistFieldLonger50Symbols e){
+          sessionRequestContent.add2RequestAttributes(Constant.LOGIN_ERROR,
+                  MessageManager.getProperty("message.longfield"));
         } catch (ServiceException e){
             e.printStackTrace();
         }

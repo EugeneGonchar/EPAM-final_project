@@ -1,17 +1,31 @@
-/*@import url('https://fonts.googleapis.com/css?family=Kaushan+Script|Libre+Baskerville');
-html{
-    font-family: 'Libre Baskerville', serif;
-}*/
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+}
+
+input/*, textarea, button */{outline: none; }
+
+.form-control:focus{
+    border-color: #cccccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 
 *{
     font-family: Roboto, serif;
 }
-@font-face {
-
-}
-/*.order_icon{
-    color:green;
-}*/
 
 body{
     min-width: 1920px;
@@ -28,12 +42,54 @@ body{
     background-color: white;
 }
 
+input:not([type="submit"]):valid{
+    border-color: #2ecc71;
+}
+
+input:not([type="submit"]) ~ .input-requirements{
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 1s ease-out;
+}
+
+input:not([type="submit"]):hover ~ .input-requirements,
+input:not([type="submit"]):focus ~ .input-requirements,
+input:not([type="submit"]):active ~ .input-requirements{
+    max-height: 1000px;
+    transition: max-height 1s ease-in;
+}
+
+.input-requirements small.invalid {
+    color: #e74c3c;
+}
+.input-requirements small.valid {
+    color: #2ecc71;
+}
+
+.input-requirements small.valid:after {
+    display: inline-block;
+    padding-left: 10px;
+    content: "\2713";
+}
+
+.input-requirements small:before {
+    display: inline-block;
+    padding-right: 10px;
+    content: "\2022";
+}
+
+.input-requirements small.invalid:after {
+    display: inline-block;
+    padding-left: 10px;
+    content: "\2717";
+}
+
 .padding-top {
-    padding-top: 300px;
+    padding-top: 250px;
 }
 
 .padding-top-registration{
-    padding-top: 150px;
+    padding-top: 100px;
 }
 
 .padding-right{

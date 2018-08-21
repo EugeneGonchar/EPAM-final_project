@@ -48,10 +48,10 @@ public class OrderDAOImpl extends OrderDAO {
             "ON `order_status`.`status_id` = `user_orders`.`status_id`\n" +
             "ORDER BY `date_received`, `return_date`";
 
-    private static final String SELECT_FULL_ORDERS_WITH_USERS = "SELECT `order`.`order_id`, `order`.`user_id`, `order`.`car_id`, `order`.`date_received`, `order`.`return_date`, `order`.`pickup_address_id`, `order`.`dropoff_address_id`, `order`.`total_cost`, `car`.`seats`, `car`.`image`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `order`.`status_id`, `dao`.`user_id`, `dao`.`first_name`, `dao`.`last_name`, `dao`.`phone`, `dao`.`login`, `dao`.`email`, `dao`.`role_id`\n" +
+    private static final String SELECT_FULL_ORDERS_WITH_USERS = "SELECT `order`.`order_id`, `order`.`user_id`, `order`.`car_id`, `order`.`date_received`, `order`.`return_date`, `order`.`pickup_address_id`, `order`.`dropoff_address_id`, `order`.`total_cost`, `car`.`seats`, `car`.`image`, `car`.`doors`, `car`.`air_conditioning`, `car`.`automatic_gearbox`, `car`.`rental_value_for_day`, `car`.`color`, `car`.`fuel_consumption`, `engine`.`type` AS `engine_type`, `model`.`name` AS `model`, `model`.`year_of_issue`, `brand`.`name` AS `brand`, `car_class`.`name` AS `car_class`, `pickup_address`.`street` AS `pickup_address_street`, `pickup_address`.`building` AS `pickup_address_building`, `dropoff_address`.`street` AS `dropoff_address_street`, `dropoff_address`.`building` AS `dropoff_address_building`, `order_status`.`status`, `order`.`status_id`, `user`.`user_id`, `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`login`, `user`.`email`, `user`.`role_id`\n" +
             "FROM `order`\n" +
-            "JOIN `dao`\n" +
-            "ON `order`.`user_id` = `dao`.`user_id`" +
+            "JOIN `user`\n" +
+            "ON `order`.`user_id` = `user`.`user_id`" +
             "JOIN `car`\n" +
             "ON `order`.`car_id` = `car`.`car_id`\n" +
             "JOIN `model`\n" +

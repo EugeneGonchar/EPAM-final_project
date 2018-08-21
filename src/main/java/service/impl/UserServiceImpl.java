@@ -22,9 +22,14 @@ public class UserServiceImpl implements UserService {
     private final static int INVALID_ID = 0;
 
     @Override
-    public User logIn(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException{
+    public User logIn(UserDTO userDTO) throws ServiceException,
+            ExistEmptyFieldException,
+            ExistFieldLonger50Symbols{
         if(Validator.isFieldsEmpty(userDTO.getLogin(), userDTO.getPassword())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
+        }
+        if(Validator.isFieldsLonger50Symbols(userDTO.getLogin(), userDTO.getPassword())){
+            throw new ExistFieldLonger50Symbols(MessageManager.getProperty("message.longfield"));
         }
 
         User user = null;

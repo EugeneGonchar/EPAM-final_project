@@ -112,3 +112,23 @@ $(function () {
        }
    }) 
 });
+
+
+
+/*var getMessages = function () {
+    $(".input-requirements").css({"max-height": "1000px",
+        "transition": "max-height 1s ease-in"})
+};
+
+var hideMessages = function (){
+    $(".input-requirements").css({"overflow": "hidden",
+    "max-height": "0",
+    "transition": "max-height 1.5s ease-out"})
+};
+
+$(document).ready(function () {
+    $("input:not([type=submit])").hover(getMessages, hideMessages);
+    $("input:not([type=submit])").focus(getMessages)
+        .blur(hideMessages);
+    alert(event.type)
+});*/

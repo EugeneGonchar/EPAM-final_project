@@ -8,6 +8,8 @@
 <fmt:message bundle="${loc}" key="local.login.signin_message" var="signin_message" />
 <fmt:message bundle="${loc}" key="local.login.submit_button" var="submit_button" />
 <fmt:message bundle="${loc}" key="local.login.forgot_password_message" var="forgot_password_message" />
+<fmt:message bundle="${loc}" key="local.login.not_empty_req" var="not_empty_req" />
+<fmt:message bundle="${loc}" key="local.login.login_placeholder" var="login_placeholder" />
 
 <!doctype html>
 <html>
@@ -52,7 +54,7 @@
             <form id="loginForm" method="POST" action="${pageContext.request.contextPath}/controller">
                 <input type="hidden" name="command" value="login"/>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-login" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-user">
@@ -60,11 +62,15 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="login" class="form-control" placeholder="Login" type="text">
+                        <input id="loginInput" name="login" minlength="3" maxlength="50" class="form-control" placeholder="${login_placeholder}" type="text" aria-describedby="loginMessage" required>
+                        <div class="w-100"></div>
+                        <div id="loginMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-password" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-lock">
@@ -72,7 +78,11 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="password" class="form-control" placeholder="******" type="password" value="">
+                        <input id="passwordInput" name="password" minlength="6" maxlength="50" class="form-control" placeholder="******" type="password" aria-describedby="passwordMessage">
+                        <div class="w-100"></div>
+                        <div id="passwordMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->
                 <br/>
@@ -88,6 +98,9 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+<script src="../js/script.js"></script>
+<script src="../js/validation/common.js"></script>
+<script src="../js/validation/page/login.js"></script>
 
 </body>
 </html>

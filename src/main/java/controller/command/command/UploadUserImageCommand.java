@@ -21,7 +21,7 @@ import java.nio.file.StandardCopyOption;
 
 public class UploadUserImageCommand implements ActionCommand {
 
-    private static final String USER_IMG_DIRECTORY = "img\\uploads\\dao";
+    private static final String USER_IMG_DIRECTORY = "img\\uploads\\user";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) throws ServletException, IOException {
