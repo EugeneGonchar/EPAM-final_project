@@ -49,7 +49,7 @@ public class Controller extends HttpServlet {
         } else if(actionPageContainer.getUrlAction() == URLAction.FORWARD && page != null){
             getServletContext().getRequestDispatcher(page).forward(request, response);
         } else{
-            page = ConfigurationManager.getProperty("path.page.index");
+            page = ConfigurationManager.getProperty("path.page.error");
             response.sendRedirect(request.getContextPath() + page);
         }
     }

@@ -24,7 +24,7 @@ public class ActionFactory {
             System.out.println("currentEnum = " + CommandEnum.valueOf(action.toUpperCase()));
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
             current = currentEnum.getCurrentCommand();
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException | NullPointerException e){
             System.out.println("no command");
             request.setAttribute("wrongAction", action +
                     MessageManager.getProperty("message.wrongaction"));
