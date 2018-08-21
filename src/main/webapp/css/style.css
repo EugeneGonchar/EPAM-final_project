@@ -49,7 +49,7 @@ input:not([type="submit"]):valid{
 input:not([type="submit"]) ~ .input-requirements{
     overflow: hidden;
     max-height: 0;
-    transition: max-height 1s ease-out;
+    transition: max-height 0.5s ease-out;
 }
 
 input:not([type="submit"]):hover ~ .input-requirements,

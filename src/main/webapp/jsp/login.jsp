@@ -78,7 +78,7 @@
                                 </i>
                             </span>
                         </div>
-                        <input id="passwordInput" name="password" minlength="6" maxlength="50" class="form-control" placeholder="******" type="password" aria-describedby="passwordMessage">
+                        <input id="passwordInput" name="password" minlength="6" maxlength="50" class="form-control" placeholder="******" type="password" aria-describedby="passwordMessage" required>
                         <div class="w-100"></div>
                         <div id="passwordMessage" class="input-requirements text-muted">
                             <small class="form-text">${not_empty_req}</small>

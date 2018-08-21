@@ -113,7 +113,9 @@ $(function () {
    }) 
 });
 
-
+$(function () {
+    $("#phoneInput").mask("+375(99)999-99-99")
+});
 
 /*var getMessages = function () {
     $(".input-requirements").css({"max-height": "1000px",

@@ -15,6 +15,18 @@
 <fmt:message bundle="${loc}" key="local.signup.enter_password_message" var="enter_password_message" />
 <fmt:message bundle="${loc}" key="local.signup.confirm_password_message" var="confirm_password_message" />
 <fmt:message bundle="${loc}" key="local.signup.submit_button" var="submit_button" />
+<fmt:message bundle="${loc}" key="local.signup.not_empty_req" var="not_empty_req" />
+<fmt:message bundle="${loc}" key="local.signup.length_3_50_req" var="length_3_50_req" />
+<fmt:message bundle="${loc}" key="local.signup.length_1_100_req" var="length_1_100_req" />
+<fmt:message bundle="${loc}" key="local.signup.lower_upper_req" var="lower_upper_req" />
+<fmt:message bundle="${loc}" key="local.signup.length_100_req" var="length_100_req" />
+<fmt:message bundle="${loc}" key="local.signup.email_pattern_req" var="email_pattern_req" />
+<fmt:message bundle="${loc}" key="local.signup.length_6_50_req" var="length_6_50_req" />
+<fmt:message bundle="${loc}" key="local.signup.one_number_req" var="one_number_req" />
+<fmt:message bundle="${loc}" key="local.signup.one_lowercase_req" var="one_lowercase_req" />
+<fmt:message bundle="${loc}" key="local.signup.one_uppercase_req" var="one_uppercase_req" />
+<fmt:message bundle="${loc}" key="local.signup.one_special_symbol_req" var="one_special_symbol_req" />
+<fmt:message bundle="${loc}" key="local.signup.passwords_equals_req" var="passwords_equals_req" />
 
 <!doctype html>
 <head>
@@ -60,7 +72,7 @@
                 <input type="hidden" name="command" value="signup"/>
                 <p class="text-left">${login_message}:</p>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-login" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-user">
@@ -68,47 +80,70 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="login" class="form-control" placeholder="login" type="text">
+                        <input id="loginInput" name="login" minlength="3" maxlength="50" class="form-control" placeholder="login" type="text" aria-describedby="loginMessage" required>
+                        <div class="w-100"></div>
+                        <div id="loginMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                            <small class="form-text">${length_3_50_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->
 
                 <p class="text-left">${passport_message}:</p>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-name" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 ${name_message}*
                             </span>
                         </div>
-                        <input name="firstName" class="form-control" placeholder="IVAN" type="text">
+                        <input id="nameInput" name="firstName" minlength="1" maxlength="100" class="form-control" placeholder="IVAN" type="text" aria-describedby="nameMessage" required>
+                        <div class="w-100"></div>
+                        <div id="nameMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                            <small class="form-text">${length_1_100_req}</small>
+                            <small class="form-text">${lower_upper_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->
 
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-surname" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 ${surname_message}*
                             </span>
                         </div>
-                        <input name="lastName" class="form-control" placeholder="IVANOV" type="text">
+                        <input id="surnameInput" name="lastName" minlength="1" maxlength="100" class="form-control" placeholder="IVANOV" type="text" aria-describedby="surnameMessage" required>
+                        <div class="w-100"></div>
+                        <div id="surnameMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                            <small class="form-text">${length_1_100_req}</small>
+                            <small class="form-text">${lower_upper_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->
 
                 <p class="text-left">${contact_info_message}:</p>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-email" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 ${email_message}*
                             </span>
                         </div>
-                        <input name="email" class="form-control" placeholder="email@example.com" type="email">
+                        <input id="emailInput" name="email" maxlength="100" class="form-control" placeholder="email@example.com" type="email" aria-describedby="emailMessage" required>
+                        <div class="w-100"></div>
+                        <div id="emailMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                            <small class="form-text">${length_100_req}</small>
+                            <small class="form-text">${email_pattern_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
 
                 </div> <!-- form-group// -->
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-phone" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-mobile-phone">
@@ -116,13 +151,17 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="phone" class="form-control" placeholder="+375(29)111-11-11" type="tel">
+                        <input id="phoneInput" name="phone" class="form-control" placeholder="+375(29)111-11-11" type="text" aria-describedby="phoneMessage" required>
+                        <div class="w-100"></div>
+                        <div id="phoneMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
 
                 </div> <!-- form-group// -->
                 <p class="text-left">${enter_password_message}*</p>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-password" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-lock">
@@ -130,13 +169,22 @@
                                 </i>
                             </span>
                         </div>
-                        <input name="password" class="form-control" placeholder="******" type="password" value="">
+                        <input id="passwordInput" name="password" minlength="6" maxlength="50" class="form-control" placeholder="******" type="password" aria-describedby="passwordMessage" required>
+                        <div class="w-100"></div>
+                        <div id="passwordMessage" class="input-requirements text-muted">
+                            <small class="form-text">${not_empty_req}</small>
+                            <small class="form-text">${length_6_50_req}</small>
+                            <small class="form-text">${one_number_req}</small>
+                            <small class="form-text">${one_lowercase_req}</small>
+                            <small class="form-text">${one_uppercase_req}</small>
+                            <small class="form-text">${one_special_symbol_req}</small>
+                        </div>
                     </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->
 
                 <p class="text-left">${confirm_password_message}*</p>
                 <div class="form-group">
-                    <div class="input-group">
+                    <div id="input-password2" class="input-group input-validation">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-lock">
@@ -161,6 +209,10 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+<script src="../plugin/maskedinput/jquery.maskedinput.js"></script>
+<script src="../js/script.js"></script>
+<script src="../js/validation/common.js"></script>
+<script src="../js/validation/page/signup.js"></script>
 
 </body>
 </html>
