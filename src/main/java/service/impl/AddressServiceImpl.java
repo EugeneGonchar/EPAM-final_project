@@ -45,12 +45,14 @@ public class  AddressServiceImpl implements AddressService {
         AddressDAO addressDAO = DAOFactory.getInstance().getAddressDAO();
         Transaction transaction = new Transaction();
 
-        String[] stringAddressData = stringAddress.split(SPACE);
+        int index = stringAddress.lastIndexOf(SPACE);
+        String building = stringAddress.substring(index+1);
+        String street = stringAddress.substring(0, index);
 
         transaction.beginTransaction(addressDAO);
 
         try {
-            address = addressDAO.getAddressByStreetBuilding(stringAddressData[0], stringAddressData[1]);
+            address = addressDAO.getAddressByStreetBuilding(street, building);
             try {
                 transaction.commit();
             } catch (SQLException e) {
