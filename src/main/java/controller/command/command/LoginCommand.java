@@ -57,7 +57,7 @@ public class LoginCommand implements ActionCommand {
         try{
             user = userService.logIn(userDTO);
             if(user == null){
-                sessionRequestContent.add2RequestAttributes(Constant.LOGIN_ERROR,
+                sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR,
                         MessageManager.getProperty("message.loginpassworderror"));
             } else {
                 role = roleService.getRoleOfUser(user);
@@ -67,10 +67,10 @@ public class LoginCommand implements ActionCommand {
                 actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
             }
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2RequestAttributes(Constant.LOGIN_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
         } catch (ExistFieldLonger50Symbols e){
-          sessionRequestContent.add2RequestAttributes(Constant.LOGIN_ERROR,
+          sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR,
                   MessageManager.getProperty("message.longfield"));
         } catch (ServiceException e){
             e.printStackTrace();
@@ -78,7 +78,7 @@ public class LoginCommand implements ActionCommand {
 
         if(page == null){
             page = ConfigurationManager.getProperty("path.page.login");
-            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         }
 
         return actionPageContainer;

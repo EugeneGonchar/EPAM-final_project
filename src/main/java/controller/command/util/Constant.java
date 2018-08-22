@@ -60,5 +60,6 @@ public class Constant {
     public static final String UPDATE_PASSWORD_ERROR = "updatePasswordError";
     public static final String UPDATE_PHONE_ERROR = "updatePhoneError";
     public static final String REGISTRATION_ERROR = "registrationError";
+    public static final String DATE_LOC_ERROR = "datelocError";
 
 }

@@ -7,14 +7,19 @@ import dao.exception.dao.DAOException;
 import dao.factory.DAOFactory;
 import domain.dto.FullOrderDTO;
 import domain.dto.FullUserOrderDTO;
+import domain.dto.OrderDatesDTO;
 import domain.dto.PageDTO;
 import domain.entity.Car;
 import domain.entity.Order;
 import domain.entity.User;
+import resource.MessageManager;
 import service.OrderService;
+import service.exception.DateInvalidException;
 import service.exception.ServiceException;
+import service.util.DateHelper;
 import service.util.Hash;
 import service.util.PasswordCreator;
+import service.validation.Validator;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -70,6 +75,15 @@ public class OrderServiceImpl implements OrderService {
             transaction.endTransaction();
         }
         return fullUserOrderDTOList;
+    }
+
+    @Override
+    public void formingOrder(OrderDatesDTO orderDatesDTO) throws DateInvalidException{
+        if(!Validator.isDateValid(orderDatesDTO.getDateReceived()) || !Validator.isDateValid(orderDatesDTO.getReturnDate())){
+            throw new DateInvalidException(MessageManager.getProperty("message.dateinvalid"));
+        }
+
+        orderDatesDTO.setRentDays(DateHelper.getCeilDaysOfDateDifference(orderDatesDTO.getReturnDate(), orderDatesDTO.getDateReceived()));
     }
 
     @Override

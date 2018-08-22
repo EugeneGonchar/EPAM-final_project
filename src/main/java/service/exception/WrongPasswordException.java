@@ -1,8 +1,6 @@
 package service.exception;
 
-import dao.exception.dao.DAOException;
-
-public class WrongPasswordException extends DAOException {
+public class WrongPasswordException extends ServiceException {
     public WrongPasswordException() {
     }
 

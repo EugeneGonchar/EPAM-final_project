@@ -44,9 +44,10 @@
                             </p>
                         </c:when>
                         <c:otherwise>
-                        <p class="text-danger text-center">
-                            ${loginError}
-                        </p>
+                            <p class="text-danger text-center">
+                                ${loginError}
+                            </p>
+                            <c:remove var="loginError" scope="session"/>
                         </c:otherwise>
                     </c:choose>
                 </div>

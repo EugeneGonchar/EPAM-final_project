@@ -1,8 +1,6 @@
 package service.exception;
 
-import dao.exception.dao.DAOException;
-
-public class LoginExistException extends DAOException {
+public class LoginExistException extends ServiceException {
     public LoginExistException() {
     }
 

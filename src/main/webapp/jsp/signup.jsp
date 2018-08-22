@@ -64,6 +64,7 @@
                         <p class="text-danger text-center">
                                 ${registrationError}
                         </p>
+                        <c:remove var="registrationError" scope="session"/>
                     </c:otherwise>
                 </c:choose>
             </div>

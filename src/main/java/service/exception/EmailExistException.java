@@ -1,8 +1,6 @@
 package service.exception;
 
-import dao.exception.dao.DAOException;
-
-public class EmailExistException extends DAOException {
+public class EmailExistException extends ServiceException {
     public EmailExistException() {
     }
 

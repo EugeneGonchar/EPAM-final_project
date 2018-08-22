@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         if(Validator.isFieldsEmpty(userDTO.getLogin(), userDTO.getPassword())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
-        if(Validator.isFieldsLonger50Symbols(userDTO.getLogin(), userDTO.getPassword())){
+        if(Validator.isFieldsLongerNSymbols(50, userDTO.getLogin(), userDTO.getPassword())){
             throw new ExistFieldLonger50Symbols(MessageManager.getProperty("message.longfield"));
         }
 
@@ -67,7 +67,8 @@ public class UserServiceImpl implements UserService {
             PasswordShorter6SymbolsException,
             PasswordsUnequalException,
             EmailExistException,
-            LoginExistException{
+            LoginExistException,
+            PassportDataInvalidException{
         if(Validator.isFieldsEmpty(userDTO.getLogin(),
                 userDTO.getPassword(),
                 userDTO.getPassword2(),
@@ -77,10 +78,18 @@ public class UserServiceImpl implements UserService {
                 userDTO.getLastName())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
+        if(Validator.isPassportDataValid(userDTO.getFirstName(), userDTO.getLastName())){
+            throw new PassportDataInvalidException(MessageManager.getProperty("message.passporddatainvalid"));
+        }
+        if(Validator.isEmailValid(userDTO.getEmail())){
+            throw new EmailInvalidException(MessageManager.getProperty("message.emailinvalid"));
+        }
+        if(Validator.isPhoneValid(userDTO.getPhone())){
+            throw new PhoneInvalidException(MessageManager.getProperty("message.phoneinvalid"));
+        }
         if(Validator.isPasswordShorter6Symbols(userDTO.getPassword())){
             throw new PasswordShorter6SymbolsException(MessageManager.getProperty("message.shortpassword"));
         }
-
         if(Validator.isPasswordsUnequal(userDTO.getPassword(), userDTO.getPassword2())){
             throw new PasswordsUnequalException(MessageManager.getProperty("message.unequalpasswords"));
         }

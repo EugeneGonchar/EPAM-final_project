@@ -14,7 +14,7 @@ public interface UserService {
 
     void signUp(UserDTO userDTO) throws
             EmailExistException,
-            LoginExistException, ServiceException;
+            LoginExistException, ServiceException, PassportDataInvalidException;
 
     void changeNameSurname(UserDTO userDTO) throws ServiceException;
 

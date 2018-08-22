@@ -45,6 +45,7 @@ public class SessionRequestContent {
     }
 
     private void extractSessionAttributes(){
+        System.out.println("Start session extracting");
         Enumeration<String> keys = request.getSession().getAttributeNames();
         while(keys.hasMoreElements()){
             String key = keys.nextElement();

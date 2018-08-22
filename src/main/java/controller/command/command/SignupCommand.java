@@ -12,6 +12,8 @@ import resource.MessageManager;
 import service.factory.ServiceFactory;
 import service.UserService;
 
+import javax.mail.MessageAware;
+
 public class SignupCommand implements ActionCommand {
 
     @Override
@@ -28,27 +30,36 @@ public class SignupCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.successfullsignup");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
         } catch (PasswordShorter6SymbolsException e){
-            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.shortpassword"));
         } catch(PasswordsUnequalException e){
-            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.unequalpasswords"));
         } catch (LoginExistException e){
-            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.loginexist"));
         } catch (EmailExistException e){
-            sessionRequestContent.add2RequestAttributes(Constant.REGISTRATION_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
                     MessageManager.getProperty("message.emailexist"));
+        } catch (PassportDataInvalidException e){
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
+                    MessageManager.getProperty("message.passporddatainvalid"));
+        } catch (EmailInvalidException e){
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
+                    MessageManager.getProperty("message.emailinvalid"));
+        } catch (PhoneInvalidException e){
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
+                    MessageManager.getProperty("message.phoneinvalid"));
         } catch (ServiceException e){
             e.printStackTrace();
         }
 
         if(page == null){
             page = ConfigurationManager.getProperty("path.page.signup");
-            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         }
 
         return actionPageContainer;
