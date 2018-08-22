@@ -28,4 +28,13 @@ public class OrderDatesDTO {
     public void setRentDays(Integer rentDays) {
         this.rentDays = rentDays;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDatesDTO{" +
+                "dateReceived='" + dateReceived + '\'' +
+                ", returnDate='" + returnDate + '\'' +
+                ", rentDays=" + rentDays +
+                '}';
+    }
 }

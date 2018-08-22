@@ -41,4 +41,14 @@ public class PageDTO {
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
+
+    @Override
+    public String toString() {
+        return "PageDTO{" +
+                "elementsCount=" + elementsCount +
+                ", elementsOnPage=" + elementsOnPage +
+                ", pagesCount=" + pagesCount +
+                ", currentPage=" + currentPage +
+                '}';
+    }
 }

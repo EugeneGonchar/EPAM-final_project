@@ -95,4 +95,72 @@ public class Order implements Entity {
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
+
+        Order order = (Order) o;
+
+        if (getId() != order.getId()){
+            return false;
+        }
+        if (getUserId() != order.getUserId()){
+            return false;
+        }
+        if (getCarId() != order.getCarId()){
+            return false;
+        }
+        if (getPickupAddressId() != order.getPickupAddressId()){
+            return false;
+        }
+        if (getDropoffAddressId() != order.getDropoffAddressId()){
+            return false;
+        }
+        if (getStatusId() != order.getStatusId()){
+            return false;
+        }
+        if (getDateReceived() != null ? !getDateReceived().equals(order.getDateReceived()) : order.getDateReceived() != null){
+            return false;
+        }
+
+        if (getReturnDate() != null ? !getReturnDate().equals(order.getReturnDate()) : order.getReturnDate() != null){
+            return false;
+        }
+        return getTotalCost() != null ? getTotalCost().equals(order.getTotalCost()) : order.getTotalCost() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 37 * result + getUserId();
+        result = 37 * result + getCarId();
+        result = 37 * result + (getDateReceived() != null ? getDateReceived().hashCode() : 0);
+        result = 37 * result + (getReturnDate() != null ? getReturnDate().hashCode() : 0);
+        result = 37 * result + getPickupAddressId();
+        result = 37 * result + getDropoffAddressId();
+        result = 37 * result + (getTotalCost() != null ? getTotalCost().hashCode() : 0);
+        result = 37 * result + getStatusId();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", carId=" + carId +
+                ", dateReceived=" + dateReceived +
+                ", returnDate=" + returnDate +
+                ", pickupAddressId=" + pickupAddressId +
+                ", dropoffAddressId=" + dropoffAddressId +
+                ", totalCost=" + totalCost +
+                ", statusId=" + statusId +
+                '}';
+    }
 }

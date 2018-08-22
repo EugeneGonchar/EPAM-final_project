@@ -95,4 +95,19 @@ public class OrderDTO {
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", carId=" + carId +
+                ", dateReceived=" + dateReceived +
+                ", returnDate=" + returnDate +
+                ", pickupAddress='" + pickupAddress + '\'' +
+                ", dropoffAddress='" + dropoffAddress + '\'' +
+                ", totalCost=" + totalCost +
+                ", statusId=" + statusId +
+                '}';
+    }
 }

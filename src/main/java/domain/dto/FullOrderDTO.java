@@ -2,6 +2,8 @@ package domain.dto;
 
 import domain.entity.*;
 
+import java.util.Arrays;
+
 public class FullOrderDTO {
 
     private Order order;
@@ -57,5 +59,17 @@ public class FullOrderDTO {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "FullOrderDTO{" +
+                "order=" + order +
+                ", car=" + car +
+                ", pickupAddress=" + pickupAddress +
+                ", dropoffAddress=" + dropoffAddress +
+                ", accidents=" + Arrays.toString(accidents) +
+                ", orderStatus=" + orderStatus +
+                '}';
     }
 }
