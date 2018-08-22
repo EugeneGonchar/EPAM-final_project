@@ -230,10 +230,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(UserDTO userDTO) throws ServiceException, ExistEmptyFieldException,
-            PasswordShorter6SymbolsException,
-            PasswordsUnequalException,
-            WrongPasswordException {
+    public void changePassword(UserDTO userDTO) throws ServiceException{
         if(Validator.isFieldsEmpty(userDTO.getPassword(), userDTO.getPassword2(), userDTO.getPassword3())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
         }
@@ -277,6 +274,15 @@ public class UserServiceImpl implements UserService {
                 user.getFirstName(),
                 user.getLastName())){
             throw new ExistEmptyFieldException(MessageManager.getProperty("message.emptyfield"));
+        }
+        if(Validator.isPassportDataValid(user.getFirstName(), user.getLastName())){
+            throw new PassportDataInvalidException(MessageManager.getProperty("message.passporddatainvalid"));
+        }
+        if(Validator.isEmailValid(user.getEmail())){
+            throw new EmailInvalidException(MessageManager.getProperty("message.emailinvalid"));
+        }
+        if(Validator.isPhoneValid(user.getPhone())){
+            throw new PhoneInvalidException(MessageManager.getProperty("message.phoneinvalid"));
         }
 
         UserDAO userDAO = DAOFactory.getInstance().getUserDAO();

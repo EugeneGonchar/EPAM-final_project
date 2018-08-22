@@ -141,8 +141,8 @@
                             <small class="form-text">${email_pattern_req}</small>
                         </div>
                     </div> <!-- input-group.// -->
-
                 </div> <!-- form-group// -->
+
                 <div class="form-group">
                     <div id="input-phone" class="input-group input-validation">
                         <div class="input-group-prepend">
@@ -158,8 +158,8 @@
                             <small class="form-text">${not_empty_req}</small>
                         </div>
                     </div> <!-- input-group.// -->
+                </div>
 
-                </div> <!-- form-group// -->
                 <p class="text-left">${enter_password_message}*</p>
                 <div class="form-group">
                     <div id="input-password" class="input-group input-validation">

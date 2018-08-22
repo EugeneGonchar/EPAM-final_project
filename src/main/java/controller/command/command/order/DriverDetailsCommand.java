@@ -31,18 +31,27 @@ public class DriverDetailsCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.payment");
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2RequestAttributes(Constant.DRIVER_DETAILS_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
                     MessageManager.getProperty("message.emptyfield"));
         } catch (EmailExistException e){
-            sessionRequestContent.add2RequestAttributes(Constant.DRIVER_DETAILS_ERROR,
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
                     MessageManager.getProperty("message.emailexist"));
+        } catch (PassportDataInvalidException e){
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
+                    MessageManager.getProperty("message.passporddatainvalid"));
+        } catch (EmailInvalidException e){
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
+                    MessageManager.getProperty("message.emailinvalid"));
+        } catch (PhoneInvalidException e){
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
+                    MessageManager.getProperty("message.phoneinvalid"));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
 
         if(page == null){
             page = ConfigurationManager.getProperty("path.page.driverdetails");
-            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         }
 
         return actionPageContainer;

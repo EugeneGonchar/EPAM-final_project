@@ -226,6 +226,8 @@
             </div>
         </c:forEach>
 
+        <c:remove var="carList" scope="session"/>
+
         <%@ include file = "/jsp/pagination/pagination.jsp" %>
 
     </div>

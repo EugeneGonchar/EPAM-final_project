@@ -66,7 +66,7 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
             }
             carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
 
-            sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);
+            sessionRequestContent.add2SessionAttributes(Constant.CAR_LIST, carList);
             sessionRequestContent.add2SessionAttributes(Constant.RENT_DAYS, orderDatesDTO.getRentDays());
             sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);
             sessionRequestContent.add2SessionAttributes(Constant.ORDER_PROCESS_STATUS, Constant.STATUS_READY_DATE_ADDRESS);
@@ -74,7 +74,7 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
             sessionRequestContent.add2SessionAttributes(Constant.DROPOFF_ADDRESS_OF_ORDER, dropoffAddress);
             sessionRequestContent.add2SessionAttributes(Constant.ORDER, order);
             page = ConfigurationManager.getProperty("path.page.cars");
-            actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
+            actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (DateInvalidException e) {
             sessionRequestContent.add2SessionAttributes(Constant.DATE_LOC_ERROR,
                     MessageManager.getProperty("message.dateinvalid"));
