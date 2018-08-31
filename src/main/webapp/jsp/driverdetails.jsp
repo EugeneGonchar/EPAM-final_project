@@ -245,7 +245,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <p class="text-danger text-left">
-                                                ${driverDetailsError}
+                                                <fmt:message bundle = "${loc}" key = "${driverDetailsError}" />
                                         </p>
                                         <c:remove var="driverDetailsError" scope="session"/>
                                     </c:otherwise>

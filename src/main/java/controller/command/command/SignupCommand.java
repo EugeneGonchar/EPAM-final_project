@@ -8,13 +8,19 @@ import domain.dto.UserDTO;
 import controller.command.ActionCommand;
 import controller.content.SessionRequestContent;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 import service.factory.ServiceFactory;
 import service.UserService;
 
-import javax.mail.MessageAware;
-
 public class SignupCommand implements ActionCommand {
+
+    private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
+    private static final String MESSAGE_SHORT_PASSWORD = "message.shortpassword";
+    private static final String MESSAGE_UNEQUAL_PASSWORDS = "message.unequalpasswords";
+    private static final String MESSAGE_LOGIN_EXIST = "message.loginexist";
+    private static final String MESSAGE_EMAIL_EXIST = "message.emailexist";
+    private static final String MESSAGE_PASSPORT_DATA_INVALID = "message.passporddatainvalid";
+    private static final String MESSAGE_EMAIL_INVALID = "message.emailinvalid";
+    private static final String MESSAGE_PHONE_INVALID = "message.phoneinvalid";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -30,29 +36,21 @@ public class SignupCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.successfullsignup");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.emptyfield"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (PasswordShorter6SymbolsException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.shortpassword"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_SHORT_PASSWORD);
         } catch(PasswordsUnequalException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.unequalpasswords"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_UNEQUAL_PASSWORDS);
         } catch (LoginExistException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.loginexist"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_LOGIN_EXIST);
         } catch (EmailExistException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.emailexist"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_EMAIL_EXIST);
         } catch (PassportDataInvalidException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.passporddatainvalid"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_PASSPORT_DATA_INVALID);
         } catch (EmailInvalidException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.emailinvalid"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_EMAIL_INVALID);
         } catch (PhoneInvalidException e){
-            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR,
-                    MessageManager.getProperty("message.phoneinvalid"));
+            sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_PHONE_INVALID);
         } catch (ServiceException e){
             e.printStackTrace();
         }

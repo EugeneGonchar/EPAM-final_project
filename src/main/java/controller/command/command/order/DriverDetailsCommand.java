@@ -7,12 +7,17 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.entity.User;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.*;
 
 public class DriverDetailsCommand implements ActionCommand {
+
+    private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
+    private static final String MESSAGE_EMAIL_EXIST = "message.emailexist";
+    private static final String MESSAGE_PASSPORT_DATA_INVALID = "message.passporddatainvalid";
+    private static final String MESSAGE_EMAIL_INVALID = "message.emailinvalid";
+    private static final String MESSAGE_PHONE_INVALID = "message.phoneinvalid";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -31,20 +36,15 @@ public class DriverDetailsCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.payment");
             actionPageContainer = new ActionPageContainer(page, URLAction.FORWARD);
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
-                    MessageManager.getProperty("message.emptyfield"));
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (EmailExistException e){
-            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
-                    MessageManager.getProperty("message.emailexist"));
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR, MESSAGE_EMAIL_EXIST);
         } catch (PassportDataInvalidException e){
-            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
-                    MessageManager.getProperty("message.passporddatainvalid"));
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR, MESSAGE_PASSPORT_DATA_INVALID);
         } catch (EmailInvalidException e){
-            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
-                    MessageManager.getProperty("message.emailinvalid"));
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR, MESSAGE_EMAIL_INVALID);
         } catch (PhoneInvalidException e){
-            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR,
-                    MessageManager.getProperty("message.phoneinvalid"));
+            sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR, MESSAGE_PHONE_INVALID);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

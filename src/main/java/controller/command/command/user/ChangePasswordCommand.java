@@ -9,11 +9,15 @@ import service.exception.*;
 import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 import service.factory.ServiceFactory;
 import service.UserService;
 
 public class ChangePasswordCommand implements ActionCommand {
+
+    private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
+    private static final String MESSAGE_SHORT_PASSWORD = "message.shortpassword";
+    private static final String MESSAGE_UNEQUAL_PASSWORD = "message.unequalpasswords";
+    private static final String MESSAGE_PASSWORD_ERROR = "message.passworderror";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -37,17 +41,13 @@ public class ChangePasswordCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.account");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR,
-                    MessageManager.getProperty("message.emptyfield"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (PasswordShorter6SymbolsException e){
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR,
-                    MessageManager.getProperty("message.shortpassword"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR, MESSAGE_SHORT_PASSWORD);
         } catch (PasswordsUnequalException e){
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR,
-                    MessageManager.getProperty("message.unequalpasswords"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR, MESSAGE_UNEQUAL_PASSWORD);
         } catch (WrongPasswordException e){
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR,
-                    MessageManager.getProperty("message.passworderror"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR, MESSAGE_PASSWORD_ERROR);
         } catch (ServiceException e){
             e.printStackTrace();
         }

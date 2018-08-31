@@ -21,7 +21,6 @@ public class ActionFactory {
         String action = request.getParameter(INPUT_NAME);
 
         try{
-            System.out.println("currentEnum = " + CommandEnum.valueOf(action.toUpperCase()));
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
             current = currentEnum.getCurrentCommand();
         } catch (IllegalArgumentException | NullPointerException e){

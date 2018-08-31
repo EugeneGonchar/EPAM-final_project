@@ -9,7 +9,6 @@ import domain.dto.UserDTO;
 import domain.entity.Role;
 import domain.entity.User;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 import service.RoleService;
 import service.exception.ExistFieldLonger50Symbols;
 import service.exception.ServiceException;
@@ -18,6 +17,10 @@ import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class LoginCommand implements ActionCommand {
+
+    private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
+    private static final String MESSAGE_LOGIN_PASSWORD_ERROR = "message.loginpassworderror";
+    private static final String MESSAGE_LONG_FIELD = "message.longfield";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -57,8 +60,7 @@ public class LoginCommand implements ActionCommand {
         try{
             user = userService.logIn(userDTO);
             if(user == null){
-                sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR,
-                        MessageManager.getProperty("message.loginpassworderror"));
+                sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR, MESSAGE_LOGIN_PASSWORD_ERROR);
             } else {
                 role = roleService.getRoleOfUser(user);
                 sessionRequestContent.add2SessionAttributes(Constant.USER, user);
@@ -67,11 +69,9 @@ public class LoginCommand implements ActionCommand {
                 actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
             }
         } catch (ExistEmptyFieldException e){
-            sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR,
-                    MessageManager.getProperty("message.emptyfield"));
+            sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (ExistFieldLonger50Symbols e){
-          sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR,
-                  MessageManager.getProperty("message.longfield"));
+          sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR, MESSAGE_LONG_FIELD);
         } catch (ServiceException e){
             e.printStackTrace();
         }

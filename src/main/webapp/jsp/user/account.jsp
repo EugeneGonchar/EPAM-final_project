@@ -131,7 +131,7 @@
                         </c:when>
                         <c:otherwise>
                             <p class="text-danger text-left">
-                                    ${updatePasswordError}
+                                    <fmt:message bundle = "${loc}" key = "${updatePasswordError}" />
                             </p>
                         </c:otherwise>
                     </c:choose>

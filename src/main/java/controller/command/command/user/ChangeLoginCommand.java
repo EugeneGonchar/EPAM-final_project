@@ -9,13 +9,15 @@ import service.exception.LoginExistException;
 import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class ChangeLoginCommand implements ActionCommand {
+
+    private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
+    private static final String MESSAGE_LOGIN_EXIST = "message.loginexist";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -37,11 +39,9 @@ public class ChangeLoginCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.account");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_LOGIN_ERROR,
-                    MessageManager.getProperty("message.emptyfield"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_LOGIN_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (LoginExistException e){
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_LOGIN_ERROR,
-                    MessageManager.getProperty("message.loginexist"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_LOGIN_ERROR, MESSAGE_LOGIN_EXIST);
         } catch (ServiceException e){
             e.printStackTrace();
         }

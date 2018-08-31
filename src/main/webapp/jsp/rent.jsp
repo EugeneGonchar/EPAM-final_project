@@ -63,7 +63,7 @@
                     </c:when>
                     <c:otherwise>
                         <p class="text-danger text-center">
-                                ${datelocError}
+                                <fmt:message bundle = "${loc}" key = "${datelocError}" />
                         </p>
                     </c:otherwise>
                 </c:choose>

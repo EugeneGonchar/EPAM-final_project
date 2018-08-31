@@ -128,7 +128,7 @@
                             </c:when>
                             <c:otherwise>
                                 <p class="text-danger text-left">
-                                        ${updateNameSurnameError}
+                                        <fmt:message bundle = "${loc}" key = "${updateNameSurnameError}" />
                                 </p>
                             </c:otherwise>
                         </c:choose>

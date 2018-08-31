@@ -62,7 +62,7 @@
                     </c:when>
                     <c:otherwise>
                         <p class="text-danger text-center">
-                                ${registrationError}
+                                <fmt:message bundle = "${loc}" key = "${registrationError}" />
                         </p>
                         <c:remove var="registrationError" scope="session"/>
                     </c:otherwise>

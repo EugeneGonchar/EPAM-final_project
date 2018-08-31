@@ -96,7 +96,7 @@
                         </c:when>
                         <c:otherwise>
                             <p class="text-danger text-left">
-                                    ${updateEmailError}
+                                    <fmt:message bundle = "${loc}" key = "${updateEmailError}" />
                             </p>
                         </c:otherwise>
                     </c:choose>
@@ -140,7 +140,7 @@
                         </c:when>
                         <c:otherwise>
                             <p class="text-danger text-left">
-                                    ${updatePhoneError}
+                                    <fmt:message bundle = "${loc}" key = "${updatePhoneError}" />
                             </p>
                         </c:otherwise>
                     </c:choose>

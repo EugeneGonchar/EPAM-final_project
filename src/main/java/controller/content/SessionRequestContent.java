@@ -37,29 +37,18 @@ public class SessionRequestContent {
 
     private void extractRequestParameters(){
         requestParameters = request.getParameterMap();
-        for(HashMap.Entry<String, String[]> pair : requestParameters.entrySet()){
-            System.out.println("Request key: " + pair.getKey());
-            System.out.println("Request value: " + pair.getValue());
-        }
-        System.out.println("End request extracting");
     }
 
     private void extractSessionAttributes(){
-        System.out.println("Start session extracting");
         Enumeration<String> keys = request.getSession().getAttributeNames();
         while(keys.hasMoreElements()){
             String key = keys.nextElement();
             Object value = request.getSession().getAttribute(key);
-            System.out.println("Session key = " + key);
-            System.out.println("Session value = " + value);
             sessionAttributes.put(key, value);
         }
-        System.out.println("End session extracting");
     }
 
     public void extractValues(){
-        System.out.println("-----------------");
-        System.out.println("Extracting : ...");
         extractRequestParameters();
         extractSessionAttributes();
     }
@@ -104,7 +93,6 @@ public class SessionRequestContent {
                 stringBuilder.append(word);
             }
         } else {
-            System.out.println("Empty request parameter: " + key);
             return null;
         }
         return stringBuilder.toString();

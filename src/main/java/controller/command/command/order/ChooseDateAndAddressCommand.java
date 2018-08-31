@@ -1,9 +1,7 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
-import resource.MessageManager;
 import service.exception.DateInvalidException;
-import service.util.DateHelper;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
@@ -24,6 +22,8 @@ import service.factory.ServiceFactory;
 import java.util.List;
 
 public class ChooseDateAndAddressCommand implements ActionCommand {
+
+    private static final String MESSAGE_DATE_INVALID = "message.dateinvalid";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -76,8 +76,7 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.cars");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (DateInvalidException e) {
-            sessionRequestContent.add2SessionAttributes(Constant.DATE_LOC_ERROR,
-                    MessageManager.getProperty("message.dateinvalid"));
+            sessionRequestContent.add2SessionAttributes(Constant.DATE_LOC_ERROR, MESSAGE_DATE_INVALID);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

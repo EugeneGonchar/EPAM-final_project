@@ -45,7 +45,7 @@
                         </c:when>
                         <c:otherwise>
                             <p class="text-danger text-center">
-                                ${loginError}
+                                <fmt:message bundle = "${loc}" key = "${loginError}" />
                             </p>
                             <c:remove var="loginError" scope="session"/>
                         </c:otherwise>

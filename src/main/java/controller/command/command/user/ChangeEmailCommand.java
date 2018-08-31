@@ -9,13 +9,15 @@ import service.exception.EmailExistException;
 import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class ChangeEmailCommand implements ActionCommand {
+
+    private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
+    private static final String MESSAGE_EMAIL_EXIST = "message.emailexist";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -37,11 +39,9 @@ public class ChangeEmailCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.contacts");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_EMAIL_ERROR,
-                    MessageManager.getProperty("message.emptyfield"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_EMAIL_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (EmailExistException e){
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_EMAIL_ERROR,
-                    MessageManager.getProperty("message.emailexist"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_EMAIL_ERROR, MESSAGE_EMAIL_EXIST);
         } catch (ServiceException e){
             e.printStackTrace();
         }

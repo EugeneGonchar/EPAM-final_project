@@ -8,13 +8,14 @@ import controller.util.URLAction;
 import domain.dto.UserDTO;
 import domain.entity.User;
 import resource.ConfigurationManager;
-import resource.MessageManager;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class ChangeNameSurnameCommand implements ActionCommand {
+
+    private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -37,8 +38,7 @@ public class ChangeNameSurnameCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.profile");
             actionPageContainer = new ActionPageContainer(page, URLAction.REDIRECT);
         } catch (ExistEmptyFieldException e) {
-            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_NAME_SURNAME_ERROR,
-                    MessageManager.getProperty("message.emptyfield"));
+            sessionRequestContent.add2RequestAttributes(Constant.UPDATE_NAME_SURNAME_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (ServiceException e){
             e.printStackTrace();
         }
