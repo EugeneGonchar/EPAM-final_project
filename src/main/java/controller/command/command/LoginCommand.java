@@ -8,6 +8,9 @@ import controller.util.URLAction;
 import domain.dto.UserDTO;
 import domain.entity.Role;
 import domain.entity.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.RoleService;
 import service.exception.ExistFieldLonger50Symbols;
@@ -17,6 +20,8 @@ import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class LoginCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(LoginCommand.class);
 
     private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
     private static final String MESSAGE_LOGIN_PASSWORD_ERROR = "message.loginpassworderror";
@@ -73,7 +78,7 @@ public class LoginCommand implements ActionCommand {
         } catch (ExistFieldLonger50Symbols e){
           sessionRequestContent.add2SessionAttributes(Constant.LOGIN_ERROR, MESSAGE_LONG_FIELD);
         } catch (ServiceException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Signing in failed!");
         }
 
         if(page == null){

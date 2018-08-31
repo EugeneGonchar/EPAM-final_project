@@ -1,11 +1,15 @@
 package controller.command.command;
 
 import controller.command.ActionCommand;
+import controller.command.command.user.ChangePasswordCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.entity.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
@@ -20,6 +24,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class UploadUserImageCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(UploadUserImageCommand.class);
 
     private static final String USER_IMG_DIRECTORY = "img\\uploads\\user";
 
@@ -41,7 +47,7 @@ public class UploadUserImageCommand implements ActionCommand {
         try {
             userService.updateUserImg(user, filename);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Updating user's image failed!", e);
         }
 
         user.setProfileImage(filename);

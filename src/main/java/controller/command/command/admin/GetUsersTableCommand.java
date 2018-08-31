@@ -7,6 +7,9 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.dto.PageDTO;
 import domain.dto.UserRoleDTO;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
@@ -15,6 +18,8 @@ import service.UserService;
 import java.util.List;
 
 public class GetUsersTableCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(GetUsersTableCommand.class);
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -30,7 +35,7 @@ public class GetUsersTableCommand implements ActionCommand {
         try {
             userRoleDTOList = userService.getUserRoleList(pageDTO);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Getting users table failed!", e);
         }
 
         sessionRequestContent.add2RequestAttributes(Constant.USER_ROLE_DTO_LIST, userRoleDTOList);

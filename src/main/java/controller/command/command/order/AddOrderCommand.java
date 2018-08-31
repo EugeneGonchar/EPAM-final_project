@@ -1,18 +1,24 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
+import controller.command.command.admin.GetAccidentsTableCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.entity.Order;
 import domain.entity.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.OrderService;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
 
 public class AddOrderCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(AddOrderCommand.class);
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -34,7 +40,7 @@ public class AddOrderCommand implements ActionCommand {
                 registeredUser = orderService.insertOrder(order, guestUser);
             }
         } catch (ServiceException e){
-            e.printStackTrace();
+            logger.log(Level.INFO, "Adding order failed!", e);
         }
 
         sessionRequestContent.removeSessionAttribute(Constant.ORDER);

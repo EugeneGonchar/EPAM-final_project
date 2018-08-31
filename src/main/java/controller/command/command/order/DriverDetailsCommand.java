@@ -1,17 +1,23 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
+import controller.command.command.admin.GetAccidentsTableCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.entity.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.factory.ServiceFactory;
 import service.UserService;
 import service.exception.*;
 
 public class DriverDetailsCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(DriverDetailsCommand.class);
 
     private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
     private static final String MESSAGE_EMAIL_EXIST = "message.emailexist";
@@ -46,7 +52,7 @@ public class DriverDetailsCommand implements ActionCommand {
         } catch (PhoneInvalidException e){
             sessionRequestContent.add2SessionAttributes(Constant.DRIVER_DETAILS_ERROR, MESSAGE_PHONE_INVALID);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Checking driver details failed!", e);
         }
 
         if(page == null){

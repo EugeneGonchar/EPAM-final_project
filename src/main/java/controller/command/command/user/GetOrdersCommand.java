@@ -8,6 +8,9 @@ import controller.util.URLAction;
 import domain.dto.FullOrderDTO;
 import domain.dto.PageDTO;
 import domain.entity.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.OrderService;
 import service.exception.ServiceException;
@@ -16,6 +19,8 @@ import service.factory.ServiceFactory;
 import java.util.List;
 
 public class GetOrdersCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(GetOrdersCommand.class);
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -32,7 +37,7 @@ public class GetOrdersCommand implements ActionCommand {
         try {
             orderList = orderService.getFullUserOrders(user, pageDTO);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Getting user's orders failed!", e);
         }
 
         sessionRequestContent.add2SessionAttributes(Constant.PAGE_DTO, pageDTO);

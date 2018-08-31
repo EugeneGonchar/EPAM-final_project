@@ -1,10 +1,14 @@
 package controller.command.command.user;
 
 import controller.command.ActionCommand;
+import controller.command.command.admin.GetAccidentsTableCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import service.exception.LoginExistException;
 import domain.dto.UserDTO;
 import domain.entity.User;
@@ -15,6 +19,8 @@ import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class ChangeLoginCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(ChangeLoginCommand.class);
 
     private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
     private static final String MESSAGE_LOGIN_EXIST = "message.loginexist";
@@ -43,7 +49,7 @@ public class ChangeLoginCommand implements ActionCommand {
         } catch (LoginExistException e){
             sessionRequestContent.add2RequestAttributes(Constant.UPDATE_LOGIN_ERROR, MESSAGE_LOGIN_EXIST);
         } catch (ServiceException e){
-            e.printStackTrace();
+            logger.log(Level.INFO, "Changing login failed!", e);
         }
 
         if(page == null){

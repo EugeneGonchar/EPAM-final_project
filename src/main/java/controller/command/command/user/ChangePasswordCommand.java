@@ -5,6 +5,9 @@ import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import service.exception.*;
 import domain.dto.UserDTO;
 import domain.entity.User;
@@ -13,6 +16,8 @@ import service.factory.ServiceFactory;
 import service.UserService;
 
 public class ChangePasswordCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(ChangePasswordCommand.class);
 
     private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
     private static final String MESSAGE_SHORT_PASSWORD = "message.shortpassword";
@@ -49,7 +54,7 @@ public class ChangePasswordCommand implements ActionCommand {
         } catch (WrongPasswordException e){
             sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PASSWORD_ERROR, MESSAGE_PASSWORD_ERROR);
         } catch (ServiceException e){
-            e.printStackTrace();
+            logger.log(Level.INFO, "Changing password failed!", e);
         }
 
         if(page == null){

@@ -1,6 +1,10 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
+import controller.command.command.admin.GetAccidentsTableCommand;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import service.exception.DateInvalidException;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
@@ -22,6 +26,8 @@ import service.factory.ServiceFactory;
 import java.util.List;
 
 public class ChooseDateAndAddressCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(ChooseDateAndAddressCommand.class);
 
     private static final String MESSAGE_DATE_INVALID = "message.dateinvalid";
 
@@ -78,7 +84,7 @@ public class ChooseDateAndAddressCommand implements ActionCommand {
         } catch (DateInvalidException e) {
             sessionRequestContent.add2SessionAttributes(Constant.DATE_LOC_ERROR, MESSAGE_DATE_INVALID);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Choosing date and place stage failed!", e);
         }
 
         if(page == null){

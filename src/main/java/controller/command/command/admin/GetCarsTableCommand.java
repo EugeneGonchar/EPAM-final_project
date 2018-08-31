@@ -7,6 +7,9 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.dto.PageDTO;
 import domain.entity.Car;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.CarService;
 import service.exception.ServiceException;
@@ -15,6 +18,8 @@ import service.factory.ServiceFactory;
 import java.util.List;
 
 public class GetCarsTableCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(GetCarsTableCommand.class);
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) {
@@ -30,7 +35,7 @@ public class GetCarsTableCommand implements ActionCommand {
         try {
             carList = carService.getCarList(pageDTO);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Getting cars table failed!", e);
         }
 
         sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);

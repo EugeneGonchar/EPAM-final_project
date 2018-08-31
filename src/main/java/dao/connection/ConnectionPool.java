@@ -1,6 +1,10 @@
 package dao.connection;
 
+import controller.command.command.UploadUserImageCommand;
 import dao.exception.connection.ConnectionPoolException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.Enumeration;
@@ -13,6 +17,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
+
+    private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
+
     private DBResourceManager dbResourceManager = DBResourceManager.getInstance();
 
     private static ConnectionPool instance;
@@ -50,7 +57,7 @@ public class ConnectionPool {
             givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
             buildingBlockingQueue(connectionQueue);
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Utilization connection pool failed!", e);
         }
     }
 
@@ -61,7 +68,7 @@ public class ConnectionPool {
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
                 connectionQueue.add(proxyConnection);
             } catch (ConnectionPoolException | SQLException e){
-                e.printStackTrace();
+                logger.log(Level.ERROR, "Building blocking queue failed!", e);
             }
         }
     }
@@ -79,7 +86,7 @@ public class ConnectionPool {
             closeConnectionsQueue(givenAwayConQueue);
             closeConnectionsQueue(connectionQueue);
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Getting connection queue failed!", e);
         }
     }
 
@@ -89,7 +96,7 @@ public class ConnectionPool {
             connection = connectionQueue.take();
             givenAwayConQueue.add(connection);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Taking connection failed!", e);
         }
         return connection;
     }
@@ -100,7 +107,7 @@ public class ConnectionPool {
                 resultSet.close();
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Closing result set failed!", e);
         }
 
         try {
@@ -108,7 +115,7 @@ public class ConnectionPool {
                 statement.close();
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Closing statement failed!", e);
         }
 
         try {
@@ -116,7 +123,7 @@ public class ConnectionPool {
                 connection.close();
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Closing connection failed!", e);
         }
     }
 
@@ -126,7 +133,7 @@ public class ConnectionPool {
                 statement.close();
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Closing statement failed!", e);
         }
 
         try {
@@ -134,7 +141,7 @@ public class ConnectionPool {
                 connection.close();
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Closing connection failed!", e);
         }
     }
 
@@ -143,7 +150,7 @@ public class ConnectionPool {
         try {
             connection = connectionQueue.take();
         } catch (InterruptedException e){
-            e.printStackTrace();
+            logger.log(Level.ERROR, "getting connection failed!", e);
         }
         return connection;
     }
@@ -157,7 +164,7 @@ public class ConnectionPool {
                 }
                 ((ProxyConnection) connection).reallyClose();
             } catch (SQLException | InterruptedException e) {
-                e.printStackTrace();
+                logger.log(Level.ERROR, "Closing connections queue failed!", e);
             }
         }
     }

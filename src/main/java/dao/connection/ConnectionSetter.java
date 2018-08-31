@@ -1,13 +1,19 @@
 package dao.connection;
 
 import dao.exception.connection.ConnectionPoolException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionSetter {
+class ConnectionSetter {
+
+    private static final Logger logger = LogManager.getLogger(ConnectionSetter.class);
+
     private static DBResourceManager dbResourceManager = DBResourceManager.getInstance();
 
     private static final String USER = "user";
@@ -23,7 +29,8 @@ public class ConnectionSetter {
         try{
             connection = DriverManager.getConnection(url, properties);
         } catch (SQLException e){
-            throw new ConnectionPoolException("dasf");
+            logger.log(Level.ERROR, "Setting connection failed!", e);
+            throw new ConnectionPoolException();
         }
         return connection;
     }

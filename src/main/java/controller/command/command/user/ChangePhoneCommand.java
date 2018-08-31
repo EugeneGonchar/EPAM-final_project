@@ -7,6 +7,9 @@ import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.dto.UserDTO;
 import domain.entity.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
@@ -14,6 +17,8 @@ import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class ChangePhoneCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(ChangePhoneCommand.class);
 
     private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
 
@@ -39,7 +44,7 @@ public class ChangePhoneCommand implements ActionCommand {
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes(Constant.UPDATE_PHONE_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (ServiceException e){
-            e.printStackTrace();
+            logger.log(Level.INFO, "Changing phone failed!", e);
         }
 
         if(page == null){

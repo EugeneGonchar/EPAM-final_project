@@ -1,10 +1,14 @@
 package controller.command.command;
 
 import controller.command.ActionCommand;
+import controller.command.command.user.ChangePasswordCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.CarService;
 import service.exception.ServiceException;
@@ -19,6 +23,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 public class UploadCarImageCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(UploadCarImageCommand.class);
 
     private static final String CAR_IMG_DIRECTORY = "img\\uploads\\car";
 
@@ -40,7 +46,7 @@ public class UploadCarImageCommand implements ActionCommand {
         try {
             carService.updateCarImg(carId, filename);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Updating car's image failed!", e);
         }
 
         page = ConfigurationManager.getProperty("path.page.admin.get_cars");

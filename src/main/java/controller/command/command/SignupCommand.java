@@ -1,8 +1,12 @@
 package controller.command.command;
 
+import controller.command.command.user.ChangePasswordCommand;
 import controller.command.util.Constant;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import service.exception.*;
 import domain.dto.UserDTO;
 import controller.command.ActionCommand;
@@ -12,6 +16,8 @@ import service.factory.ServiceFactory;
 import service.UserService;
 
 public class SignupCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(SignupCommand.class);
 
     private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
     private static final String MESSAGE_SHORT_PASSWORD = "message.shortpassword";
@@ -52,7 +58,7 @@ public class SignupCommand implements ActionCommand {
         } catch (PhoneInvalidException e){
             sessionRequestContent.add2SessionAttributes(Constant.REGISTRATION_ERROR, MESSAGE_PHONE_INVALID);
         } catch (ServiceException e){
-            e.printStackTrace();
+            logger.log(Level.INFO, "Signing up failed!", e);
         }
 
         if(page == null){

@@ -1,12 +1,16 @@
 package controller.command.command.user;
 
 import controller.command.ActionCommand;
+import controller.command.command.admin.GetAccidentsTableCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.dto.UserDTO;
 import domain.entity.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.exception.ServiceException;
 import service.factory.ServiceFactory;
@@ -14,6 +18,8 @@ import service.UserService;
 import service.exception.ExistEmptyFieldException;
 
 public class ChangeNameSurnameCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(ChangeNameSurnameCommand.class);
 
     private static final String MESSAGE_EMPTY_FIELDS = "message.emptyfield";
 
@@ -40,7 +46,7 @@ public class ChangeNameSurnameCommand implements ActionCommand {
         } catch (ExistEmptyFieldException e) {
             sessionRequestContent.add2RequestAttributes(Constant.UPDATE_NAME_SURNAME_ERROR, MESSAGE_EMPTY_FIELDS);
         } catch (ServiceException e){
-            e.printStackTrace();
+            logger.log(Level.INFO, "Changing name and surname failed!", e);
         }
 
         if(page == null){

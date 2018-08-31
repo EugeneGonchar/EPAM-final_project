@@ -1,6 +1,7 @@
 package controller.command.command.order;
 
 import controller.command.ActionCommand;
+import controller.command.command.admin.GetAccidentsTableCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
@@ -9,6 +10,9 @@ import domain.dto.OrderDTO;
 import domain.dto.PageDTO;
 import domain.entity.Car;
 import domain.entity.Order;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.CarService;
 import service.exception.ServiceException;
@@ -17,6 +21,8 @@ import service.factory.ServiceFactory;
 import java.util.List;
 
 public class GetCarsCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(GetCarsCommand.class);
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent){
@@ -33,7 +39,7 @@ public class GetCarsCommand implements ActionCommand {
         try {
             carList = carService.getFreeCarList(createOrderDTO(order), pageDTO);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Getting free cars failed!", e);
         }
 
         sessionRequestContent.add2RequestAttributes(Constant.CAR_LIST, carList);

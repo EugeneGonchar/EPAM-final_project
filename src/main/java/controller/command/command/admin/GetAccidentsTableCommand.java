@@ -1,12 +1,16 @@
 package controller.command.command.admin;
 
 import controller.command.ActionCommand;
+import controller.command.command.LoginCommand;
 import controller.command.util.Constant;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
 import domain.dto.PageDTO;
 import domain.entity.Accident;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import resource.ConfigurationManager;
 import service.AccidentService;
 import service.exception.ServiceException;
@@ -17,6 +21,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetAccidentsTableCommand implements ActionCommand {
+
+    private static final Logger logger = LogManager.getLogger(GetAccidentsTableCommand.class);
 
     @Override
     public ActionPageContainer execute(SessionRequestContent sessionRequestContent) throws ServletException, IOException {
@@ -32,7 +38,7 @@ public class GetAccidentsTableCommand implements ActionCommand {
         try {
             accidentList = accidentService.getAccidentList(pageDTO);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Getting accidents table failed!", e);
         }
 
         sessionRequestContent.add2RequestAttributes(Constant.ACCIDENT_LIST, accidentList);
