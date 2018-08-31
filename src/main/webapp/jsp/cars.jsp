@@ -51,7 +51,7 @@
 </div>
 
 <div class="container my-3">
-    <div class="col-3 float-left pr-3" role="navigation">
+    <div class="col-3 float-left pr-3 invisible" role="navigation">
 
         <div class="border rounded mb-3">
             <nav class="menu">

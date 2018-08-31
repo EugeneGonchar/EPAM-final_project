@@ -16,8 +16,6 @@ public abstract class AbstractDAO <T extends Entity> {
 
     public abstract List<T> getAll() throws DAOException;
 
-    /*public abstract int getCount();*/
-
     protected int getElementsCount(String query){
         int count = 0;
         try(PreparedStatement preparedStatement = connection.prepareStatement(query)){

@@ -5,11 +5,14 @@ import controller.command.factory.ActionFactory;
 import controller.content.SessionRequestContent;
 import controller.util.ActionPageContainer;
 import controller.util.URLAction;
+import domain.entity.Car;
 import resource.ConfigurationManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Controller extends HttpServlet {
 
@@ -28,6 +31,7 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         String page = null;
         request.getSession().setMaxInactiveInterval(SESSION_LIFE_TIME_IN_SEC);
+        List<Car> cars = new LinkedList<>();
 
         ActionFactory client = new ActionFactory();
 

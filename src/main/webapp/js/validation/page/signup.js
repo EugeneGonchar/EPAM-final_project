@@ -139,13 +139,6 @@ var passwordValidityChecks = [
         },
         invalidityMessage: 'You need one of the required special characters',
         element: document.querySelector('#input-password .input-requirements small:nth-child(6)')
-    },
-    {
-        isInvalid: function(input) {
-            return input.value !== password2Input.value;
-        },
-        invalidityMessage: 'This password needs to match the first on',
-        element: document.querySelector('#input-password2 .input-requirements small:nth-child(3)')
     }
 ];
 

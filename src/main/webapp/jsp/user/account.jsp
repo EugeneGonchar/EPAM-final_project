@@ -70,7 +70,7 @@
 
     <div class="col-9 float-left">
 
-        <div class="card border-0 col-12">
+        <%--<div class="card border-0 col-12">
 
             <div class="mt-0 mb-0 border-bottom border-muted">
                 <h3 class="text-dark">${change_login_message}</h3>
@@ -112,7 +112,7 @@
                     </div>
 
             </form>
-        </div>
+        </div>--%>
 
         <div class="card border-0 col-12 mt-3">
 

@@ -1,7 +1,5 @@
 package dao.impl;
 
-import static dao.util.DBFieldName.*;
-
 import dao.OrderDAO;
 import dao.exception.dao.DAOException;
 import dao.util.DBFieldName;

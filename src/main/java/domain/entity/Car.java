@@ -168,8 +168,9 @@ public class Car implements Entity {
         if (getModel() != null ? !getModel().equals(car.getModel()) : car.getModel() != null){
             return false;
         }
-        if (getRental4Day() != null ? !getRental4Day().equals(car.getRental4Day()) : car.getRental4Day() != null)
+        if (getRental4Day() != null ? !getRental4Day().equals(car.getRental4Day()) : car.getRental4Day() != null){
             return false;
+        }
         if (getColor() != null ? !getColor().equals(car.getColor()) : car.getColor() != null){
             return false;
         }
